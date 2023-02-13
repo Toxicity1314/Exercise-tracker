@@ -1,25 +1,50 @@
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { Route, Routes } from "react-router-dom";
+import Login from "./components/Login";
+import NavBar from "./components/NavBar";
 
 function App() {
-  const [count, setCount] = useState(0);
+  const [user, setUser] = useState(null);
 
   useEffect(() => {
-    fetch("/hello")
-      .then((r) => r.json())
-      .then((data) => setCount(data.count));
+    fetch("/auth")
+      .then((r) => {
+        if (r.ok){
+          r.json().then(user => setUser(user))
+        }
+      })
   }, []);
+
+  function handleLogout() {
+    fetch("/logout", {
+      method: "DELETE",
+    }).then(() => setUser(null));
+  }
+
+  if(!user){
+    return (
+    <div>
+      <NavBar/>
+      <Login setUser={setUser} />
+     </div>
+    )
+  }
 
   return (
     <div className="App">
+      <NavBar/>
       <Routes>
           <Route 
           path="/testing"
           element = {"Test Route"}
           />
           <Route 
+          path="/login"
+          element= {<Login setUser={setUser}/>}
+          />
+          <Route
           path="/"
-          element= {<h1>Page Count: {count}</h1>}
+          // element={<Home/>}
           />
       </Routes>
     </div>
