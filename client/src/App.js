@@ -1,50 +1,54 @@
 import React, { useState, useEffect } from "react";
-import { Route, Routes } from "react-router-dom";
+import { Route, Routes, useNavigate } from "react-router-dom";
 import Login from "./components/Login";
 import NavBar from "./components/NavBar";
+import WorkoutsPage from "./components/WorkoutsPage";
+import Home from "./components/Home";
+import CurrentWorkout from "./components/CurrentWorkout";
 
 function App() {
   const [user, setUser] = useState(null);
+  const [currentWorkout, setCurrentWorkout] = useState(null)
+  const navigate = useNavigate()
 
   useEffect(() => {
     fetch("/auth")
       .then((r) => {
         if (r.ok){
           r.json().then(user => setUser(user))
+        }else{
+          setUser(null)
         }
       })
   }, []);
 
-  function handleLogout() {
-    fetch("/logout", {
-      method: "DELETE",
-    }).then(() => setUser(null));
-  }
-
-  if(!user){
-    return (
+  if(!user) return (
     <div>
-      <NavBar/>
+      {/* <NavBar setUser={setUser}/> */}
       <Login setUser={setUser} />
      </div>
     )
-  }
+  
 
   return (
     <div className="App">
-      <NavBar/>
+      <NavBar setUser={setUser}/>
       <Routes>
           <Route 
-          path="/testing"
-          element = {"Test Route"}
+          path="/workouts"
+          element = {<WorkoutsPage/>}
           />
           <Route 
           path="/login"
           element= {<Login setUser={setUser}/>}
           />
+          <Route 
+          path="/currentworkout"
+          element= {<CurrentWorkout currentWorkout={currentWorkout}/>}
+          />
           <Route
           path="/"
-          // element={<Home/>}
+          element={<Home/>}
           />
       </Routes>
     </div>

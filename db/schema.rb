@@ -22,17 +22,16 @@ ActiveRecord::Schema[7.0].define(version: 2023_02_14_161927) do
   end
 
   create_table "user_exercises", force: :cascade do |t|
-    t.bigint "workout_id", null: false
+    t.integer "workout_number", null: false
     t.bigint "exercise_id", null: false
     t.bigint "user_id", null: false
-    t.integer "weight"
+    t.float "weight"
     t.integer "reps"
     t.boolean "success"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["exercise_id"], name: "index_user_exercises_on_exercise_id"
     t.index ["user_id"], name: "index_user_exercises_on_user_id"
-    t.index ["workout_id"], name: "index_user_exercises_on_workout_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -53,14 +52,12 @@ ActiveRecord::Schema[7.0].define(version: 2023_02_14_161927) do
 
   create_table "workouts", force: :cascade do |t|
     t.string "name"
-    t.string "muscle_groups"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
   add_foreign_key "user_exercises", "exercises"
   add_foreign_key "user_exercises", "users"
-  add_foreign_key "user_exercises", "workouts"
   add_foreign_key "workout_exercises", "exercises"
   add_foreign_key "workout_exercises", "workouts"
 end

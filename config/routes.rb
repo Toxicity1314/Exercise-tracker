@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
   resources :workout_exercises
-  resources :user_exersices
-  resources :exersices
+  resources :user_exercises
+  resources :exercises
   resources :workouts
   resources :users, only:[:show, :create]
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
@@ -11,7 +11,8 @@ Rails.application.routes.draw do
 
   post "/login", to: "sessions#create"
   get "/auth", to: "users#show"
-  delete "logout", to: "sessions#destroy"
+  delete "/logout", to: "sessions#destroy"
+  get "/current_workout", to: "user_exercises#current"
 
   get '*path',
   to: 'fallback#index',
