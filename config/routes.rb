@@ -1,8 +1,9 @@
 Rails.application.routes.draw do
   resources :workout_exercises
-  resources :user_exercises
+  resources :user_exercises, only:[:create]
   resources :exercises
-  resources :workouts
+  resources :user_workouts
+  resources :workouts, only:[:index]
   resources :users, only:[:show, :create]
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 

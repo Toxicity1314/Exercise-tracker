@@ -9,10 +9,10 @@ class UserExercise < ApplicationRecord
   
   def self.generate_weight exercise, user
     
-    last_weight = self.where(user_id: user, exercise_id: exercise).order(:workout_number)
-    if last_weight.last
-      last_weight = last_weight.last
-      last_weight = last_weight[:weight] +=2.5
+    last_workout = self.where(user_id: user, exercise_id: exercise).order(:workout_number)
+    if last_workout.last
+      last_workout = last_workout.last
+      last_weight = last_workout[:weight] +=2.5
     else
       last_weight = 5
     end

@@ -11,7 +11,6 @@ function WorkoutsPage() {
     .then(res=>res.json())
     .then(data => setWorkouts(data))
 },[])
-console.log(workouts)
 const workoutList = workouts.map(workout => <WorkoutCard key={workout.id} workout={workout}/>)
 
 

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_02_14_161927) do
+ActiveRecord::Schema[7.0].define(version: 2023_02_15_183703) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -22,16 +22,24 @@ ActiveRecord::Schema[7.0].define(version: 2023_02_14_161927) do
   end
 
   create_table "user_exercises", force: :cascade do |t|
-    t.integer "workout_number", null: false
     t.bigint "exercise_id", null: false
-    t.bigint "user_id", null: false
+    t.bigint "user_workout_id", null: false
     t.float "weight"
     t.integer "reps"
     t.boolean "success"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["exercise_id"], name: "index_user_exercises_on_exercise_id"
-    t.index ["user_id"], name: "index_user_exercises_on_user_id"
+    t.index ["user_workout_id"], name: "index_user_exercises_on_user_workout_id"
+  end
+
+  create_table "user_workouts", force: :cascade do |t|
+    t.bigint "workout_id", null: false
+    t.bigint "user_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_user_workouts_on_user_id"
+    t.index ["workout_id"], name: "index_user_workouts_on_workout_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -57,7 +65,9 @@ ActiveRecord::Schema[7.0].define(version: 2023_02_14_161927) do
   end
 
   add_foreign_key "user_exercises", "exercises"
-  add_foreign_key "user_exercises", "users"
+  add_foreign_key "user_exercises", "user_workouts"
+  add_foreign_key "user_workouts", "users"
+  add_foreign_key "user_workouts", "workouts"
   add_foreign_key "workout_exercises", "exercises"
   add_foreign_key "workout_exercises", "workouts"
 end

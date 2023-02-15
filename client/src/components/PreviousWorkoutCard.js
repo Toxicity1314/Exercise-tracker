@@ -4,10 +4,9 @@ import { useNavigate } from "react-router-dom";
 import { Card, Button } from "semantic-ui-react";
 
 
-function WorkoutCard({workout}) {
+function PreviousWorkoutCard({workout}) {
     const [clicked, setClicked] = useState(false)
     const navigate = useNavigate()
-    console.log(workout)
 
     const exerciseList = workout.exercises.map(exercise => <li key={exercise.id}>{exercise.name}</li>)
 
@@ -15,10 +14,10 @@ function WorkoutCard({workout}) {
         const exercises = workout.exercises.map(exercise =>{
             return {workout_id: workout.id, exercise_id: exercise.id}
         }) 
-            fetch(`/user_workouts`,{
+            fetch("/user_exercises",{
                 method: "POST",
                 headers:{'Content-Type': 'application/json'},
-                body: JSON.stringify(workout)            
+                body: JSON.stringify(exercises)            
             })
             .then(r =>{
                 if (r.ok){
@@ -48,4 +47,4 @@ function WorkoutCard({workout}) {
 }
 
 
-export default WorkoutCard;
+export default PreviousWorkoutCard;

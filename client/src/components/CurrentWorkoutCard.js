@@ -4,11 +4,6 @@ import { Card, Button } from "semantic-ui-react";
 
 function CurrentWorkoutCard({workout}) {
     const {weight, reps, success, exercise} = workout
-// console.log(exercise)
-// console.log(weight)
-// console.log(reps)
-// console.log(success)
-console.log(workout)
 
   return (
     <div className="nav">

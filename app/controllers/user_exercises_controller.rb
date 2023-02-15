@@ -7,8 +7,9 @@ class UserExercisesController < ApplicationController
             exercise = exercise[:exercise_id]
             current_workout = session[:current_workout] 
             weight = UserExercise.generate_weight exercise, user
-
-            UserExercise.create!(workout_number: current_workout, exercise_id: exercise, user_id: user, weight: weight, reps: 4)
+            4.times do
+            UserExercise.create!(workout_number: current_workout, exercise_id: exercise, user_id: user, weight: weight, reps: 8)
+            end
         end
         
         head :created

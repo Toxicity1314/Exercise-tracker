@@ -4,6 +4,7 @@ import Login from "./components/Login";
 import NavBar from "./components/NavBar";
 import WorkoutsPage from "./components/WorkoutsPage";
 import Home from "./components/Home";
+import PreviousWorkoutsPage from "./components/PreviousWorkoutsPage";
 import CurrentWorkout from "./components/CurrentWorkout";
 
 function App() {
@@ -45,6 +46,10 @@ function App() {
           <Route 
           path="/currentworkout"
           element= {<CurrentWorkout currentWorkout={currentWorkout}/>}
+          />
+          <Route 
+          path="/previous"
+          element= {<PreviousWorkoutsPage/>}
           />
           <Route
           path="/"
