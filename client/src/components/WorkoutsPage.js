@@ -7,7 +7,7 @@ function WorkoutsPage() {
   const [workouts, setWorkouts] = useState([])
 
   useEffect(()=>{
-     fetch("/workouts")
+     fetch("/blueprints")
     .then(res=>res.json())
     .then(data => setWorkouts(data))
 },[])
