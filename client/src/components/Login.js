@@ -39,7 +39,8 @@ function Login({setUser}) {
                 onChange={handleChange}
             />
 
-            <Form.Input fluid 
+            <Form.Input fluid
+                type = "password" 
                 label='Password'
                 placeholder='Password'
                 name="password"

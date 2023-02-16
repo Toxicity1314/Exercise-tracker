@@ -1,50 +1,52 @@
-
-import React, {useState, useEffect} from "react";
-import { useNavigate } from "react-router-dom";
+import React, { useState} from "react";
+import { Grid } from "semantic-ui-react";
 import { Card, Button } from "semantic-ui-react";
 
+function PreviousWorkoutCard({ workout, updateWorkouts }) {
+  const [clicked, setClicked] = useState(false);
 
-function PreviousWorkoutCard({workout}) {
-    const [clicked, setClicked] = useState(false)
-    const navigate = useNavigate()
+  const exerciseList = workout.reps.map((rep) => {
+    return (
+      <li key={rep.id}>
+        {rep.exercise.name}
+        <ul>
+          <li>{`${rep.quantity} reps at ${rep.weight} lbs for 4 sets`}</li>
+          <li>{`successful? ${rep.successful}`}</li>
+        </ul>
+      </li>
+    );
+  });
 
-    const exerciseList = workout.exercises.map(exercise => <li key={exercise.id}>{exercise.name}</li>)
-
-    const startWorkout = ()=>{
-        const exercises = workout.exercises.map(exercise =>{
-            return {workout_id: workout.id, exercise_id: exercise.id}
-        }) 
-            fetch("/user_exercises",{
-                method: "POST",
-                headers:{'Content-Type': 'application/json'},
-                body: JSON.stringify(exercises)            
-            })
-            .then(r =>{
-                if (r.ok){
-                navigate("/currentworkout")
-                }
-            })
-    }
+  const handleDelete = () =>{
+    fetch(`/workouts/${workout.id}`, {
+        method: "DELETE"
+      })
+      .then((r) => {
+        if (r.ok){
+          updateWorkouts(workout.id)
+        }else{
+            r.json().then(err => console.log)
+        }
+      }) 
+  }
 
   return (
-<Card className="ui container center aligned" >
-      <Card.Content>
-        <Card.Header onClick={()=>setClicked(!clicked)}>
-          {workout.name}
-        </Card.Header>
-        <br />
-        {clicked && (
-            <ul>
-          {exerciseList}
-          </ul>
-        )} 
-        <Button onClick={startWorkout}>
-          startWorkout
-        </Button>
-      </Card.Content>
-    </Card>
+    <div className="nav">
+      <Grid.Column>
+        <Card>
+          <Card.Content>
+            <Card.Header onClick={() => setClicked(!clicked)}>
+              <h1>{workout.name}</h1>
+              {`completed on ${workout.completed_at}`}
+            </Card.Header>
+            <br />
+            {clicked && <ul>{exerciseList}</ul>}
+            <Button color="red" onClick={handleDelete}> delete</Button>
+          </Card.Content>
+        </Card>
+      </Grid.Column>
+    </div>
   );
 }
-
 
 export default PreviousWorkoutCard;

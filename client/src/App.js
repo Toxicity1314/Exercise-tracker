@@ -9,7 +9,6 @@ import CurrentWorkout from "./components/CurrentWorkout";
 
 function App() {
   const [user, setUser] = useState(null);
-  const [currentWorkout, setCurrentWorkout] = useState(null)
   const navigate = useNavigate()
 
   useEffect(() => {
@@ -25,7 +24,6 @@ function App() {
 
   if(!user) return (
     <div>
-      {/* <NavBar setUser={setUser}/> */}
       <Login setUser={setUser} />
      </div>
     )
@@ -45,7 +43,7 @@ function App() {
           />
           <Route 
           path="/currentworkout"
-          element= {<CurrentWorkout currentWorkout={currentWorkout}/>}
+          element= {<CurrentWorkout/>}
           />
           <Route 
           path="/previous"
