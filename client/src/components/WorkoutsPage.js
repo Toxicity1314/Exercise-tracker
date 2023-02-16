@@ -1,24 +1,27 @@
 
 import React, {useState, useEffect} from "react";
 import WorkoutCard from "./WorkoutCard";
+import { Grid } from "semantic-ui-react";
 
 
 function WorkoutsPage() {
   const [workouts, setWorkouts] = useState([])
 
   useEffect(()=>{
-     fetch("/workouts")
+     fetch("/blueprints")
     .then(res=>res.json())
     .then(data => setWorkouts(data))
 },[])
-console.log(workouts)
 const workoutList = workouts.map(workout => <WorkoutCard key={workout.id} workout={workout}/>)
 
 
   return (
-    <header className="nav">
+    <div>
+      <h1 className="header"> Please Select A Workout</h1>
+      <Grid>
      {workoutList}
-    </header>
+     </Grid>
+    </div>
   );
 }
 

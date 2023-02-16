@@ -7,23 +7,21 @@ import { Card, Button } from "semantic-ui-react";
 function WorkoutCard({workout}) {
     const [clicked, setClicked] = useState(false)
     const navigate = useNavigate()
+    
 
     const exerciseList = workout.exercises.map(exercise => <li key={exercise.id}>{exercise.name}</li>)
 
     const startWorkout = ()=>{
-        const exercises = workout.exercises.map(exercise =>{
-            return {workout_id: workout.id, exercise_id: exercise.id}
-        }) 
-            fetch("/user_exercises",{
+            fetch(`/workouts`,{
                 method: "POST",
                 headers:{'Content-Type': 'application/json'},
-                body: JSON.stringify(exercises)            
+                body: JSON.stringify({name: workout.name, id: workout.id})           
             })
             .then(r =>{
-                if (r.ok){
+              if (r.ok){
                 navigate("/currentworkout")
-                }
-            })
+              }
+            })            
     }
 
   return (

@@ -4,11 +4,11 @@ import Login from "./components/Login";
 import NavBar from "./components/NavBar";
 import WorkoutsPage from "./components/WorkoutsPage";
 import Home from "./components/Home";
+import PreviousWorkoutsPage from "./components/PreviousWorkoutsPage";
 import CurrentWorkout from "./components/CurrentWorkout";
 
 function App() {
   const [user, setUser] = useState(null);
-  const [currentWorkout, setCurrentWorkout] = useState(null)
   const navigate = useNavigate()
 
   useEffect(() => {
@@ -24,7 +24,6 @@ function App() {
 
   if(!user) return (
     <div>
-      {/* <NavBar setUser={setUser}/> */}
       <Login setUser={setUser} />
      </div>
     )
@@ -44,7 +43,11 @@ function App() {
           />
           <Route 
           path="/currentworkout"
-          element= {<CurrentWorkout currentWorkout={currentWorkout}/>}
+          element= {<CurrentWorkout/>}
+          />
+          <Route 
+          path="/previous"
+          element= {<PreviousWorkoutsPage/>}
           />
           <Route
           path="/"

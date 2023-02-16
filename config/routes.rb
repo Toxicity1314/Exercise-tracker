@@ -1,9 +1,10 @@
 Rails.application.routes.draw do
-  resources :workout_exercises
-  resources :user_exercises
-  resources :exercises
-  resources :workouts
   resources :users, only:[:show, :create]
+  resources :workouts, only:[:create, :update, :destroy, :index]
+  resources :blueprints
+  resources :exercises
+  resources :reps
+  
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
   # Defines the root path route ("/")
@@ -12,7 +13,7 @@ Rails.application.routes.draw do
   post "/login", to: "sessions#create"
   get "/auth", to: "users#show"
   delete "/logout", to: "sessions#destroy"
-  get "/current_workout", to: "user_exercises#current"
+  get "/current_workout", to: "workouts#current"
 
   get '*path',
   to: 'fallback#index',
