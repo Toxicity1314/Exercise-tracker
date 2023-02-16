@@ -1,48 +1,39 @@
-
-import React, {useState, useEffect} from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Card, Button } from "semantic-ui-react";
 
+function WorkoutCard({ workout }) {
+  const [clicked, setClicked] = useState(false);
+  const navigate = useNavigate();
 
-function WorkoutCard({workout}) {
-    const [clicked, setClicked] = useState(false)
-    const navigate = useNavigate()
-    
+  const exerciseList = workout.exercises.map((exercise) => (
+    <li key={exercise.id}>{exercise.name}</li>
+  ));
 
-    const exerciseList = workout.exercises.map(exercise => <li key={exercise.id}>{exercise.name}</li>)
-
-    const startWorkout = ()=>{
-            fetch(`/workouts`,{
-                method: "POST",
-                headers:{'Content-Type': 'application/json'},
-                body: JSON.stringify({name: workout.name, id: workout.id})           
-            })
-            .then(r =>{
-              if (r.ok){
-                navigate("/currentworkout")
-              }
-            })            
-    }
+  const startWorkout = () => {
+    fetch(`/workouts`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ name: workout.name, id: workout.id }),
+    }).then((r) => {
+      if (r.ok) {
+        navigate("/currentworkout");
+      }
+    });
+  };
 
   return (
-<Card className="ui container center aligned" >
+    <Card className="ui container center aligned">
       <Card.Content>
-        <Card.Header onClick={()=>setClicked(!clicked)}>
+        <Card.Header onClick={() => setClicked(!clicked)}>
           {workout.name}
         </Card.Header>
         <br />
-        {clicked && (
-            <ul>
-          {exerciseList}
-          </ul>
-        )} 
-        <Button onClick={startWorkout}>
-          startWorkout
-        </Button>
+        {clicked && <ul>{exerciseList}</ul>}
+        <Button onClick={startWorkout}>startWorkout</Button>
       </Card.Content>
     </Card>
   );
 }
-
 
 export default WorkoutCard;

@@ -1,4 +1,4 @@
-import React, { useState} from "react";
+import React, { useState } from "react";
 import { Grid } from "semantic-ui-react";
 import { Card, Button } from "semantic-ui-react";
 
@@ -17,18 +17,17 @@ function PreviousWorkoutCard({ workout, updateWorkouts }) {
     );
   });
 
-  const handleDelete = () =>{
+  const handleDelete = () => {
     fetch(`/workouts/${workout.id}`, {
-        method: "DELETE"
-      })
-      .then((r) => {
-        if (r.ok){
-          updateWorkouts(workout.id)
-        }else{
-            r.json().then(err => console.log)
-        }
-      }) 
-  }
+      method: "DELETE",
+    }).then((r) => {
+      if (r.ok) {
+        updateWorkouts(workout.id);
+      } else {
+        r.json().then((err) => console.log("handle errors here"));
+      }
+    });
+  };
 
   return (
     <div className="nav">
@@ -41,7 +40,10 @@ function PreviousWorkoutCard({ workout, updateWorkouts }) {
             </Card.Header>
             <br />
             {clicked && <ul>{exerciseList}</ul>}
-            <Button color="red" onClick={handleDelete}> delete</Button>
+            <Button color="red" onClick={handleDelete}>
+              {" "}
+              delete
+            </Button>
           </Card.Content>
         </Card>
       </Grid.Column>
