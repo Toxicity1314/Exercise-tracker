@@ -1,12 +1,12 @@
 class WorkoutsController < ApplicationController
     def create
         workout = Workout.create!(name: params[:name], user_id: session[:user_id])
-        Rep.create_reps params[:id], workout[:id]
+        Rep.create_reps params[:id], workout[:id], session[:user_id]
         render json: workout, include: ['reps', 'reps.exercise']
     end
 
     def index
-        workout = Workout.where(user_id: 1).where.not(completed_at: nil).order(:completed_at)
+        workout = Workout.where(user_id: session[:user_id]).where.not(completed_at: nil).order(:completed_at)
         render json: workout, include: ['reps', 'reps.exercise']
     end
 
