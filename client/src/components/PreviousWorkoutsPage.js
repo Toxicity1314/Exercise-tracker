@@ -7,23 +7,26 @@ function PreviousWorkoutsPage() {
 
   useEffect(() => {
     fetch("/workouts")
-      .then((res) => res.json())
-      .then((data) => setWorkouts(data));
+      .then((res) =>{
+         if(res.ok){
+          res.json().then((data) => setWorkouts(data));
+        }else{
+          console.log(res)
+        }
+        })
+
+      
   }, []);
-  const updateWorkouts = (workoutToDelete) => {
-    const newList = workouts.filter((workout) => {
-      return workout.id !== workoutToDelete;
-    });
-    setWorkouts(newList);
-  };
+  const updateWorkouts = (workoutToDelete)=>{
+    const newList = workouts.filter(workout =>{
+      return workout.id !== workoutToDelete
+    })
+    setWorkouts(newList)
+  }
 
   const previousWorkoutList = workouts
     ? workouts.map((workout) => (
-        <PreviousWorkoutCard
-          key={workout.id}
-          workout={workout}
-          updateWorkouts={updateWorkouts}
-        />
+        <PreviousWorkoutCard key={workout.id} workout={workout} updateWorkouts={updateWorkouts} />
       ))
     : [];
 

@@ -23,6 +23,7 @@ function WorkoutCard({ workout }) {
   };
 
   return (
+    <div>
     <Card className="ui container center aligned">
       <Card.Content>
         <Card.Header onClick={() => setClicked(!clicked)}>
@@ -33,6 +34,7 @@ function WorkoutCard({ workout }) {
         <Button onClick={startWorkout}>startWorkout</Button>
       </Card.Content>
     </Card>
+    </div>
   );
 }
 

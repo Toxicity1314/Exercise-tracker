@@ -8,6 +8,11 @@ class UsersController < ApplicationController
 
     def show
         user = User.find(session[:user_id])
+        render json: user, serializer: UserRepsSerializer, include: ["workouts", "workouts.reps.exercise"]
+    end
+
+    def auth
+        user = User.find(session[:user_id])
         render json: user
       
     end
