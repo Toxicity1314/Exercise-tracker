@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import { Card, Button, Grid } from "semantic-ui-react";
 
-function CurrentWorkoutCard({ rep }) {
-  const [successClicked, setSuccessClicked] = useState(rep.successful);
-  let { weight, quantity, exercise, id } = rep;
+function CurrentWorkoutCard({ exercise }) {
+  const [successClicked, setSuccessClicked] = useState(); //reps.successful
+  let { reps, instructions, name, pic_url, id } = exercise;
   const handleSuccess = (e) => {
     const success = e.target.value ? true : false;
     fetch(`/reps/${id}`, {
@@ -13,7 +13,7 @@ function CurrentWorkoutCard({ rep }) {
     }).then((r) => {
       if (r.ok) {
         setSuccessClicked(success);
-        rep.successful = success;
+        reps.successful = success;
       } else {
         r.json().then((err) => console.log("handle errors here"));
       }
@@ -26,11 +26,11 @@ function CurrentWorkoutCard({ rep }) {
         <Card>
           <Card.Content>
             <Card.Header>
-              <h2 className="header">{exercise.name}</h2>
+              <h2 className="header">{name}</h2>
             </Card.Header>
             <br />
-            <h4 className="header">{`${weight} lbs x ${quantity} reps 4 sets`}</h4>
-            <div>{exercise.instructions}</div>
+            <h4 className="header">{`${reps.weight} lbs x ${reps.quantity} reps 4 sets`}</h4>
+            <div>{instructions}</div>
             {successClicked ? (
               <Button
                 floated="left"
