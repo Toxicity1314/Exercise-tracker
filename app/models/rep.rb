@@ -25,7 +25,7 @@ class Rep < ApplicationRecord
                 end
             end
             
-            self.create!(quantity: @quantity, weight: @weight, exercise_id:exercise[:id], workout_id: workout_id, successful: false)
+            self.create!(quantity: @quantity, weight: @weight, exercise_id:exercise[:id], workout_id: workout_id)
         end
     end
 end

@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import { Form, Button } from "semantic-ui-react";
 import { redirect } from "react-router-dom";
+
+//old user login
 function Login({ setUser }) {
   const [userLogin, setUserLogin] = useState({ username: "", password: "" });
   const [errors, setErrors] = useState([]);

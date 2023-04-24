@@ -13,7 +13,7 @@ class WorkoutsController < ApplicationController
     def current
         workout = Workout.where(user_id: session[:user_id], completed_at: nil).order(:created_at).last
         if workout
-            render json: workout, include: ['reps', 'reps.exercise']
+            render json: workout, include: ['exercises', 'exercises.reps']
         else
             head :permanent_redirect
         end
