@@ -29,7 +29,7 @@ function CurrentWorkoutCard({ exercise }) {
               <h2 className="header">{name}</h2>
             </Card.Header>
             <br />
-            <h4 className="header">{`${reps.weight} lbs x ${reps.quantity} reps 4 sets`}</h4>
+            <h4 className="header">{`${reps[0].weight} lbs x ${reps[0].quantity} reps 4 sets`}</h4>
             <div>{instructions}</div>
             {successClicked ? (
               <Button

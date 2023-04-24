@@ -7,7 +7,7 @@ function CurrentWorkout() {
   useEffect(() => {
     fetch("/current_workout").then((r) => {
       if (r.ok) {
-        r.json().then((workoutInfo) => setCurrentWorkout(workoutInfo));
+        r.json().then((workoutInfo) => console.log(workoutInfo)/*setCurrentWorkout(workoutInfo)*/);
       } else {
         setCurrentWorkout(null);
       }
@@ -17,7 +17,8 @@ function CurrentWorkout() {
   let exerciseCard = [];
   if (currentWorkout) {
     exerciseCard = currentWorkout.exercises.map((exercise) => (
-      <CurrentWorkoutCard key={exercise.id} exercise={exercise} />
+      console.log(exercise.name)
+      // <CurrentWorkoutCard key={exercise.id} exercise={exercise} />
     ));
   }
   const handleCompleted = () => {

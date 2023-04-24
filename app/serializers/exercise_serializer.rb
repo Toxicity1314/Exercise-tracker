@@ -1,5 +1,5 @@
 class ExerciseSerializer < ActiveModel::Serializer
-    attributes :id, :name, :pic_url, :instructions
+    attributes :id, :blueprint_id, :name, :pic_url
     has_many :reps
   end
   
