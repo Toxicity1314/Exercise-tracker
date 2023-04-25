@@ -1,6 +1,6 @@
 class Workout < ApplicationRecord
     belongs_to :user
-    has_many :reps, dependent: :destroy
-    has_many :exercises, through: :reps
+    has_many :exercises, dependent: :destroy
+    has_many :reps, through: :exercises
 
 end
