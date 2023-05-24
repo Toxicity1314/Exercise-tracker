@@ -2,7 +2,7 @@ Rails.application.routes.draw do
   resources :users, only:[:show, :create]
   resources :workouts, only:[:create, :update, :destroy, :index]
   resources :blueprints, only:[:index]
-  resources :reps, only:[:update]
+  resources :exercise_sets, only:[:update]
   
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 

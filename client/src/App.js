@@ -6,7 +6,7 @@ import WorkoutsPage from "./components/WorkoutsPage";
 import Home from "./components/Home";
 import PreviousWorkoutsPage from "./components/PreviousWorkoutsPage";
 import CurrentWorkout from "./components/CurrentWorkout";
-import RepsPage from "./components/RepsPage";
+import ExerciseSetsPage from "./components/ExerciseSetsPage";
 
 function App() {
   const [user, setUser] = useState(null);
@@ -36,7 +36,7 @@ function App() {
         <Route path="/login" element={<Login setUser={setUser} />} />
         <Route path="/currentworkout" element={<CurrentWorkout />} />
         <Route path="/previous" element={<PreviousWorkoutsPage />} />
-        <Route path="/reps" element={<RepsPage user={user}/>} />
+        <Route path="/exercise_sets" element={<ExerciseSetsPage user={user}/>} />
         <Route path="/" element={<Home user={user}/>} />
       </Routes>
     </div>

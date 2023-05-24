@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_04_24_225559) do
+ActiveRecord::Schema[7.0].define(version: 2023_05_23_200417) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -18,6 +18,16 @@ ActiveRecord::Schema[7.0].define(version: 2023_04_24_225559) do
     t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "exercise_sets", force: :cascade do |t|
+    t.integer "reps"
+    t.float "weight"
+    t.bigint "exercise_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.datetime "completed_at"
+    t.index ["exercise_id"], name: "index_exercise_sets_on_exercise_id"
   end
 
   create_table "exercises", force: :cascade do |t|
@@ -30,16 +40,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_04_24_225559) do
     t.bigint "workout_id"
     t.index ["blueprint_id"], name: "index_exercises_on_blueprint_id"
     t.index ["workout_id"], name: "index_exercises_on_workout_id"
-  end
-
-  create_table "reps", force: :cascade do |t|
-    t.integer "quantity"
-    t.float "weight"
-    t.bigint "exercise_id", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.datetime "completed_at"
-    t.index ["exercise_id"], name: "index_reps_on_exercise_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -58,7 +58,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_04_24_225559) do
     t.index ["user_id"], name: "index_workouts_on_user_id"
   end
 
+  add_foreign_key "exercise_sets", "exercises"
   add_foreign_key "exercises", "blueprints"
-  add_foreign_key "reps", "exercises"
   add_foreign_key "workouts", "users"
 end

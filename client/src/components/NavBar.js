@@ -23,8 +23,8 @@ function NavBar({ setUser }) {
       <Button as={NavLink} to="/currentworkout">
         current workout
       </Button>
-      <Button as={NavLink} to="/reps"> 
-        reps
+      <Button as={NavLink} to="/exercise_sets"> 
+        sets
       </Button>
       <Button as={Link} onClick={handleLogout} to="/">
         log out
