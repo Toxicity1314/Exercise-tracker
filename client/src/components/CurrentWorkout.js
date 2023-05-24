@@ -13,10 +13,12 @@ function CurrentWorkout() {
       }
     });
   }, []);
+  console.log(currentWorkout)
   let exerciseCard = [];
   if (currentWorkout) {
-    exerciseCard = currentWorkout.reps.map((rep) => (
-      <CurrentWorkoutCard key={rep.id} rep={rep} />
+    console.log(currentWorkout)
+    exerciseCard = currentWorkout.exercises.map((exercise) => (
+      <CurrentWorkoutCard key={exercise.id} exercise={exercise} />
     ));
   }
   const handleCompleted = () => {

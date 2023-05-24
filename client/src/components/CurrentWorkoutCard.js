@@ -1,19 +1,20 @@
 import React, { useState } from "react";
 import { Card, Button, Grid } from "semantic-ui-react";
 
-function CurrentWorkoutCard({ rep }) {
-  const [successClicked, setSuccessClicked] = useState(rep.successful);
-  let { weight, quantity, exercise, id } = rep;
+function CurrentWorkoutCard({ exercise }) {
+  console.log(exercise)
+  const [successClicked, setSuccessClicked] = useState(); //sets.successful
+  let { exercise_sets, instructions, name, pic_url, id } = exercise;
   const handleSuccess = (e) => {
     const success = e.target.value ? true : false;
-    fetch(`/reps/${id}`, {
+    fetch(`/exercise_sets/${id}`, {
       method: "PATCH",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ successful: success }),
     }).then((r) => {
       if (r.ok) {
         setSuccessClicked(success);
-        rep.successful = success;
+        exercise_sets.successful = success;
       } else {
         r.json().then((err) => console.log("handle errors here"));
       }
@@ -26,11 +27,11 @@ function CurrentWorkoutCard({ rep }) {
         <Card>
           <Card.Content>
             <Card.Header>
-              <h2 className="header">{exercise.name}</h2>
+              <h2 className="header">{name}</h2>
             </Card.Header>
             <br />
-            <h4 className="header">{`${weight} lbs x ${quantity} reps 4 sets`}</h4>
-            <div>{exercise.instructions}</div>
+            <h4 className="header">{`${exercise_sets[0].weight} lbs x ${exercise_sets[0].reps} sets 4 sets`}</h4>
+            <div>{instructions}</div>
             {successClicked ? (
               <Button
                 floated="left"
@@ -38,16 +39,16 @@ function CurrentWorkoutCard({ rep }) {
                 value="successful"
                 onClick={handleSuccess}
               >
-                successful
+                Set Completed
               </Button>
             ) : (
               <Button floated="left" value="successful" onClick={handleSuccess}>
-                successful
+                Set Completed
               </Button>
             )}
             {successClicked ? (
               <Button floated="right" value="" onClick={handleSuccess}>
-                Unsuccessful
+                Set Unsuccessful
               </Button>
             ) : (
               <Button
@@ -56,7 +57,7 @@ function CurrentWorkoutCard({ rep }) {
                 color="blue"
                 onClick={handleSuccess}
               >
-                Unsuccessful
+                Set Unsuccessful
               </Button>
             )}
           </Card.Content>

@@ -5,13 +5,13 @@ import { Card, Button } from "semantic-ui-react";
 function PreviousWorkoutCard({ workout, updateWorkouts }) {
   const [clicked, setClicked] = useState(false);
 
-  const exerciseList = workout.reps.map((rep) => {
+  const exerciseList = workout.exercise_sets.map((exercise_set) => {
     return (
-      <li key={rep.id}>
-        {rep.exercise.name}
+      <li key={exercise_set.id}>
+        {exercise_set.exercise.name}
         <ul>
-          <li>{`${rep.quantity} reps at ${rep.weight} lbs for 4 sets`}</li>
-          <li>{`successful? ${rep.successful}`}</li>
+          <li>{`${exercise_set.reps} sets at ${exercise_set.weight} lbs for 4 sets`}</li>
+          <li>{`successful? ${exercise_set.successful}`}</li>
         </ul>
       </li>
     );
