@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 import { Grid } from "semantic-ui-react";
 import { Card, Button } from "semantic-ui-react";
-
+//will need to update this file to work with the new database response
 function PreviousWorkoutCard({ workout, updateWorkouts }) {
   const [clicked, setClicked] = useState(false);
-
+console.log(workout)
   const exerciseList = workout.exercise_sets.map((exercise_set) => {
     return (
       <li key={exercise_set.id}>

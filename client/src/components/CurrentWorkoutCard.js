@@ -1,25 +1,13 @@
 import React, { useState } from "react";
 import { Card, Button, Grid } from "semantic-ui-react";
+import CurrentWorkoutCardExerciseSet from "./CurrentWorkoutCardExerciseSet";
 
 function CurrentWorkoutCard({ exercise }) {
-  console.log(exercise)
-  const [successClicked, setSuccessClicked] = useState(); //sets.successful
+  //console.log(exercise)
+  
   let { exercise_sets, instructions, name, pic_url, id } = exercise;
-  const handleSuccess = (e) => {
-    const success = e.target.value ? true : false;
-    fetch(`/exercise_sets/${id}`, {
-      method: "PATCH",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ successful: success }),
-    }).then((r) => {
-      if (r.ok) {
-        setSuccessClicked(success);
-        exercise_sets.successful = success;
-      } else {
-        r.json().then((err) => console.log("handle errors here"));
-      }
-    });
-  };
+  // console.log(exercise_sets)
+  let exercise_set_buttons = exercise_sets.map(set => <CurrentWorkoutCardExerciseSet key={set.id} set={set}/>)
 
   return (
     <div className="nav">
@@ -32,34 +20,8 @@ function CurrentWorkoutCard({ exercise }) {
             <br />
             <h4 className="header">{`${exercise_sets[0].weight} lbs x ${exercise_sets[0].reps} sets 4 sets`}</h4>
             <div>{instructions}</div>
-            {successClicked ? (
-              <Button
-                floated="left"
-                color="blue"
-                value="successful"
-                onClick={handleSuccess}
-              >
-                Set Completed
-              </Button>
-            ) : (
-              <Button floated="left" value="successful" onClick={handleSuccess}>
-                Set Completed
-              </Button>
-            )}
-            {successClicked ? (
-              <Button floated="right" value="" onClick={handleSuccess}>
-                Set Unsuccessful
-              </Button>
-            ) : (
-              <Button
-                floated="right"
-                value=""
-                color="blue"
-                onClick={handleSuccess}
-              >
-                Set Unsuccessful
-              </Button>
-            )}
+            <div>{exercise_set_buttons}</div>
+
           </Card.Content>
         </Card>
       </Grid.Column>
