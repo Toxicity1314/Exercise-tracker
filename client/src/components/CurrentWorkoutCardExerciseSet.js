@@ -7,9 +7,6 @@ function CurrentWorkoutCardExerciseSet({ set }) {
   // console.log(set)
   
   const handleSuccess = (e) => {
-    // setSuccessClicked(e.target.value ? Date.now() : null)
-    // set.completed_at = successClicked
-    // console.log(set)
     let newCompletedAt = e.target.value ? new Date().toISOString() : null
     console.log(newCompletedAt)
     fetch(`/exercise_sets/${currentSet.id}`, {
@@ -22,11 +19,9 @@ function CurrentWorkoutCardExerciseSet({ set }) {
           console.log(data)
           setCurrentSet(data)
           setSuccessClicked(data.completed_at)
-
-
         })
       } else {
-        r.json().then((err) => console.log("handle errors here"));
+        r.json().then((err) => console.log(err));
       }
     });
     
