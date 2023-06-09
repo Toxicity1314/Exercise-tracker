@@ -7,7 +7,7 @@ class Exercise < ApplicationRecord
         exercises = @blueprint.exercises.where(workout_id: nil)
         exercises.each do |exercise|
             new_exercise = Exercise.create!(name: exercise["name"], instructions: exercise["instructions"], blueprint_id: exercise["blueprint_id"], pic_url: exercise["pic_url"], workout_id: workout_id)
-            ExerciseSet.create_exercise_sets new_exercise["id"]
+            ExerciseSet.create_exercise_sets new_exercise["id"], user_id
         end
     end
     
