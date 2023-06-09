@@ -6,7 +6,7 @@ function CurrentWorkoutCard({ exercise }) {
   //console.log(exercise)
   
   let { exercise_sets, instructions, name, pic_url, id } = exercise;
-  // console.log(exercise_sets)
+  console.log(instructions)
   let exercise_set_buttons = exercise_sets.map(set => <CurrentWorkoutCardExerciseSet key={set.id} set={set}/>)
 
   return (
