@@ -99,8 +99,8 @@ click unsuccessful button
                 ]
             }
         ]
-        ```
-- GET /current_workout: Retrieve the current workout for the authenticated user. returns 
+  ```
+- GET /current_workout Retrieve the current workout for the authenticated user. returns 
 ```json
 {
     "id": ,
