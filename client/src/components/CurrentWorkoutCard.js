@@ -6,7 +6,6 @@ function CurrentWorkoutCard({ exercise }) {
   //console.log(exercise)
   
   let { exercise_sets, instructions, name, pic_url, id } = exercise;
-  console.log(instructions)
   let exercise_set_buttons = exercise_sets.map(set => <CurrentWorkoutCardExerciseSet key={set.id} set={set}/>)
 
   return (
@@ -18,7 +17,9 @@ function CurrentWorkoutCard({ exercise }) {
               <h2 className="header">{name}</h2>
             </Card.Header>
             <br />
-            <h4 className="header">{`${exercise_sets[0].weight} lbs x ${exercise_sets[0].reps} sets 4 sets`}</h4>
+            <h4 className="header">{`4 sets x ${exercise_sets[0].reps} reps x ${exercise_sets[0].weight} lbs`}
+              <Button onClick={(e)=>console.log(e.target)}>Edit</Button>
+            </h4>
             <div>{instructions}</div>
             <div>{exercise_set_buttons}</div>
 

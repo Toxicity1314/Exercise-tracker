@@ -4,11 +4,10 @@ import { Card, Button, Grid } from "semantic-ui-react";
 function CurrentWorkoutCardExerciseSet({ set }) {
   const [currentSet, setCurrentSet] = useState(set)
   const [successClicked, setSuccessClicked] = useState(currentSet.completed_at); //sets.successful
-  // console.log(set)
   
   const handleSuccess = (e) => {
+    console.log(e.target.value)
     let newCompletedAt = e.target.value ? new Date().toISOString() : null
-    console.log(newCompletedAt)
     fetch(`/exercise_sets/${currentSet.id}`, {
       method: "PATCH",
       headers: { "Content-Type": "application/json" },
@@ -18,7 +17,7 @@ function CurrentWorkoutCardExerciseSet({ set }) {
         r.json().then((data)=>{
           console.log(data)
           setCurrentSet(data)
-          setSuccessClicked(data.completed_at)
+          setSuccessClicked(e.target.value)
         })
       } else {
         r.json().then((err) => console.log(err));
@@ -38,23 +37,23 @@ function CurrentWorkoutCardExerciseSet({ set }) {
                 floated="left"
                 color="blue"
                 value="successful"
-                onClick={handleSuccess}
+                // onClick={handleSuccess}
               >
                 Set Completed
               </Button>
-            ) : (
-              <Button floated="left" value="successful" onClick={handleSuccess}>
+            ) : ( 
+              <Button floated="left" value={new Date().toISOString()} onClick={handleSuccess}>
                 Set Completed
               </Button>
             )}
-            {successClicked ? (
+            {successClicked === null || successClicked? (
               <Button floated="right" value="" onClick={handleSuccess}>
                 Set Unsuccessful
               </Button>
             ) : (
               <Button
                 floated="right"
-                value=""
+                value={null}
                 color="blue"
                 onClick={handleSuccess}
               >
