@@ -20,11 +20,6 @@
     "semantic-ui-react": "^2.1.4",
     "web-vitals": "^2.1.4"
   },
-  "husky": {
-    "hooks": {
-      "pre-commit": "npx lint-staged"
-    }
-  },  
   "lint-staged": {
     "*.{js,json,css,scss,html,md}": [
       "prettier --write ."
@@ -58,7 +53,11 @@
     ]
   },
   "devDependencies": {
-    "husky": "^8.0.3",
-    "prettier": "^2.8.8"
+    "husky": "^8.0.3"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "cd .. && npx husky run pre-commit"
+    }
   }
 }
