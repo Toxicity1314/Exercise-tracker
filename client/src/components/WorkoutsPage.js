@@ -15,10 +15,6 @@ function WorkoutsPage() {
     <WorkoutCard key={workout.id} workout={workout} />
   ));
 
-
-
-  
-
   return (
     <div>
       <h1 className="header"> Please Select A Workout</h1>

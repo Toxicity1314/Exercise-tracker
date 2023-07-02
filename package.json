@@ -15,6 +15,7 @@
     ]
   },
   "scripts": {
-    "prepare": "husky install"
+    "prepare": "husky install",
+    "lint:fix": "prettier --write ."
   }
 }
