@@ -36,8 +36,11 @@ function App() {
         <Route path="/login" element={<Login setUser={setUser} />} />
         <Route path="/currentworkout" element={<CurrentWorkout />} />
         <Route path="/previous" element={<PreviousWorkoutsPage />} />
-        <Route path="/exercise_sets" element={<ExerciseSetsPage user={user}/>} />
-        <Route path="/" element={<Home user={user}/>} />
+        <Route
+          path="/exercise_sets"
+          element={<ExerciseSetsPage user={user} />}
+        />
+        <Route path="/" element={<Home user={user} />} />
       </Routes>
     </div>
   );
