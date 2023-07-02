@@ -20,14 +20,33 @@ Prerequisites
 
 1. Clone the repository
 
-> git clone https://github.com/YOUR-USERNAME/Exercise-tracker.git
+> git clone https://github.com/Toxicity1314/Exercise-tracker.git
+
+Optional: if you're using `nvm`, run 
+```bash
+$ nvm use
+```
+to set correct node version.
 
 2. Install dependencies
+
+Optional: Install the specified Ruby version in via:
+```bash
+$ rbenv install 3.2.1
+$ rbenv local 3.2.1
+```
 
 > bundle install
 > npm install --prefix client
 
-3. migrate and seed the database
+3. create, migrate and seed the database
+
+On first run, create the database:
+```bash
+$ bin/rails db:create
+```
+
+Next migrate and seed:
 
 >rails db:migrate
 >rails db:seed
