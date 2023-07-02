@@ -20,6 +20,11 @@
     "semantic-ui-react": "^2.1.4",
     "web-vitals": "^2.1.4"
   },
+  "husky": {
+    "hooks": {
+      "pre-commit": "npx lint-staged"
+    }
+  },  
   "lint-staged": {
     "*.{js,json,css,scss,html,md}": [
       "prettier --write ."
