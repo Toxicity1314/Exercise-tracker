@@ -20,7 +20,13 @@ Prerequisites
 
 1. Clone the repository
 
-> git clone https://github.com/YOUR-USERNAME/Exercise-tracker.git
+> git clone https://github.com/Toxicity1314/Exercise-tracker.git
+
+Optional: if you're using `nvm`, run 
+```bash
+$ nvm use
+```
+to set correct node version.
 
 2. Install dependencies
 
