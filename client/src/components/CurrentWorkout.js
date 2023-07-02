@@ -13,10 +13,10 @@ function CurrentWorkout() {
       }
     });
   }, []);
-  console.log(currentWorkout)
+  console.log(currentWorkout);
   let exerciseCard = [];
   if (currentWorkout) {
-    console.log(currentWorkout)
+    console.log(currentWorkout);
     exerciseCard = currentWorkout.exercises.map((exercise) => (
       <CurrentWorkoutCard key={exercise.id} exercise={exercise} />
     ));

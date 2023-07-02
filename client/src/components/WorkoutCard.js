@@ -24,16 +24,16 @@ function WorkoutCard({ workout }) {
 
   return (
     <div>
-    <Card className="ui container center aligned">
-      <Card.Content>
-        <Card.Header onClick={() => setClicked(!clicked)}>
-          {workout.name}
-        </Card.Header>
-        <br />
-        {clicked && <ul>{exerciseList}</ul>}
-        <Button onClick={startWorkout}>startWorkout</Button>
-      </Card.Content>
-    </Card>
+      <Card className="ui container center aligned">
+        <Card.Content>
+          <Card.Header onClick={() => setClicked(!clicked)}>
+            {workout.name}
+          </Card.Header>
+          <br />
+          {clicked && <ul>{exerciseList}</ul>}
+          <Button onClick={startWorkout}>startWorkout</Button>
+        </Card.Content>
+      </Card>
     </div>
   );
 }
