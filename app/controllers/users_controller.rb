@@ -9,6 +9,8 @@ class UsersController < ApplicationController
   def show
     user = User.find(session[:user_id])
     render json: user,
+
+    
            serializer: UserExerciseSetsSerializer,
            include: %w[workouts workouts.exercise_sets.exercise]
   end
