@@ -10,8 +10,11 @@
     }
   },
   "lint-staged": {
-    "*.{js,json,css,scss,html,md,rb}": [
+    "*.{js,json,css,scss,html,md}": [
       "prettier --write ."
+    ],
+    "*.rb":[
+      "prettier --write"
     ]
   },
   "scripts": {
