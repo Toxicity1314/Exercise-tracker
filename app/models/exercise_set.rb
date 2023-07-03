@@ -7,6 +7,8 @@ class ExerciseSet < ApplicationRecord
     ExerciseSet.create!(
       reps: @reps,
       weight: @weight,
+
+      
       exercise_id: exercise_id,
       completed_at: nil,
       user_id: user_id
