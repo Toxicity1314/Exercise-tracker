@@ -18,7 +18,7 @@
     "web-vitals": "^2.1.4"
   },
   "lint-staged": {
-    "*.{js,json,css,scss,html,md}": [
+    "*.{js,json,css,scss,html,md,jsx}": [
       "prettier --write ."
     ]
   },
