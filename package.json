@@ -17,5 +17,8 @@
   "scripts": {
     "prepare": "husky install",
     "lint:fix": "prettier --write ."
+  },
+  "dependencies": {
+    "@prettier/plugin-ruby": "^3.2.2"
   }
 }

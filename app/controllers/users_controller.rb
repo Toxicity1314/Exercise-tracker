@@ -1,26 +1,26 @@
 class UsersController < ApplicationController
-    skip_before_action :authorized, only: [:create, :show]
-    def create
-        user = User.create!(user_params)
-        session[:user_id] = user.id
-        render json: user, status: :created
-    end
+  skip_before_action :authorized, only: %i[create show]
+  def create
+    user = User.create!(user_params)
+    session[:user_id] = user.id
+    render json: user, status: :created
+  end
 
-    def show
-        user = User.find(session[:user_id])
-        render json: user, serializer: UserExerciseSetsSerializer, include: ["workouts", "workouts.exercise_sets.exercise"]
-    end
+  def show
+    user = User.find(session[:user_id])
+    render json: user,
+           serializer: UserExerciseSetsSerializer,
+           include: %w[workouts workouts.exercise_sets.exercise]
+  end
 
-    def auth
-        user = User.find(session[:user_id])
-        render json: user
-      
-    end
+  def auth
+    user = User.find(session[:user_id])
+    render json: user
+  end
 
-    private 
+  private
 
-    def user_params
-        params.permit(:username, :password)
-    end
-
+  def user_params
+    params.permit(:username, :password)
+  end
 end
