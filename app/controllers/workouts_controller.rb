@@ -13,6 +13,7 @@ class WorkoutsController < ApplicationController
         .where(user_id: session[:user_id])
         .where.not(completed_at: nil)
         .order(:completed_at)
+
     render json: workout, include: %w[exercises exercises.exercise_sets]
   end
 
