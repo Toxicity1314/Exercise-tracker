@@ -7,6 +7,7 @@ import Home from "./components/Home";
 import PreviousWorkoutsPage from "./components/PreviousWorkoutsPage";
 import CurrentWorkout from "./components/CurrentWorkout";
 import ExerciseSetsPage from "./components/ExerciseSetsPage";
+import LoginV2 from "./components/LoginV2.tsx";
 
 function App() {
   const [user, setUser] = useState(null);
@@ -24,6 +25,7 @@ function App() {
   if (!user)
     return (
       <div>
+        <LoginV2 />
         <Login setUser={setUser} />
       </div>
     );
