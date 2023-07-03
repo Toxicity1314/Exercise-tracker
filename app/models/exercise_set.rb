@@ -9,8 +9,6 @@ class ExerciseSet < ApplicationRecord
       weight: @weight,
       exercise_id: exercise_id,
 
-
-
       
       completed_at: nil,
       user_id: user_id

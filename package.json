@@ -13,7 +13,7 @@
     "*.{js,json,css,scss,html,md}": [
       "prettier --write ."
     ],
-    "*.rb":[
+    "*.rb": [
       "prettier --write"
     ]
   },
