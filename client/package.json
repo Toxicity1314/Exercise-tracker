@@ -19,18 +19,12 @@
     "semantic-ui-react": "^2.1.4",
     "web-vitals": "^2.1.4"
   },
-  "lint-staged": {
-    "*.{js,json,css,scss,html,md}": [
-      "prettier --write ."
-    ]
-  },
   "scripts": {
     "start": "PORT=4000 react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "lint": "prettier --check .",
-    "prepare": "husky install"
+    "lint": "prettier --check ."
   },
   "eslintConfig": {
     "extends": [
