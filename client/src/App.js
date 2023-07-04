@@ -8,32 +8,16 @@ import PreviousWorkoutsPage from "./components/PreviousWorkoutsPage";
 import CurrentWorkout from "./components/CurrentWorkout";
 import ExerciseSetsPage from "./components/ExerciseSetsPage";
 import LoginV2 from "./components/LoginV2.tsx";
+import NotFoundPage from "./components/NotFoundPage.tsx";
 
 function App() {
   const [user, setUser] = useState(null);
 
-  useEffect(() => {
-    fetch("/auth").then((r) => {
-      if (r.ok) {
-        r.json().then((user) => setUser(user));
-      } else {
-        setUser(null);
-      }
-    });
-  }, []);
-
-  if (!user)
-    return (
-      <div>
-        <LoginV2 />
-        <Login setUser={setUser} />
-      </div>
-    );
-
   return (
     <div className="App">
-      <NavBar setUser={setUser} />
+      <NavBar setUser={setUser} user={user} />
       <Routes>
+        <Route path="/" element={<LoginV2 setUser={setUser} />} />
         <Route path="/workouts" element={<WorkoutsPage />} />
         <Route path="/login" element={<Login setUser={setUser} />} />
         <Route path="/currentworkout" element={<CurrentWorkout />} />
@@ -43,6 +27,7 @@ function App() {
           element={<ExerciseSetsPage user={user} />}
         />
         <Route path="/" element={<Home user={user} />} />
+        <Route path="*" element={<NotFoundPage />} />
       </Routes>
     </div>
   );

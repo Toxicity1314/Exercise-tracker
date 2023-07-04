@@ -7,13 +7,20 @@ function WorkoutsPage() {
   const [setsNumber, setSetsNumber] = useState(1);
 
   useEffect(() => {
-    fetch("/blueprints")
-      .then((res) => res.json())
-      .then((data) => setWorkouts(data));
+    if (!workoutList) {
+      fetch("/blueprints")
+        .then((res) => res.json())
+        .then((data) => setWorkouts(data));
+    }
   }, []);
+
   const workoutList = workouts.map((workout) => (
     <WorkoutCard key={workout.id} workout={workout} />
   ));
+
+  if (!workoutList) {
+    return <h1>Loading</h1>;
+  }
 
   return (
     <div>

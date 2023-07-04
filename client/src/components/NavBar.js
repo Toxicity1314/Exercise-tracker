@@ -1,8 +1,8 @@
-import React from "react";
+import React, { useState } from "react";
 import { NavLink, Link } from "react-router-dom";
 import { Button } from "semantic-ui-react";
 
-function NavBar({ setUser }) {
+function NavBar({ user, setUser }) {
   function handleLogout() {
     fetch("/logout", {
       method: "DELETE",
@@ -26,9 +26,11 @@ function NavBar({ setUser }) {
       <Button as={NavLink} to="/exercise_sets">
         sets
       </Button>
-      <Button as={Link} onClick={handleLogout} to="/">
-        log out
-      </Button>
+      {user && (
+        <Button as={Link} onClick={handleLogout} to="/">
+          log out
+        </Button>
+      )}
     </header>
   );
 }
