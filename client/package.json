@@ -21,11 +21,6 @@
     "semantic-ui-react": "^2.1.4",
     "web-vitals": "^2.1.4"
   },
-  "lint-staged": {
-    "*.{js,json,css,scss,html,md,jsx}": [
-      "prettier --write ."
-    ]
-  },
   "scripts": {
     "start": "PORT=4000 react-scripts start",
     "build": "react-scripts build",
