@@ -9,6 +9,9 @@ function NavBar({ user, setUser }) {
     }).then(() => setUser(null));
   }
 
+  // If there's no user, don't render
+  if (!user) return null;
+
   return (
     <header className="nav">
       <Button as={NavLink} to="/">
@@ -26,11 +29,9 @@ function NavBar({ user, setUser }) {
       <Button as={NavLink} to="/exercise_sets">
         sets
       </Button>
-      {user && (
-        <Button as={Link} onClick={handleLogout} to="/">
-          log out
-        </Button>
-      )}
+      <Button as={Link} onClick={handleLogout} to="/">
+        log out
+      </Button>
     </header>
   );
 }
