@@ -37,20 +37,19 @@ export default function LoginV2({ setUser }) {
       // If the login was successful, redirect to the user page
       setUser({
         id: responseBody.id,
-        username: responseBody.username
+        username: responseBody.username,
       });
 
       navigate("/workouts");
 
       return;
     }
-    
+
     if (statusCode === 401 && responseBody.errors) {
       // If there's a body and it contains errors, display that
       // Otherwise, display a generic error
       console.error(responseBody.errors);
-    }
-    else {
+    } else {
       console.error("Invalid username or password");
     }
   };
