@@ -1,6 +1,5 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { Route, Routes } from "react-router-dom";
-import Login from "./components/Login";
 import NavBar from "./components/NavBar";
 import WorkoutsPage from "./components/WorkoutsPage";
 import Home from "./components/Home";
@@ -19,7 +18,6 @@ function App() {
       <Routes>
         <Route path="/" element={<LoginV2 setUser={setUser} />} />
         <Route path="/workouts" element={<WorkoutsPage />} />
-        <Route path="/login" element={<Login setUser={setUser} />} />
         <Route path="/currentworkout" element={<CurrentWorkout />} />
         <Route path="/previous" element={<PreviousWorkoutsPage />} />
         <Route
