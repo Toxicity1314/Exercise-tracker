@@ -1,11 +1,9 @@
-import React, { useState } from "react";
+import React from "react";
 import { Card, Button, Grid } from "semantic-ui-react";
 import CurrentWorkoutCardExerciseSet from "./CurrentWorkoutCardExerciseSet";
 
 function CurrentWorkoutCard({ exercise }) {
-  //console.log(exercise)
-
-  let { exercise_sets, instructions, name, pic_url, id } = exercise;
+  let { exercise_sets, instructions, name } = exercise;
   let exercise_set_buttons = exercise_sets.map((set) => (
     <CurrentWorkoutCardExerciseSet key={set.id} set={set} />
   ));

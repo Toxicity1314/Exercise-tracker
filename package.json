@@ -12,11 +12,12 @@
   },
   "lint-staged": {
     "*.{js,json,css,scss,html,md,rb}": [
-      "prettier --write ."
+      "prettier --write .",
+      "git add"
     ]
   },
   "scripts": {
     "prepare": "husky install",
-    "lint:fix": "prettier --write ."
+    "lint:fix": "lint-staged"
   }
 }
