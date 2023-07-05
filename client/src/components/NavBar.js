@@ -2,12 +2,15 @@ import React from "react";
 import { NavLink, Link } from "react-router-dom";
 import { Button } from "semantic-ui-react";
 
-function NavBar({ setUser }) {
+function NavBar({ user, setUser }) {
   function handleLogout() {
     fetch("/logout", {
       method: "DELETE",
     }).then(() => setUser(null));
   }
+
+  // If there's no user, don't render
+  if (!user) return null;
 
   return (
     <header className="nav">

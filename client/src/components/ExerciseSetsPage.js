@@ -7,7 +7,7 @@ function ExerciseSetsPage({ user }) {
     fetch(`/users/${user.id}`)
       .then((res) => res.json())
       .then((sets) => setSetList(sets.workouts));
-  }, []);
+  });
   console.log(setList);
 
   const sets = setList
