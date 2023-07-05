@@ -11,20 +11,6 @@ class ExerciseSet < ApplicationRecord
       completed_at: nil,
       user_id: user_id
     )
-    ExerciseSet.create!(
-      reps: @reps,
-      weight: @weight,
-      exercise_id: exercise_id,
-      completed_at: nil,
-      user_id: user_id
-    )
-    ExerciseSet.create!(
-      reps: @reps,
-      weight: @weight,
-      exercise_id: exercise_id,
-      completed_at: nil,
-      user_id: user_id
-    )
   end
 
   #Rails automatically has typcasting when assigning values based off of the
