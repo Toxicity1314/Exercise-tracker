@@ -1,5 +1,3 @@
 import React from "react";
 
-export default function BlueprintSelection() {
-  
-}
+export default function BlueprintSelection() {}
