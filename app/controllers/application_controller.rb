@@ -5,13 +5,18 @@ class ApplicationController < ActionController::API
   before_action :authorized
 
   def authorized
-    return render json: { error: "Not Authorized" }, status: :unauthorized unless session.include? :user_id
+    unless session.include? :user_id
+      return render json: { error: "Not Authorized" }, status: :unauthorized
+    end
   end
 
   private
 
   def render_invalid(invalid)
-    render json: { errors: invalid.record.errors.full_messages }, status: :unprocessable_entity
+    render json: {
+             errors: invalid.record.errors.full_messages
+           },
+           status: :unprocessable_entity
   end
 
   def render_not_found(exception)
