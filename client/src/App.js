@@ -12,8 +12,6 @@ import NotFoundPage from "./components/NotFoundPage.tsx";
 function App() {
   const [user, setUser] = useState(null);
 
-  console.log("user", user);
-
   if (!user) {
     return (
       <div className="App">
