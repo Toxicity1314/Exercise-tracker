@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Route, Routes } from "react-router-dom";
-import NavBar from "./components/NavBar";
+import NavBar from "./components/NavBar.tsx";
 import WorkoutsPage from "./components/WorkoutsPage";
 import Home from "./components/Home";
 import PreviousWorkoutsPage from "./components/PreviousWorkoutsPage";
@@ -12,12 +12,26 @@ import NotFoundPage from "./components/NotFoundPage.tsx";
 function App() {
   const [user, setUser] = useState(null);
 
+  console.log("user", user);
+
+  if (!user) {
+    return (
+      <div className="App">
+        <NavBar setUser={setUser} user={user} />
+        <Routes>
+          <Route path="/" element={<Login setUser={setUser} />} />
+          <Route path="*" element={<NotFoundPage />} />
+        </Routes>
+      </div>
+    );
+  }
+
   return (
     <div className="App">
       <NavBar setUser={setUser} user={user} />
       <Routes>
         <Route path="/" element={<Login setUser={setUser} />} />
-        <Route path="/workouts" element={<WorkoutsPage />} />
+        <Route path="/workouts" element={<WorkoutsPage />} sd />
         <Route path="/currentworkout" element={<CurrentWorkout />} />
         <Route path="/previous" element={<PreviousWorkoutsPage />} />
         <Route
