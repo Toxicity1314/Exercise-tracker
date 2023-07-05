@@ -1,9 +1,12 @@
 class WorkoutsController < ApplicationController
   def create
-    workout = Workout.create!(name: params[:name], user_id: session[:user_id])
-    Exercise.create_exercise params[:id], workout[:id], session[:user_id]
-    #ExerciseSet.create_exercise_sets params[:id], workout[:id], session[:user_id]
-
+    # need to add a check for sets. Is it an appropriate number?
+    blueprint = Blueprint.find(params[:id])
+    workout = Workout.create!(name: blueprint.name, user_id: session[:user_id])
+    Exercise.create_exercise params[:id],
+                             workout[:id],
+                             params[:sets],
+                             session[:user_id]
     render json: workout, include: %w[exercises exercises.exercise_sets]
   end
 
