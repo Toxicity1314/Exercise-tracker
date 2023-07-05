@@ -6,7 +6,7 @@ import Home from "./components/Home";
 import PreviousWorkoutsPage from "./components/PreviousWorkoutsPage";
 import CurrentWorkout from "./components/CurrentWorkout";
 import ExerciseSetsPage from "./components/ExerciseSetsPage";
-import LoginV2 from "./components/LoginV2.tsx";
+import Login from "./components/Login.tsx";
 import NotFoundPage from "./components/NotFoundPage.tsx";
 
 function App() {
@@ -16,7 +16,7 @@ function App() {
     <div className="App">
       <NavBar setUser={setUser} user={user} />
       <Routes>
-        <Route path="/" element={<LoginV2 setUser={setUser} />} />
+        <Route path="/" element={<Login setUser={setUser} />} />
         <Route path="/workouts" element={<WorkoutsPage />} />
         <Route path="/currentworkout" element={<CurrentWorkout />} />
         <Route path="/previous" element={<PreviousWorkoutsPage />} />

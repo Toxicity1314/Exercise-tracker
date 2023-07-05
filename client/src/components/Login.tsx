@@ -8,9 +8,10 @@ import Link from "@mui/material/Link";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import { useNavigate } from "react-router-dom";
 
-export default function LoginV2({ setUser }) {
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
+export default function Login({ setUser }) {
+  const [username, setUsername] = useState<string | null>(null);
+  const [password, setPassword] = useState<string | null>(null);
+  const [loginErrors, setLoginErrors] = useState<string[]>([]);
   const navigate = useNavigate();
 
   const handleUsernameChange = (event) => {
@@ -48,9 +49,9 @@ export default function LoginV2({ setUser }) {
     if (statusCode === 401 && responseBody.errors) {
       // If there's a body and it contains errors, display that
       // Otherwise, display a generic error
-      console.error(responseBody.errors);
+      setLoginErrors(responseBody.errors);
     } else {
-      console.error("Invalid username or password");
+      setLoginErrors(["An unknown error occurred. Please try again."]);
     }
   };
 
@@ -108,6 +109,19 @@ export default function LoginV2({ setUser }) {
             Log In
           </Button>
         </Box>
+        {loginErrors.length > 0 && (
+          <Box sx={{ width: "100%" }}>
+            {loginErrors.map((error) => (
+              <Typography
+                key={error}
+                variant="body1"
+                sx={{ color: "red", textAlign: "center" }}
+              >
+                {error}
+              </Typography>
+            ))}
+          </Box>
+        )}
         <Link href="#" sx={{ textAlign: "right", width: "100%" }}>
           {"No account? Sign Up"}
         </Link>
