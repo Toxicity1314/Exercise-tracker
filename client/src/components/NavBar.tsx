@@ -24,7 +24,7 @@ export default function NavBar({ user, setUser }) {
         <Toolbar
           sx={{
             display: "flex",
-            justifyContent: "center",
+            justifyContent: "space-between",
           }}
         >
           <Box
@@ -52,17 +52,17 @@ export default function NavBar({ user, setUser }) {
             >
               Current Workout
             </Button>
-            <Button
-              component={Link}
-              to="/"
-              color="inherit"
-              variant="outlined"
-              size="large"
-              onClick={handleLogout}
-            >
-              Log Out
-            </Button>
           </Box>
+          <Button
+            component={Link}
+            to="/"
+            color="inherit"
+            variant="outlined"
+            size="large"
+            onClick={handleLogout}
+          >
+            Log Out
+          </Button>
         </Toolbar>
       </AppBar>
     </Box>
