@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Route, Routes, useLocation } from "react-router-dom";
+import { Route, Routes } from "react-router-dom";
 import NavBar from "./components/NavBar.tsx";
 import WorkoutsPage from "./components/WorkoutsPage";
 import Home from "./components/Home";
@@ -11,7 +11,6 @@ import NotFoundPage from "./components/NotFoundPage.tsx";
 import BlueprintSelection from "./components/BlueprintSelection.tsx";
 
 function App() {
-  const location = useLocation();
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
 
