@@ -1,9 +1,9 @@
 import React from "react";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
-import List from '@mui/material/List';
-import ListItem from '@mui/material/ListItem';
-import Divider from '@mui/material/Divider';
+import List from "@mui/material/List";
+import ListItem from "@mui/material/ListItem";
+import Divider from "@mui/material/Divider";
 
 export type BlueprintCardProps = {
   id: number;
@@ -11,11 +11,13 @@ export type BlueprintCardProps = {
   exercises: {
     id: number;
     name: string;
-  }[]
-}
+  }[];
+};
 
-export default function BlueprintCard({ 
-  id, name, exercises
+export default function BlueprintCard({
+  id,
+  name,
+  exercises,
 }: BlueprintCardProps) {
   return (
     <Box
@@ -31,10 +33,11 @@ export default function BlueprintCard({
     >
       <Box
         sx={{
-          margin: ".75rem"
+          margin: ".75rem",
         }}
       >
-        <Typography variant="h4"
+        <Typography
+          variant="h4"
           sx={{
             textAlign: "center",
             textTransform: "Capitalize",
@@ -43,19 +46,19 @@ export default function BlueprintCard({
           {name.split(" ").join(" - ")}
         </Typography>
       </Box>
-      <Divider 
-          sx={{
-            marginLeft: "10%",
-            marginRight: "10%",
-          }}
-        />
+      <Divider
+        sx={{
+          marginLeft: "10%",
+          marginRight: "10%",
+        }}
+      />
       <List
         sx={{
           flexGrow: 1,
         }}
       >
         {exercises.map((exercise) => (
-          <ListItem 
+          <ListItem
             key={exercise.id}
             sx={{
               paddingTop: "0px",
@@ -78,5 +81,5 @@ export default function BlueprintCard({
         ))}
       </List>
     </Box>
-  )
+  );
 }

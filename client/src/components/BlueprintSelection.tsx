@@ -13,8 +13,8 @@ type BlueprintsResponse = {
     blueprint_id: number;
     instructions: string;
     pic_url?: string;
-  }[]
-}
+  }[];
+};
 
 export default function BlueprintSelection() {
   const [blueprints, setBlueprints] = useState<BlueprintCardProps[]>([]);
@@ -39,8 +39,7 @@ export default function BlueprintSelection() {
     }
 
     fetchBlueprints();
-  },);
-
+  });
 
   if (!blueprints) return null;
 
@@ -59,7 +58,10 @@ export default function BlueprintSelection() {
             padding: "1rem",
           }}
         >
-          <Typography variant="h3" sx={{ textAlign: "center", fontWeight: "bold" }}>
+          <Typography
+            variant="h3"
+            sx={{ textAlign: "center", fontWeight: "bold" }}
+          >
             Select a Workout
           </Typography>
         </Box>
