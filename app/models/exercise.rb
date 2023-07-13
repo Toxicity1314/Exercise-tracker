@@ -3,7 +3,6 @@ class Exercise < ApplicationRecord
   has_many :exercise_sets, dependent: :destroy
 
   def self.create_exercise(blueprint_id, workout_id, sets, user_id)
-    sets = 3
     @blueprint = Blueprint.find(blueprint_id)
     exercises = @blueprint.exercises.where(workout_id: nil)
     exercises.each do |exercise|
