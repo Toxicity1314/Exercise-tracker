@@ -47,8 +47,6 @@ export default function BlueprintSelection() {
   });
 
   const handleSelectBlueprint = (selectedBlueprint: { id: number; name: string }) => {
-    console.log('yo')
-
     setSelectedBlueprint(selectedBlueprint);
     setIsModalOpen(true);
   };
