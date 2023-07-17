@@ -3,6 +3,7 @@ import Box from "@mui/material/Box";
 import Container from "@mui/material/Container";
 import BlueprintCard, { BlueprintCardProps } from "./BlueprintCard.tsx";
 import Typography from "@mui/material/Typography";
+import SetSelectorModal from "./SetSelectorModal.tsx";
 
 type BlueprintsResponse = {
   id: number;
@@ -18,6 +19,10 @@ type BlueprintsResponse = {
 
 export default function BlueprintSelection() {
   const [blueprints, setBlueprints] = useState<BlueprintCardProps[]>([]);
+  const [selectedBlueprint, setSelectedBlueprint] = useState<{ id: number; name: string } | null>(
+    null
+  );
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   useEffect(() => {
     async function fetchBlueprints() {
@@ -40,6 +45,17 @@ export default function BlueprintSelection() {
 
     fetchBlueprints();
   });
+
+  const handleSelectBlueprint = (selectedBlueprint: { id: number; name: string }) => {
+    console.log('yo')
+
+    setSelectedBlueprint(selectedBlueprint);
+    setIsModalOpen(true);
+  };
+
+  const handleModalClose = () => {
+    setIsModalOpen(false);
+  };
 
   if (!blueprints) return null;
 
@@ -80,14 +96,23 @@ export default function BlueprintSelection() {
         >
           {/* Map over Blueprints, display workout */}
           {blueprints.map((blueprint) => (
-            <BlueprintCard
-              id={blueprint.id}
-              name={blueprint.name}
-              exercises={blueprint.exercises}
-            />
+            <Box
+              onClick={() => handleSelectBlueprint(blueprint)}
+            >
+              <BlueprintCard
+                key={blueprint.id}
+                id={blueprint.id}
+                name={blueprint.name}
+                exercises={blueprint.exercises}
+              />
+            </Box>
           ))}
         </Box>
       </Box>
+      <SetSelectorModal
+            open={isModalOpen}
+            onClose={handleModalClose}
+          />
     </Container>
   );
 }
