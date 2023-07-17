@@ -108,6 +108,7 @@ export default function BlueprintSelection() {
         </Box>
       </Box>
       <SetSelectorModal
+            title={selectedBlueprint?.name.split(" ").join(" - ") || ""}
             open={isModalOpen}
             onClose={handleModalClose}
           />
