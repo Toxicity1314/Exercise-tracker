@@ -94,6 +94,34 @@ export default function SetSelectorModal({
               +
             </Button>
           </Box>
+          <Box
+            display={"flex"}
+            justifyContent={"space-between"}
+            sx={{
+              marginTop: "2rem",
+            }}
+          >
+            <Button
+              variant="contained"
+              sx={{
+                mt: 2,
+                width: "30%",
+              }}
+              onClick={onClose}
+            >
+              Start
+            </Button>
+            <Button
+              variant="outlined"
+              sx={{
+                mt: 2,
+                width: "30%",
+              }}
+              onClick={onClose}
+            >
+              Cancel
+            </Button>
+          </Box>
         </Box>
       </Modal>
     </div>
