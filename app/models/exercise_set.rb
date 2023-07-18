@@ -4,9 +4,13 @@ class ExerciseSet < ApplicationRecord
   def self.create_exercise_sets(exercise_id, user_id)
     @reps = 8
     @weight = 5
-    ExerciseSet.create!(reps: @reps, weight: @weight, exercise_id: exercise_id, completed_at: nil, user_id: user_id)
-    ExerciseSet.create!(reps: @reps, weight: @weight, exercise_id: exercise_id, completed_at: nil, user_id: user_id)
-    ExerciseSet.create!(reps: @reps, weight: @weight, exercise_id: exercise_id, completed_at: nil, user_id: user_id)
+    ExerciseSet.create!(
+      reps: @reps,
+      weight: @weight,
+      exercise_id: exercise_id,
+      completed_at: nil,
+      user_id: user_id
+    )
   end
 
   #Rails automatically has typcasting when assigning values based off of the
@@ -18,9 +22,7 @@ class ExerciseSet < ApplicationRecord
   # throws an error. Second if statement should catch any other issues(not sure if needed). Finally if
   #all error raising is avoided super(value) sets :completed_at utilizing the default attribute writer
   def completed_at=(value)
-    if value.is_a?(String)
-      value = value.to_datetime
-    end
+    value = value.to_datetime if value.is_a?(String)
 
     if value.present? && !value.is_a?(DateTime)
       raise ArgumentError, "completed_at must be a valid datetime"
