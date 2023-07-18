@@ -41,7 +41,7 @@ export default function Login({ setUser }) {
         username: responseBody.username,
       });
 
-      navigate("/workouts");
+      navigate("/blueprints");
 
       return;
     }
