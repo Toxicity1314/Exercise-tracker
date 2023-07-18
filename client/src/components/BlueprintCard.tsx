@@ -30,6 +30,7 @@ export default function BlueprintCard({
         boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.5)",
         display: "flex",
         flexDirection: "column",
+        cursor: "pointer",
       }}
     >
       <Box

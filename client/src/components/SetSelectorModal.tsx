@@ -27,7 +27,7 @@ export default function SetSelectorModal({
   onClose,
   title,
 }: SetSelectorModalProps) {
-  const [sets, setSets] = useState(0);
+  const [sets, setSets] = useState(3);
 
   const handleIncrement = () => {
     setSets((prevSets) => prevSets + 1);
