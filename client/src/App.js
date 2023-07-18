@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Route, Routes } from "react-router-dom";
 import NavBar from "./components/NavBar.tsx";
-import WorkoutsPage from "./components/WorkoutsPage";
 import Home from "./components/Home";
 import PreviousWorkoutsPage from "./components/PreviousWorkoutsPage";
 import CurrentWorkout from "./components/CurrentWorkout";
@@ -50,7 +49,6 @@ function App() {
       <NavBar setUser={setUser} user={user} />
       <Routes>
         <Route path="/" element={<Login setUser={setUser} />} />
-        <Route path="/workouts" element={<WorkoutsPage />} />
         <Route path="/blueprint" element={<BlueprintSelection />} />
         <Route path="/currentworkout" element={<CurrentWorkout />} />
         <Route path="/previous" element={<PreviousWorkoutsPage />} />
