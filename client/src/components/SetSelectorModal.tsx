@@ -7,7 +7,9 @@ import Button from "@mui/material/Button";
 type SetSelectorModalProps = {
   title: string;
   open: boolean;
-  onClose: () => void;
+  blueprintId: number;
+  onModalCancel: () => void;
+  onModalStart: (sets: number, blueprintId: number) => void;
 };
 
 const style = {
@@ -24,8 +26,10 @@ const style = {
 
 export default function SetSelectorModal({
   open,
-  onClose,
   title,
+  blueprintId,
+  onModalCancel,
+  onModalStart,
 }: SetSelectorModalProps) {
   const [sets, setSets] = useState(3);
 
@@ -43,7 +47,7 @@ export default function SetSelectorModal({
     <div>
       <Modal
         open={open}
-        onClose={onClose}
+        onClose={onModalCancel}
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
       >
@@ -107,7 +111,7 @@ export default function SetSelectorModal({
                 mt: 2,
                 width: "30%",
               }}
-              onClick={onClose}
+              onClick={() => onModalStart(sets, blueprintId)}
             >
               Start
             </Button>
@@ -117,7 +121,7 @@ export default function SetSelectorModal({
                 mt: 2,
                 width: "30%",
               }}
-              onClick={onClose}
+              onClick={onModalCancel}
             >
               Cancel
             </Button>

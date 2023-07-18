@@ -4,6 +4,7 @@ import Container from "@mui/material/Container";
 import BlueprintCard, { BlueprintCardProps } from "./BlueprintCard.tsx";
 import Typography from "@mui/material/Typography";
 import SetSelectorModal from "./SetSelectorModal.tsx";
+import { useNavigate } from "react-router-dom";
 
 type BlueprintsResponse = {
   id: number;
@@ -23,6 +24,8 @@ export default function BlueprintSelection() {
     null
   );
   const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     async function fetchBlueprints() {
@@ -51,8 +54,25 @@ export default function BlueprintSelection() {
     setIsModalOpen(true);
   };
 
-  const handleModalClose = () => {
+  const handleModalCancel = () => {
     setIsModalOpen(false);
+  };
+
+  const handleModalStart = async (sets: number, blueprintId: number) => {
+    setIsModalOpen(false);
+
+    const response = await fetch("/workouts", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ 
+        id: blueprintId,
+        sets,
+      }),
+    });
+
+    if (response.ok) {
+      navigate("/currentworkout");
+    }
   };
 
   if (!blueprints) return null;
@@ -110,7 +130,9 @@ export default function BlueprintSelection() {
       <SetSelectorModal
             title={selectedBlueprint?.name.split(" ").join(" - ") || ""}
             open={isModalOpen}
-            onClose={handleModalClose}
+            blueprintId={selectedBlueprint?.id || 0}
+            onModalCancel={handleModalCancel}
+            onModalStart={handleModalStart}
           />
     </Container>
   );
