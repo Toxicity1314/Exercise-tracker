@@ -19,7 +19,6 @@ export default function BlueprintCard({
   name,
   exercises,
 }: BlueprintCardProps) {
-
   return (
     <Box
       sx={{

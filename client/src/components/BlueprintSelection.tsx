@@ -20,9 +20,10 @@ type BlueprintsResponse = {
 
 export default function BlueprintSelection() {
   const [blueprints, setBlueprints] = useState<BlueprintCardProps[]>([]);
-  const [selectedBlueprint, setSelectedBlueprint] = useState<{ id: number; name: string } | null>(
-    null
-  );
+  const [selectedBlueprint, setSelectedBlueprint] = useState<{
+    id: number;
+    name: string;
+  } | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const navigate = useNavigate();
@@ -49,7 +50,10 @@ export default function BlueprintSelection() {
     fetchBlueprints();
   });
 
-  const handleSelectBlueprint = (selectedBlueprint: { id: number; name: string }) => {
+  const handleSelectBlueprint = (selectedBlueprint: {
+    id: number;
+    name: string;
+  }) => {
     setSelectedBlueprint(selectedBlueprint);
     setIsModalOpen(true);
   };
@@ -64,7 +68,7 @@ export default function BlueprintSelection() {
     const response = await fetch("/workouts", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ 
+      body: JSON.stringify({
         id: blueprintId,
         sets,
       }),
@@ -114,9 +118,7 @@ export default function BlueprintSelection() {
         >
           {/* Map over Blueprints, display workout */}
           {blueprints.map((blueprint) => (
-            <Box
-              onClick={() => handleSelectBlueprint(blueprint)}
-            >
+            <Box onClick={() => handleSelectBlueprint(blueprint)}>
               <BlueprintCard
                 key={blueprint.id}
                 id={blueprint.id}
@@ -128,12 +130,12 @@ export default function BlueprintSelection() {
         </Box>
       </Box>
       <SetSelectorModal
-            title={selectedBlueprint?.name.split(" ").join(" - ") || ""}
-            open={isModalOpen}
-            blueprintId={selectedBlueprint?.id || 0}
-            onModalCancel={handleModalCancel}
-            onModalStart={handleModalStart}
-          />
+        title={selectedBlueprint?.name.split(" ").join(" - ") || ""}
+        open={isModalOpen}
+        blueprintId={selectedBlueprint?.id || 0}
+        onModalCancel={handleModalCancel}
+        onModalStart={handleModalStart}
+      />
     </Container>
   );
 }
