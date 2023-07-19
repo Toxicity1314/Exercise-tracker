@@ -8,62 +8,117 @@ RSpec.describe Exercise, type: :model do
     let(:blueprint) { Blueprint.create(name: "Shoulder Abs") }
 
     before do
-      puts blueprint[:id]
-      puts user.id
-      Exercise.create(
-        blueprint_id: blueprint[:id],
-        name: "Seated dumbbell shoulder press",
-        instructions:
-          "While holding a dumbbell in each hand, sit on a military press bench or utility bench that has back support. Place the dumbbells upright on top of your thighs. Now raise the dumbbells to shoulder height one at a time using your thighs to help propel them up into position. Make sure to rotate your wrists so that the palms of your hands are facing forward. This is your starting position. Now, exhale and push the dumbbells upward until they touch at the top. Then, after a brief pause at the top contracted position, slowly lower the weights back down to the starting position while inhaling. Repeat for the recommended amount of repetitions. Variations: You can perform the exercise standing or sitting on a regular flat bench. For people with lower back problems, the version described is the recommended one. You can also perform the exercise as Arnold Schwarzenegger used to do it, which is to start holding the dumbbells with a supinated grip (palms facing you) in front of your shoulders and then, as you start pushing up, you align the dumbbells in the starting position described on step 3 by rotating your wrists and touch the dumbbells at the top. As you come down, then you would go back to the starting position by rotating the wrist throughout the lowering portion until the palms of your hands are facing you. This variation is called the Arnold Press. However, it is not recommended if you have rotator cuff problems.",
-        weight: 5,
-        reps: 8
-      )
+      increase_rep_by_1 =
+        Exercise.create(
+          blueprint_id: blueprint[:id],
+          name: "Seated dumbbell shoulder press",
+          instructions:
+            "While holding a dumbbell in each hand, sit on a military press bench or utility bench that has back support. Place the dumbbells upright on top of your thighs. Now raise the dumbbells to shoulder height one at a time using your thighs to help propel them up into position. Make sure to rotate your wrists so that the palms of your hands are facing forward. This is your starting position. Now, exhale and push the dumbbells upward until they touch at the top. Then, after a brief pause at the top contracted position, slowly lower the weights back down to the starting position while inhaling. Repeat for the recommended amount of repetitions. Variations: You can perform the exercise standing or sitting on a regular flat bench. For people with lower back problems, the version described is the recommended one. You can also perform the exercise as Arnold Schwarzenegger used to do it, which is to start holding the dumbbells with a supinated grip (palms facing you) in front of your shoulders and then, as you start pushing up, you align the dumbbells in the starting position described on step 3 by rotating your wrists and touch the dumbbells at the top. As you come down, then you would go back to the starting position by rotating the wrist throughout the lowering portion until the palms of your hands are facing you. This variation is called the Arnold Press. However, it is not recommended if you have rotator cuff problems.",
+          weight: 5,
+          reps: 8,
+          user_id: user[:id]
+        )
+      4.times do
+        ExerciseSet.create(
+          weight: 5,
+          reps: 8,
+          exercise_id: increase_rep_by_1.id,
+          completed_at: DateTime.now,
+          user_id: user[:id]
+        )
+      end
 
-      Exercise.create(
-        blueprint_id: blueprint[:id],
-        name: "Side Lateral Raise",
-        instructions:
-          "Pick a couple of dumbbells and stand with a straight torso and the dumbbells by your side at arms length with the palms of the hand facing you. This will be your starting position. While maintaining the torso in a stationary position (no swinging), lift the dumbbells to your side with a slight bend on the elbow and the hands slightly tilted forward as if pouring water in a glass. Continue to go up until you arms are parallel to the floor. Exhale as you execute this movement and pause for a second at the top. Lower the dumbbells back down slowly to the starting position as you inhale. Repeat for the recommended amount of repetitions. Variation: This exercise can also be performed sitting down.",
-        weight: 5,
-        reps: 8
-      )
+      reduce_rep_by_1 =
+        Exercise.create(
+          blueprint_id: blueprint[:id],
+          name: "Side Lateral Raise",
+          instructions:
+            "Pick a couple of dumbbells and stand with a straight torso and the dumbbells by your side at arms length with the palms of the hand facing you. This will be your starting position. While maintaining the torso in a stationary position (no swinging), lift the dumbbells to your side with a slight bend on the elbow and the hands slightly tilted forward as if pouring water in a glass. Continue to go up until you arms are parallel to the floor. Exhale as you execute this movement and pause for a second at the top. Lower the dumbbells back down slowly to the starting position as you inhale. Repeat for the recommended amount of repetitions. Variation: This exercise can also be performed sitting down.",
+          weight: 5,
+          reps: 9,
+          user_id: user[:id]
+        )
+      3.times do
+        ExerciseSet.create(
+          weight: 5,
+          reps: 8,
+          exercise_id: reduce_rep_by_1.id,
+          completed_at: DateTime.now,
+          user_id: user[:id]
+        )
+      end
 
-      Exercise.create(
-        blueprint_id: blueprint[:id],
-        name: "Dumbbell side bend",
-        instructions:
-          "Stand up straight while holding a dumbbell on the left hand (palms facing the torso) as you have the right hand holding your waist. Your feet should be placed at shoulder width. This will be your starting position. While keeping your back straight and your head up, bend only at the waist to the right as far as possible. Breathe in as you bend to the side. Then hold for a second and come back up to the starting position as you exhale. Tip: Keep the rest of the body stationary. Now repeat the movement but bending to the left instead. Hold for a second and come back to the starting position. Repeat for the recommended amount of repetitions and then change hands. Caution: Refrain from using this exercise if your obliques tend to grow easily as wide obliques take away from your symmetry. Variations: You can also do this exercise while seating on a bench or with a barbell.",
-        weight: 5,
-        reps: 8
-      )
+      change_rep_to_8_weight_to_10 =
+        Exercise.create(
+          blueprint_id: blueprint[:id],
+          name: "Dumbbell side bend",
+          instructions:
+            "Stand up straight while holding a dumbbell on the left hand (palms facing the torso) as you have the right hand holding your waist. Your feet should be placed at shoulder width. This will be your starting position. While keeping your back straight and your head up, bend only at the waist to the right as far as possible. Breathe in as you bend to the side. Then hold for a second and come back up to the starting position as you exhale. Tip: Keep the rest of the body stationary. Now repeat the movement but bending to the left instead. Hold for a second and come back to the starting position. Repeat for the recommended amount of repetitions and then change hands. Caution: Refrain from using this exercise if your obliques tend to grow easily as wide obliques take away from your symmetry. Variations: You can also do this exercise while seating on a bench or with a barbell.",
+          weight: 5,
+          reps: 10,
+          user_id: user[:id]
+        )
+      4.times do
+        ExerciseSet.create(
+          weight: 5,
+          reps: 10,
+          exercise_id: change_rep_to_8_weight_to_10.id,
+          completed_at: DateTime.now,
+          user_id: user[:id]
+        )
+      end
 
-      Exercise.create(
-        blueprint_id: blueprint[:id],
-        name: "Seated dumbbell shoulder press",
-        instructions:
-          "Sit on an exercise bench with back support and hold two dumbbells in front of you at about upper chest level with your palms facing your body and your elbows bent. Tip: Your arms should be next to your torso. The starting position should look like the contracted portion of a dumbbell curl. Now to perform the movement, raise the dumbbells as you rotate the palms of your hands until they are facing forward. Continue lifting the dumbbells until your arms are extended above you in straight arm position. Breathe out as you perform this portion of the movement. After a second pause at the top, begin to lower the dumbbells to the original position by rotating the palms of your hands towards you. Tip: The left arm will be rotated in a counter clockwise manner while the right one will be rotated clockwise. Breathe in as you perform this portion of the movement. Repeat for the recommended amount of repetitions. Variations: You can perform the exercise standing up but that is not recommended for people with lower back issues.",
-        weight: 5,
-        reps: 8
-      )
+      change_weight_to_10 =
+        Exercise.create(
+          blueprint_id: blueprint[:id],
+          name: "Seated dumbbell shoulder press",
+          instructions:
+            "Sit on an exercise bench with back support and hold two dumbbells in front of you at about upper chest level with your palms facing your body and your elbows bent. Tip: Your arms should be next to your torso. The starting position should look like the contracted portion of a dumbbell curl. Now to perform the movement, raise the dumbbells as you rotate the palms of your hands until they are facing forward. Continue lifting the dumbbells until your arms are extended above you in straight arm position. Breathe out as you perform this portion of the movement. After a second pause at the top, begin to lower the dumbbells to the original position by rotating the palms of your hands towards you. Tip: The left arm will be rotated in a counter clockwise manner while the right one will be rotated clockwise. Breathe in as you perform this portion of the movement. Repeat for the recommended amount of repetitions. Variations: You can perform the exercise standing up but that is not recommended for people with lower back issues.",
+          weight: 5,
+          reps: 7,
+          user_id: user[:id]
+        )
+      4.times do
+        ExerciseSet.create(
+          weight: 10,
+          reps: 7,
+          exercise_id: change_weight_to_10.id,
+          completed_at: DateTime.now,
+          user_id: user[:id]
+        )
+      end
 
-      Exercise.create(
-        blueprint_id: blueprint[:id],
-        name: "Cocoons",
-        instructions:
-          "Begin by lying on your back on the ground. Your legs should be straight and your arms extended behind your head. This will be your starting position. To perform the movement, tuck the knees toward your chest, rotating your pelvis to lift your glutes from the floor. As you do so, flex the spine, bringing your arms back over your head to perform a simultaneous crunch motion. After a brief pause, return to the starting position.",
-        weight: 5,
-        reps: 8
-      )
+      change_weight_to_3 =
+        Exercise.create(
+          blueprint_id: blueprint[:id],
+          name: "Cocoons",
+          instructions:
+            "Begin by lying on your back on the ground. Your legs should be straight and your arms extended behind your head. This will be your starting position. To perform the movement, tuck the knees toward your chest, rotating your pelvis to lift your glutes from the floor. As you do so, flex the spine, bringing your arms back over your head to perform a simultaneous crunch motion. After a brief pause, return to the starting position.",
+          weight: 3,
+          reps: 8,
+          user_id: user[:id]
+        )
+      5.times do
+        ExerciseSet.create(
+          weight: 20,
+          reps: 8,
+          exercise_id: change_weight_to_3.id,
+          completed_at: DateTime.now,
+          user_id: user[:id]
+        )
+      end
       @exercise =
         Exercise.create_exercise(blueprint[:id], workout_id, sets, user[:id])
     end
 
-    it "creates an exercise with the correct weight" do
+    it "increases reps by 1 when all sets from last workout are successful and reps are <10" do
       expect(@exercise.first[:weight]).to eq(5)
+      expect(@exercise.first[:reps]).to eq(9)
     end
 
-    it "creates an exercise with the correct reps" do
-      expect(@exercise.first[:reps]).to eq(8)
+    it "reduces reps to the same amount as the last failed set" do
+      expect(@exercise.second[:reps]).to eq(8)
+      expect(@exercise.second[:weight]).to eq(5)
     end
   end
 end

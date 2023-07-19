@@ -6,8 +6,9 @@ class Exercise < ApplicationRecord
     @blueprint = Blueprint.find(blueprint_id)
     exercises = @blueprint.exercises.where(workout_id: nil)
     exercises.each do |exercise|
-      weight = 5
-      reps = 8
+      weight, reps =
+        exercise.set_weight_and_reps(user_id).values_at(:weight, :reps)
+      debugger
       new_exercise =
         Exercise.create!(
           name: exercise["name"],
@@ -21,6 +22,17 @@ class Exercise < ApplicationRecord
       sets.times do
         ExerciseSet.create_exercise_sets new_exercise["id"], user_id
       end
+    end
+  end
+  def set_weight_and_reps(user_id)
+    exercise =
+      Exercise.where(name: name, user_id: user_id).order(:created_at).last
+    if exercise
+      sets =
+        ExerciseSet.where(exercise_id: exercise.id).where.not(completed_at: nil)
+      return { weight: 100, reps: 200 }
+    else
+      { weight: 5, reps: 8 }
     end
   end
 end
