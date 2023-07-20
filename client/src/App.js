@@ -58,7 +58,7 @@ function App() {
         <Route path="/" element={<Login setUser={setUser} />} />
         <Route path="/blueprints" element={<BlueprintSelection />} />
         <Route path="/currentworkout" element={<CurrentWorkout />} />
-        <Route path="current-workout" element={<CurrentWorkoutPage />} />
+        <Route path="/current-workout" element={<CurrentWorkoutPage />} />
         <Route path="/previous" element={<PreviousWorkoutsPage />} />
         <Route
           path="/exercise_sets"

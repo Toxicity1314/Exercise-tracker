@@ -99,18 +99,21 @@ export default function BlueprintSelection() {
             justifyContent: "center",
           }}
         >
-        <Box
-          sx={{
-            width: "100%",
-          }}
-        >
-          <Typography component="h1" variant="h2" 
-          sx = {{
-            textAlign: "center",
-          }}>
-            Select a Workout
-          </Typography>
-        </Box>
+          <Box
+            sx={{
+              width: "100%",
+            }}
+          >
+            <Typography
+              component="h1"
+              variant="h2"
+              sx={{
+                textAlign: "center",
+              }}
+            >
+              Select a Workout
+            </Typography>
+          </Box>
 
           {/* Map over Blueprints, display workout */}
           {blueprints.map((blueprint) => (
