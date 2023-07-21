@@ -8,7 +8,7 @@ class Exercise < ApplicationRecord
     exercises.each do |exercise|
       weight, reps =
         exercise.set_weight_and_reps(user_id).values_at(:weight, :reps)
-      debugger
+      #  debugger
       new_exercise =
         Exercise.create!(
           name: exercise["name"],
@@ -30,9 +30,16 @@ class Exercise < ApplicationRecord
     if exercise
       sets =
         ExerciseSet.where(exercise_id: exercise.id).where.not(completed_at: nil)
-      return { weight: 100, reps: 200 }
+      if sets.all? { |set|
+           set[:weight] > exercise.weight && set[:reps] == exercise.reps
+         }
+        # debugger
+        return { weight: exercise.weight, reps: exercise.reps += 1 }
+      else
+        return { weight: 100, reps: 100 }
+      end
     else
-      { weight: 5, reps: 8 }
+      return { weight: 20, reps: 80 }
     end
   end
 end
