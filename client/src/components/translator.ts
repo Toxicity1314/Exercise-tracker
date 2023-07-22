@@ -7,6 +7,7 @@ export function translateRawCurrentWorkout(rawCurrentWorkout: RawCurrentWorkout)
     exercises: rawCurrentWorkout.exercises.map((rawCurrentExercise) => {
       return {
         id: rawCurrentExercise.id,
+        name: rawCurrentExercise.name,
         blueprintId: rawCurrentExercise.blueprint_id,
         instructions: rawCurrentExercise.instructions,
         workoutId: rawCurrentExercise.workout_id,

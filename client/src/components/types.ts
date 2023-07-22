@@ -7,6 +7,7 @@ export type RawExerciseSet = {
 
 export type RawCurrentExercise = {
   id: number;
+  name: string;
   blueprint_id: number;
   instructions: string;
   workout_id: number;
@@ -30,6 +31,7 @@ export type ExerciseSet = {
 
 export type CurrentExercise = {
   id: number;
+  name: string;
   blueprintId: number;
   instructions: string;
   workoutId: number;

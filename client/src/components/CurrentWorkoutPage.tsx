@@ -2,10 +2,8 @@ import React, { useEffect, useState } from "react";
 import { RawCurrentWorkout, CurrentWorkout } from "./types.ts";
 import { translateRawCurrentWorkout } from "./translator.ts";
 import Container from "@mui/material/Container";
-import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
-import ArrowBackIcon from '@mui/icons-material/ArrowBack';
-import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
+import CurrentExerciseCard from "./CurrentExerciseCard.tsx";
 
 export default function CurrentWorkoutPage() {
   const [currentWorkout, setCurrentWorkout] = useState<CurrentWorkout | null>(null);
@@ -24,7 +22,7 @@ export default function CurrentWorkoutPage() {
 
       setCurrentWorkout(currentWorkout);
 
-      console.log(currentWorkout)
+      console.log(data)
     }
 
     fetchCurrentWorkout();
@@ -47,56 +45,10 @@ export default function CurrentWorkoutPage() {
           flexDirection: "column",
         }}
       >
-        <Box
-          sx={{
-            display: "flex",
-            flexDirection: "row",
-          }}
-        >
-          <Box
-            sx={{
-              backgroundColor: "#e6e6e6",
-              borderRadius: "50%",
-              padding: "20px",
-              height: "20px",
-              width: "20px",
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-            }}
-          >
-            <ArrowBackIcon />
-          </Box>
-          <Typography
-            variant="h4"
-            sx={{
-              textAlign: "center",
-              textTransform: "Capitalize",
-              width: "100%"
-            }}
-          >
-            {currentWorkout.name}
-          </Typography>
-          <Box
-            sx={{
-              backgroundColor: "#e6e6e6",
-              borderRadius: "50%",
-              padding: "20px",
-              height: "20px",
-              width: "20px",
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-            }}
-          >
-            <ArrowForwardIcon />
-          </Box>
-        </Box>
-        <Typography
-          component="h3"
-        >
-          Something
-        </Typography>
+        <CurrentExerciseCard 
+          id={currentWorkout.exercises[0].id}
+          name={currentWorkout.exercises[0].name}
+        />
       </Box>
     </Container>
   );
