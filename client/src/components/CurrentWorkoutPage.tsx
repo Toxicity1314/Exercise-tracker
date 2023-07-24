@@ -48,6 +48,7 @@ export default function CurrentWorkoutPage() {
         <CurrentExerciseCard 
           id={currentWorkout.exercises[0].id}
           name={currentWorkout.exercises[0].name}
+          exerciseSets={currentWorkout.exercises[0].exerciseSets}
         />
       </Box>
     </Container>
