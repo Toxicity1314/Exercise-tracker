@@ -98,28 +98,47 @@ RSpec.describe Exercise, type: :model do
           user_id: user[:id]
         )
       end
-      @exercise =
-        Exercise.create_exercise(blueprint[:id], workout_id, sets, user[:id])
+      Exercise.create_exercise(blueprint[:id], workout_id, sets, user[:id])
     end
 
     it "No previous exercise sets. Automatically set new exercise to weight 5 reps 8" do
-      expect(@exercise.first[:weight]).to eq(5)
-      expect(@exercise.first[:reps]).to eq(8)
+      exercise =
+        Exercise
+          .where(name: "Seated dumbbell shoulder press", user_id: user[:id])
+          .order(:created_at)
+          .last
+      expect(exercise[:weight]).to eq(5)
+      expect(exercise[:reps]).to eq(8)
     end
 
     it "previous exercise successful reps <10(user completed all sets at the weight and reps originally assigned)" do
-      expect(@exercise.second[:weight]).to eq(5)
-      expect(@exercise.second[:reps]).to eq(10)
+      exercise =
+        Exercise
+          .where(name: "Side Lateral Raise", user_id: user[:id])
+          .order(:created_at)
+          .last
+      expect(exercise[:weight]).to eq(5)
+      expect(exercise[:reps]).to eq(10)
     end
 
     it "previous exercise successful reps >=10(user completed all sets at the weight and reps originally assigned)" do
-      expect(@exercise.third[:weight]).to eq(10)
-      expect(@exercise.third[:reps]).to eq(8)
+      exercise =
+        Exercise
+          .where(name: "Dumbbell side bend", user_id: user[:id])
+          .order(:created_at)
+          .last
+      expect(exercise[:weight]).to eq(10)
+      expect(exercise[:reps]).to eq(8)
     end
 
     it "previous exercise successful (user manually changed exercise sets weight or reps to a value higher than the exercise weight and rep)" do
-      expect(@exercise.fourth[:weight]).to eq(10)
-      expect(@exercise.fourth[:reps]).to eq(10)
+      exercise =
+        Exercise
+          .where(name: "Arnold press", user_id: user[:id])
+          .order(:created_at)
+          .last
+      expect(exercise[:weight]).to eq(10)
+      expect(exercise[:reps]).to eq(10)
     end
   end
 end
