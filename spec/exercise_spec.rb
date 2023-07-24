@@ -8,27 +8,17 @@ RSpec.describe Exercise, type: :model do
     let(:blueprint) { Blueprint.create(name: "Shoulder Abs") }
 
     before do
-      increase_rep_by_1 =
+      no_previous_exercise_sets =
         Exercise.create(
           blueprint_id: blueprint[:id],
           name: "Seated dumbbell shoulder press",
           instructions:
             "While holding a dumbbell in each hand, sit on a military press bench or utility bench that has back support. Place the dumbbells upright on top of your thighs. Now raise the dumbbells to shoulder height one at a time using your thighs to help propel them up into position. Make sure to rotate your wrists so that the palms of your hands are facing forward. This is your starting position. Now, exhale and push the dumbbells upward until they touch at the top. Then, after a brief pause at the top contracted position, slowly lower the weights back down to the starting position while inhaling. Repeat for the recommended amount of repetitions. Variations: You can perform the exercise standing or sitting on a regular flat bench. For people with lower back problems, the version described is the recommended one. You can also perform the exercise as Arnold Schwarzenegger used to do it, which is to start holding the dumbbells with a supinated grip (palms facing you) in front of your shoulders and then, as you start pushing up, you align the dumbbells in the starting position described on step 3 by rotating your wrists and touch the dumbbells at the top. As you come down, then you would go back to the starting position by rotating the wrist throughout the lowering portion until the palms of your hands are facing you. This variation is called the Arnold Press. However, it is not recommended if you have rotator cuff problems.",
           weight: 5,
-          reps: 7,
-          user_id: user[:id]
+          reps: 8
         )
-      4.times do
-        ExerciseSet.create(
-          weight: 5,
-          reps: 7,
-          exercise_id: increase_rep_by_1.id,
-          completed_at: DateTime.now,
-          user_id: user[:id]
-        )
-      end
 
-      reduce_rep_by_1 =
+      previous_exercise_successful_reps_less_than_10 =
         Exercise.create(
           blueprint_id: blueprint[:id],
           name: "Side Lateral Raise",
@@ -41,14 +31,14 @@ RSpec.describe Exercise, type: :model do
       3.times do
         ExerciseSet.create(
           weight: 5,
-          reps: 8,
-          exercise_id: reduce_rep_by_1.id,
+          reps: 9,
+          exercise_id: previous_exercise_successful_reps_less_than_10.id,
           completed_at: DateTime.now,
           user_id: user[:id]
         )
       end
 
-      change_rep_to_8_weight_to_10 =
+      previous_exercise_successful_reps_greater_than_10 =
         Exercise.create(
           blueprint_id: blueprint[:id],
           name: "Dumbbell side bend",
@@ -62,31 +52,32 @@ RSpec.describe Exercise, type: :model do
         ExerciseSet.create(
           weight: 5,
           reps: 10,
-          exercise_id: change_rep_to_8_weight_to_10.id,
+          exercise_id: previous_exercise_successful_reps_greater_than_10.id,
           completed_at: DateTime.now,
           user_id: user[:id]
         )
       end
 
-      # change_weight_to_10 =
-      #   Exercise.create(
-      #     blueprint_id: blueprint[:id],
-      #     name: "Seated dumbbell shoulder press",
-      #     instructions:
-      #       "Sit on an exercise bench with back support and hold two dumbbells in front of you at about upper chest level with your palms facing your body and your elbows bent. Tip: Your arms should be next to your torso. The starting position should look like the contracted portion of a dumbbell curl. Now to perform the movement, raise the dumbbells as you rotate the palms of your hands until they are facing forward. Continue lifting the dumbbells until your arms are extended above you in straight arm position. Breathe out as you perform this portion of the movement. After a second pause at the top, begin to lower the dumbbells to the original position by rotating the palms of your hands towards you. Tip: The left arm will be rotated in a counter clockwise manner while the right one will be rotated clockwise. Breathe in as you perform this portion of the movement. Repeat for the recommended amount of repetitions. Variations: You can perform the exercise standing up but that is not recommended for people with lower back issues.",
-      #     weight: 5,
-      #     reps: 7,
-      #     user_id: user[:id]
-      #   )
-      # 4.times do
-      #   ExerciseSet.create(
-      #     weight: 10,
-      #     reps: 7,
-      #     exercise_id: change_weight_to_10.id,
-      #     completed_at: DateTime.now,
-      #     user_id: user[:id]
-      #   )
-      # end
+      previous_exercise_successful_user_updated_sets_and_reps =
+        Exercise.create(
+          blueprint_id: blueprint[:id],
+          name: "Arnold press",
+          instructions:
+            "Sit on an exercise bench with back support and hold two dumbbells in front of you at about upper chest level with your palms facing your body and your elbows bent. Tip: Your arms should be next to your torso. The starting position should look like the contracted portion of a dumbbell curl. Now to perform the movement, raise the dumbbells as you rotate the palms of your hands until they are facing forward. Continue lifting the dumbbells until your arms are extended above you in straight arm position. Breathe out as you perform this portion of the movement. After a second pause at the top, begin to lower the dumbbells to the original position by rotating the palms of your hands towards you. Tip: The left arm will be rotated in a counter clockwise manner while the right one will be rotated clockwise. Breathe in as you perform this portion of the movement. Repeat for the recommended amount of repetitions. Variations: You can perform the exercise standing up but that is not recommended for people with lower back issues.",
+          weight: 5,
+          reps: 7,
+          user_id: user[:id]
+        )
+      4.times do
+        ExerciseSet.create(
+          weight: 10,
+          reps: 10,
+          exercise_id:
+            previous_exercise_successful_user_updated_sets_and_reps.id,
+          completed_at: DateTime.now,
+          user_id: user[:id]
+        )
+      end
 
       change_weight_to_3 =
         Exercise.create(
@@ -111,14 +102,24 @@ RSpec.describe Exercise, type: :model do
         Exercise.create_exercise(blueprint[:id], workout_id, sets, user[:id])
     end
 
-    it "increases reps by 1 when all sets from last workout are successful and reps are <10" do
+    it "No previous exercise sets. Automatically set new exercise to weight 5 reps 8" do
       expect(@exercise.first[:weight]).to eq(5)
       expect(@exercise.first[:reps]).to eq(8)
     end
 
-    it "reduces reps to the same amount as the last failed set" do
+    it "previous exercise successful reps <10(user completed all sets at the weight and reps originally assigned)" do
       expect(@exercise.second[:weight]).to eq(5)
-      expect(@exercise.second[:reps]).to eq(8)
+      expect(@exercise.second[:reps]).to eq(10)
+    end
+
+    it "previous exercise successful reps >=10(user completed all sets at the weight and reps originally assigned)" do
+      expect(@exercise.third[:weight]).to eq(10)
+      expect(@exercise.third[:reps]).to eq(8)
+    end
+
+    it "previous exercise successful (user manually changed exercise sets weight or reps to a value higher than the exercise weight and rep)" do
+      expect(@exercise.fourth[:weight]).to eq(10)
+      expect(@exercise.fourth[:reps]).to eq(10)
     end
   end
 end
