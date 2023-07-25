@@ -26,21 +26,29 @@ class Exercise < ApplicationRecord
   end
 
   def set_weight_and_reps(user_id)
-    # debugger
+    @weight = 5
+    @reps = 8
     exercise =
       Exercise.where(name: name, user_id: user_id).order(:created_at).last
     if exercise
       sets =
         ExerciseSet.where(exercise_id: exercise.id).where.not(completed_at: nil)
-      if sets.all? { |set|
-           set[:weight] == exercise.weight && set[:reps] == exercise.reps
-         }
-        return { weight: exercise.weight, reps: exercise.reps += 1 }
-      else
-        return { weight: 100, reps: 100 }
+      @weight_success_rate = 0
+      @reps_success_rate = 0
+      sets.each do |set|
+        @weight_success_rate += set[:weight] <=> exercise[:weight]
+        @reps_success_rate += set[:reps] <=> exercise[:reps]
       end
-    else
-      return { weight: 20, reps: 80 }
+      puts "weight_succes_rate #{@weight_success_rate}"
+      if @weight_success_rate >= 0 && @reps_success_rate >= 0 &&
+           exercise[:reps] < 10
+        @reps = exercise[:reps] + 1
+      elsif @weight_success_rate >= 0 && @reps_success_rate >= 0 &&
+            exercise[:reps] >= 10
+        @weight = exercise[:weight] + 5
+        @reps = 8
+      end
     end
+    { weight: @weight, reps: @reps }
   end
 end
