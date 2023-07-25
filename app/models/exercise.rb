@@ -31,22 +31,26 @@ class Exercise < ApplicationRecord
     exercise =
       Exercise.where(name: name, user_id: user_id).order(:created_at).last
     if exercise
-      sets =
-        ExerciseSet.where(exercise_id: exercise.id).where.not(completed_at: nil)
       @weight_success_rate = 0
       @reps_success_rate = 0
+      sets =
+        ExerciseSet.where(exercise_id: exercise.id).where.not(completed_at: nil)
       sets.each do |set|
         @weight_success_rate += set[:weight] <=> exercise[:weight]
         @reps_success_rate += set[:reps] <=> exercise[:reps]
       end
       puts "weight_succes_rate #{@weight_success_rate}"
-      if @weight_success_rate >= 0 && @reps_success_rate >= 0 &&
-           exercise[:reps] < 10
-        @reps = exercise[:reps] + 1
-      elsif @weight_success_rate >= 0 && @reps_success_rate >= 0 &&
-            exercise[:reps] >= 10
-        @weight = exercise[:weight] + 5
-        @reps = 8
+      if @weight_success_rate == 0 && @reps_success_rate == 0
+        if exercise[:reps] < 10
+          @reps = exercise[:reps] + 1
+        elsif exercise[:reps] >= 10
+          @weight = exercise[:weight] + 2.5
+          @reps = 8
+        end
+      elsif @weight_success_rate > 0 || @reps_success_rate > 0
+        # rounds weight down to the closest 0.5 or 0.0
+        @weight = (sets.average(:weight) * 2).floor.to_f / 2
+        @reps = sets.average(:reps).floor
       end
     end
     { weight: @weight, reps: @reps }

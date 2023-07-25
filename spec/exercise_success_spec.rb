@@ -68,9 +68,9 @@ RSpec.describe Exercise, type: :model do
           reps: 7,
           user_id: user[:id]
         )
-      4.times do
+      3.times do
         ExerciseSet.create(
-          weight: 10,
+          weight: 13,
           reps: 10,
           exercise_id:
             previous_exercise_successful_user_updated_sets_and_reps.id,
@@ -78,26 +78,17 @@ RSpec.describe Exercise, type: :model do
           user_id: user[:id]
         )
       end
-
-      change_weight_to_3 =
-        Exercise.create(
-          blueprint_id: blueprint[:id],
-          name: "Cocoons",
-          instructions:
-            "Begin by lying on your back on the ground. Your legs should be straight and your arms extended behind your head. This will be your starting position. To perform the movement, tuck the knees toward your chest, rotating your pelvis to lift your glutes from the floor. As you do so, flex the spine, bringing your arms back over your head to perform a simultaneous crunch motion. After a brief pause, return to the starting position.",
-          weight: 3,
-          reps: 8,
-          user_id: user[:id]
-        )
-      5.times do
+      2.times do
         ExerciseSet.create(
           weight: 20,
-          reps: 8,
-          exercise_id: change_weight_to_3.id,
+          reps: 9,
+          exercise_id:
+            previous_exercise_successful_user_updated_sets_and_reps.id,
           completed_at: DateTime.now,
           user_id: user[:id]
         )
       end
+
       Exercise.create_exercise(blueprint[:id], workout_id, sets, user[:id])
     end
 
@@ -127,7 +118,7 @@ RSpec.describe Exercise, type: :model do
           .where(name: "Dumbbell side bend", user_id: user[:id])
           .order(:created_at)
           .last
-      expect(exercise[:weight]).to eq(10)
+      expect(exercise[:weight]).to eq(7.5)
       expect(exercise[:reps]).to eq(8)
     end
 
@@ -137,8 +128,8 @@ RSpec.describe Exercise, type: :model do
           .where(name: "Arnold press", user_id: user[:id])
           .order(:created_at)
           .last
-      expect(exercise[:weight]).to eq(10)
-      expect(exercise[:reps]).to eq(10)
+      expect(exercise[:weight]).to eq(15.5)
+      expect(exercise[:reps]).to eq(9)
     end
   end
 end
