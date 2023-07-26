@@ -57,7 +57,7 @@ RSpec.describe Exercise, type: :model do
       Exercise.create_exercise(blueprint[:id], workout_id, sets, user[:id])
     end
 
-    it "previous exercise unsuccessful(User less than or equal to half the previous set at the less than the assigned weight and reps)" do
+    it "previous exercise unsuccessful(User completes more than half the exercises successfully)" do
       exercise =
         Exercise
           .where(name: "Side Lateral Raise", user_id: user[:id])

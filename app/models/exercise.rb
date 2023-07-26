@@ -8,7 +8,6 @@ class Exercise < ApplicationRecord
     exercises.each do |exercise|
       weight, reps =
         exercise.set_weight_and_reps(user_id).values_at(:weight, :reps)
-      # debugger
       new_exercise =
         Exercise.create!(
           name: exercise["name"],
@@ -20,7 +19,10 @@ class Exercise < ApplicationRecord
           user_id: user_id
         )
       sets.times do
-        ExerciseSet.create_exercise_sets new_exercise["id"], user_id
+        ExerciseSet.create_exercise_sets new_exercise["id"],
+                                         user_id,
+                                         weight,
+                                         reps
       end
     end
   end
@@ -39,7 +41,7 @@ class Exercise < ApplicationRecord
         @weight_success_rate += set[:weight] <=> exercise[:weight]
         @reps_success_rate += set[:reps] <=> exercise[:reps]
       end
-      puts "weight_succes_rate #{@weight_success_rate}"
+
       if @weight_success_rate == 0 && @reps_success_rate == 0
         if exercise[:reps] < 10
           @reps = exercise[:reps] + 1
@@ -51,6 +53,14 @@ class Exercise < ApplicationRecord
         # rounds weight down to the closest 0.5 or 0.0
         @weight = (sets.average(:weight) * 2).floor.to_f / 2
         @reps = sets.average(:reps).floor
+      elsif @weight_success_rate < 0 || @reps_success_rate < 0
+        if -(@weight_success_rate) / sets.count.to_f > 0.5
+          @weight = (sets.average(:weight) * 2).floor.to_f / 2
+          @reps = sets.average(:reps).floor
+        else
+          @weight = exercise[:weight]
+          @reps = exercise[:reps]
+        end
       end
     end
     { weight: @weight, reps: @reps }

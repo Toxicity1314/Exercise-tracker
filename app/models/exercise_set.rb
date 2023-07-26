@@ -1,12 +1,10 @@
 class ExerciseSet < ApplicationRecord
   belongs_to :exercise
 
-  def self.create_exercise_sets(exercise_id, user_id)
-    @reps = 8
-    @weight = 5
+  def self.create_exercise_sets(exercise_id, user_id, weight, reps)
     ExerciseSet.create!(
-      reps: @reps,
-      weight: @weight,
+      reps: reps,
+      weight: weight,
       exercise_id: exercise_id,
       completed_at: nil,
       user_id: user_id
