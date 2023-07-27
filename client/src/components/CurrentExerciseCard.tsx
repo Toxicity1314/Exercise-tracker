@@ -4,6 +4,7 @@ import Typography from "@mui/material/Typography";
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import CurrentExerciseStateIcons, { CurrentExerciseStateIconsProps, ExerciseSetState} from "./CurrentExerciseStateIcons.tsx";
+import Button from "@mui/material/Button";
 
 type ExerciseSetProps = {
   id: number;
@@ -60,20 +61,6 @@ export default function CurrentWorkoutCard
         flexDirection: "row",
       }}
     >
-      <Box
-        sx={{
-          backgroundColor: "#e6e6e6",
-          borderRadius: "50%",
-          padding: "20px",
-          height: "20px",
-          width: "20px",
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-        }}
-      >
-        <ArrowBackIcon />
-      </Box>
       <Typography
         variant="h3"
         sx={{
@@ -84,20 +71,6 @@ export default function CurrentWorkoutCard
       >
         {name}
       </Typography>
-      <Box
-        sx={{
-          backgroundColor: "#e6e6e6",
-          borderRadius: "50%",
-          padding: "20px",
-          height: "20px",
-          width: "20px",
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-        }}
-      >
-        <ArrowForwardIcon />
-      </Box>
     </Box>
     <Box
       sx={{
@@ -116,6 +89,66 @@ export default function CurrentWorkoutCard
           </Typography>
         </div>
       }
+    </Box>
+    <Box
+      sx={{
+        marginTop: "2rem",
+        marginBottom: "2rem",
+        display: "flex",
+        justifyContent: "space-around",
+        alignItems: "center",
+        width: "100%",
+      }}
+    >
+      <Box
+        sx={{
+          backgroundColor: "#e6e6e6",
+          borderRadius: "50%",
+          padding: "15px",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+        }}
+      >
+        <ArrowBackIcon 
+          sx={{
+            fontSize: "2rem"
+          }}
+        />
+      </Box>
+
+      <Box
+      >
+        <Button
+          variant="contained"
+          color="success"
+          sx={{
+            textTransform: "Capitalize",
+            height: "3rem",
+            width: "10rem",
+            fontSize: "1.2rem",
+          }}
+        >
+          Complete Set
+        </Button>
+      </Box>
+
+      <Box
+        sx={{
+          backgroundColor: "#e6e6e6",
+          borderRadius: "50%",
+          padding: "15px",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+        }}
+      >
+        <ArrowForwardIcon 
+          sx={{
+            fontSize: "2rem"
+          }}
+        />
+      </Box>
     </Box>
     <CurrentExerciseStateIcons iconStates={iconStates} />
   </Box>
