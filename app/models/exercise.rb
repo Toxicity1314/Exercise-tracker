@@ -8,7 +8,7 @@ class Exercise < ApplicationRecord
     exercises.each do |exercise|
       weight, reps =
         exercise.set_weight_and_reps(user_id).values_at(:weight, :reps)
-      # debugger
+
       new_exercise =
         Exercise.create!(
           name: exercise["name"],
@@ -25,7 +25,7 @@ class Exercise < ApplicationRecord
     end
   end
 
-  def set_weight_and_reps(user_id)
+def set_weight_and_reps(user_id)
     # debugger
     exercise =
       Exercise.where(name: name, user_id: user_id).order(:created_at).last
