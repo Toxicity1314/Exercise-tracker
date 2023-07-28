@@ -21,8 +21,6 @@ export default function CurrentWorkoutPage() {
       const currentWorkout = translateRawCurrentWorkout(data);
 
       setCurrentWorkout(currentWorkout);
-
-      console.log(data)
     }
 
     fetchCurrentWorkout();
