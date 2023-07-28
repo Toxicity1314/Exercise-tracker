@@ -114,18 +114,6 @@ export default function CurrentWorkoutCard
           }}
         />
       </Box>
-      {/* <Button
-        variant="contained"
-        color="success"
-        sx={{
-          textTransform: "Capitalize",
-          height: "3rem",
-          width: "10rem",
-          fontSize: "1.2rem",
-        }}
-      >
-        Complete Set
-      </Button> */}
       <CompleteSetButton />
       <Box
         sx={{
