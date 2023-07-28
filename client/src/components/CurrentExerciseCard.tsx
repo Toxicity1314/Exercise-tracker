@@ -5,6 +5,7 @@ import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import CurrentExerciseStateIcons, { CurrentExerciseStateIconsProps, ExerciseSetState} from "./CurrentExerciseStateIcons.tsx";
 import Button from "@mui/material/Button";
+import CompleteSetButton from "./CompleteSetButton.tsx";
 
 type ExerciseSetProps = {
   id: number;
@@ -72,24 +73,21 @@ export default function CurrentWorkoutCard
         {name}
       </Typography>
     </Box>
-    <Box
-      sx={{
-        marginTop: "2rem",
-        display: "flex",
-        flexDirection: "column",
-        alignItems: "center",
-      }}
-    >
-      {latestExerciseSet && 
-        <div>
-          <Typography
-            variant="h4"
-          >
-            {latestExerciseSet.weight} lbs x {latestExerciseSet.reps} reps
-          </Typography>
-        </div>
-      }
-    </Box>
+    {latestExerciseSet && 
+      <Box
+        sx={{
+          display: "flex",
+          justifyContent: "center",
+          marginTop: "2rem",
+        }}
+      >
+        <Typography
+          variant="h4"
+        >
+          {latestExerciseSet.weight} lbs x {latestExerciseSet.reps} reps
+        </Typography>
+      </Box>
+    }
     <Box
       sx={{
         marginTop: "2rem",
@@ -116,23 +114,19 @@ export default function CurrentWorkoutCard
           }}
         />
       </Box>
-
-      <Box
+      {/* <Button
+        variant="contained"
+        color="success"
+        sx={{
+          textTransform: "Capitalize",
+          height: "3rem",
+          width: "10rem",
+          fontSize: "1.2rem",
+        }}
       >
-        <Button
-          variant="contained"
-          color="success"
-          sx={{
-            textTransform: "Capitalize",
-            height: "3rem",
-            width: "10rem",
-            fontSize: "1.2rem",
-          }}
-        >
-          Complete Set
-        </Button>
-      </Box>
-
+        Complete Set
+      </Button> */}
+      <CompleteSetButton />
       <Box
         sx={{
           backgroundColor: "#e6e6e6",
