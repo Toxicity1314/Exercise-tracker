@@ -6,17 +6,36 @@ class Exercise < ApplicationRecord
     @blueprint = Blueprint.find(blueprint_id)
     exercises = @blueprint.exercises.where(workout_id: nil)
     exercises.each do |exercise|
+      weight, reps =
+        exercise.set_weight_and_reps(user_id).values_at(:weight, :reps)
       new_exercise =
         Exercise.create!(
           name: exercise["name"],
           instructions: exercise["instructions"],
           blueprint_id: exercise["blueprint_id"],
           pic_url: exercise["pic_url"],
-          workout_id: workout_id
+          workout_id: workout_id,
+          weight: weight,
+          reps: reps
         )
       sets.times do
         ExerciseSet.create_exercise_sets new_exercise["id"], user_id
       end
+    end
+  end
+
+  def set_weight_and_reps(user_id)
+    exercise =
+      Exercise.where(name: name, user_id: user_id).order(:created_at).last
+    return { weight: 20, reps: 80 } if !exercise
+    sets =
+      ExerciseSet.where(exercise_id: exercise.id).where.not(completed_at: nil)
+    if sets.all? { |set|
+         set[:weight] > exercise.weight && set[:reps] == exercise.reps
+       }
+      return { weight: exercise.weight, reps: exercise.reps += 1 }
+    else
+      return { weight: 100, reps: 100 }
     end
   end
 end
