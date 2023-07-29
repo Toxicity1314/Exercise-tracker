@@ -3,8 +3,8 @@ class Exercise < ApplicationRecord
   has_many :exercise_sets, dependent: :destroy
 
   def self.create_exercise(blueprint_id, workout_id, sets, user_id)
-    @blueprint = Blueprint.find(blueprint_id)
-    exercises = @blueprint.exercises.where(workout_id: nil)
+    blueprint = Blueprint.find(blueprint_id)
+    exercises = blueprint.exercises.where(workout_id: nil)
     exercises.each do |exercise|
       weight, reps =
         exercise.set_weight_and_reps(user_id).values_at(:weight, :reps)
