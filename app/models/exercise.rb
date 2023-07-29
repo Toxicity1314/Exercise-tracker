@@ -7,7 +7,7 @@ class Exercise < ApplicationRecord
     exercises = blueprint.exercises.where(workout_id: nil)
     exercises.each do |exercise|
       weight, reps =
-        exercise.set_weight_and_reps(user_id).values_at(:weight, :reps)
+        exercise.calculate_weight_and_reps(user_id).values_at(:weight, :reps)
 
       new_exercise =
         Exercise.create!(
@@ -37,7 +37,7 @@ class Exercise < ApplicationRecord
   #@weight_success_rate or reps_success_rate < 0 but the user still completes at least half the sets at or above the exercise criteria
   #weight and reps get set to the previous exercise weight and reps. If the user failed more than half the previous sets
   #then weight and reps get set to the previous exercise sets averages.
-  def set_weight_and_reps(user_id)
+  def calculate_weight_and_reps(user_id)
     weight = 5
     reps = 8
 

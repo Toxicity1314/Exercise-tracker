@@ -57,9 +57,7 @@ RSpec.describe Exercise, type: :model do
       Exercise.create_exercise(blueprint[:id], workout_id, sets, user[:id])
     end
 
-
     it "Expects less than half the previous exercise sets to be done at a lower weight and rep than the previous exercise.  Will set the new weight and reps to the same amount as the previous exercise" do
-
       exercise =
         Exercise
           .where(name: "Side Lateral Raise", user_id: user[:id])
