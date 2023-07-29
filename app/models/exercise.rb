@@ -8,6 +8,7 @@ class Exercise < ApplicationRecord
     exercises.each do |exercise|
       weight, reps =
         exercise.set_weight_and_reps(user_id).values_at(:weight, :reps)
+
       new_exercise =
         Exercise.create!(
           name: exercise["name"],

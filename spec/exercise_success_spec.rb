@@ -92,7 +92,7 @@ RSpec.describe Exercise, type: :model do
       Exercise.create_exercise(blueprint[:id], workout_id, sets, user[:id])
     end
 
-    it "No previous exercise sets. Automatically set new exercise to weight 5 reps 8" do
+    it "Expects there to be no previous exercise sets which automatically set new exercise to weight 5 reps 8" do
       exercise =
         Exercise
           .where(name: "Seated dumbbell shoulder press", user_id: user[:id])
@@ -102,7 +102,7 @@ RSpec.describe Exercise, type: :model do
       expect(exercise[:reps]).to eq(8)
     end
 
-    it "previous exercise successful reps <10(user completed all sets at the weight and reps originally assigned)" do
+    it "Expects all previous exercise sets to be completed at the same weight and reps as the previous exercise. Previous exercise reps <10 automatically sets new exercise to previous exercise weight and previous exercise reps + 1" do
       exercise =
         Exercise
           .where(name: "Side Lateral Raise", user_id: user[:id])
@@ -112,7 +112,7 @@ RSpec.describe Exercise, type: :model do
       expect(exercise[:reps]).to eq(10)
     end
 
-    it "previous exercise successful reps >=10(user completed all sets at the weight and reps originally assigned)" do
+    it "Expects previous exercise sets to be completed at the same weight and reps as the previous exercise. Previous exercise >=10 automatically sets new exercise to previous exercise weight+2.5 and reps 8" do
       exercise =
         Exercise
           .where(name: "Dumbbell side bend", user_id: user[:id])
@@ -122,7 +122,7 @@ RSpec.describe Exercise, type: :model do
       expect(exercise[:reps]).to eq(8)
     end
 
-    it "previous exercise successful (user manually changed exercise sets weight or reps to a value higher than the exercise weight and rep)" do
+    it "Expects all previous exercise sets to be completed at or above the previous exercise weight and reps. Will set weight to the average weight of the previous exercise sets to the closest 0.5. Will set reps to the average reps of the previous exercise sets" do
       exercise =
         Exercise
           .where(name: "Arnold press", user_id: user[:id])

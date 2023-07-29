@@ -57,7 +57,9 @@ RSpec.describe Exercise, type: :model do
       Exercise.create_exercise(blueprint[:id], workout_id, sets, user[:id])
     end
 
-    it "previous exercise unsuccessful(User completes more than half the exercises successfully)" do
+
+    it "Expects less than half the previous exercise sets to be done at a lower weight and rep than the previous exercise.  Will set the new weight and reps to the same amount as the previous exercise" do
+
       exercise =
         Exercise
           .where(name: "Side Lateral Raise", user_id: user[:id])
@@ -67,7 +69,7 @@ RSpec.describe Exercise, type: :model do
       expect(exercise[:reps]).to eq(9)
     end
 
-    it "previous exercise unsuccessful(User does more than half the previous set at less than the assigned weight and reps)" do
+    it "Expects more than half the previous exercise sets to be done at a lower weight or reps than the previous exercise. Will set the new weight equal to the average of the previous exercise sets rounded down to the nearest 0.5 and the average reps rounded down to the nearest integer " do
       exercise =
         Exercise
           .where(name: "Dumbbell side bend", user_id: user[:id])
