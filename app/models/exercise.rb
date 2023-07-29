@@ -16,7 +16,8 @@ class Exercise < ApplicationRecord
           workout_id: workout_id,
           weight: weight,
           reps: reps,
-          user_id: user_id
+          user_id: user_id,
+          pic_url: exercise["pic_url"]
         )
       sets.times do
         ExerciseSet.create_exercise_sets new_exercise["id"],
