@@ -11,7 +11,7 @@ class ExerciseSetsController < ApplicationController
   private
 
   def exercise_set_params
-    params.permit(:reps, :weight, :completed_at, :status)
+    params.permit(:reps, :weight, :completed_at)
   end
 
   def render_invalid(invalid)
