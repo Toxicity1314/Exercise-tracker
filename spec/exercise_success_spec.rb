@@ -88,6 +88,7 @@ RSpec.describe Exercise, type: :model do
           user_id: user[:id]
         )
       end
+      debugger
 
       Exercise.create_exercise(blueprint[:id], workout_id, sets, user[:id])
     end
