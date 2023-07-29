@@ -6,6 +6,8 @@ import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import CurrentExerciseStateIcons, { CurrentExerciseStateIconsProps, ExerciseSetState} from "./CurrentExerciseStateIcons.tsx";
 import Button from "@mui/material/Button";
 import CompleteSetButton from "./CompleteSetButton.tsx";
+import IconButton from "@mui/material/IconButton";
+import { Icon } from "@mui/material";
 
 type ExerciseSetProps = {
   id: number;
@@ -18,10 +20,12 @@ type CurrentWorkoutCardProps = {
   id: number;
   name: string;
   exerciseSets: ExerciseSetProps[];
+  nextExercise: () => void;
+  previousExercise: () => void;
 }
 
 export default function CurrentWorkoutCard
-  ({ id, name, exerciseSets }: CurrentWorkoutCardProps
+  ({ id, name, exerciseSets, nextExercise, previousExercise }: CurrentWorkoutCardProps
 ) {
 
   function getLatestIncompleteExerciseSet(): ExerciseSetProps | null {
@@ -98,14 +102,11 @@ export default function CurrentWorkoutCard
         width: "100%",
       }}
     >
-      <Box
+      <IconButton
+        onClick={previousExercise}
         sx={{
           backgroundColor: "#e6e6e6",
-          borderRadius: "50%",
-          padding: "15px",
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
+          padding: "20px",
         }}
       >
         <ArrowBackIcon 
@@ -113,16 +114,13 @@ export default function CurrentWorkoutCard
             fontSize: "2rem"
           }}
         />
-      </Box>
+      </IconButton>
       <CompleteSetButton />
-      <Box
+      <IconButton
+        onClick={nextExercise}
         sx={{
           backgroundColor: "#e6e6e6",
-          borderRadius: "50%",
-          padding: "15px",
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
+          padding: "20px",
         }}
       >
         <ArrowForwardIcon 
@@ -130,7 +128,7 @@ export default function CurrentWorkoutCard
             fontSize: "2rem"
           }}
         />
-      </Box>
+      </IconButton>
     </Box>
     <CurrentExerciseStateIcons iconStates={iconStates} />
   </Box>
