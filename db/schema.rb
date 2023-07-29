@@ -40,8 +40,8 @@ ActiveRecord::Schema[7.0].define(version: 2023_07_06_194017) do
     t.datetime "updated_at", null: false
     t.string "pic_url"
     t.bigint "workout_id"
-    t.float "weight", null: false
-    t.integer "reps", null: false
+    t.float "weight", default: 5.0, null: false
+    t.integer "reps", default: 8, null: false
     t.bigint "user_id"
     t.index ["blueprint_id"], name: "index_exercises_on_blueprint_id"
     t.index ["user_id"], name: "index_exercises_on_user_id"
