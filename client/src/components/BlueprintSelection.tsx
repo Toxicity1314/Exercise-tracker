@@ -88,34 +88,33 @@ export default function BlueprintSelection() {
           display: "flex",
           flexDirection: "column",
           alignItems: "center",
+          paddingTop: "3rem",
         }}
       >
         <Box
           sx={{
-            width: "100%",
-            padding: "1rem",
-          }}
-        >
-          <Typography
-            variant="h3"
-            sx={{ textAlign: "center", fontWeight: "bold" }}
-          >
-            Select a Workout
-          </Typography>
-        </Box>
-        <Box
-          sx={{
             display: "flex",
             flexWrap: "wrap",
-            padding: "3rem",
-            border: "1px solid #e6e6e6",
-            backgroundColor: "#e6e6e6",
-            borderRadius: "8px",
-            boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.5)",
             gap: "2rem",
             justifyContent: "center",
           }}
         >
+          <Box
+            sx={{
+              width: "100%",
+            }}
+          >
+            <Typography
+              component="h1"
+              variant="h2"
+              sx={{
+                textAlign: "center",
+              }}
+            >
+              Select a Workout
+            </Typography>
+          </Box>
+
           {/* Map over Blueprints, display workout */}
           {blueprints.map((blueprint) => (
             <Box onClick={() => handleSelectBlueprint(blueprint)}>
