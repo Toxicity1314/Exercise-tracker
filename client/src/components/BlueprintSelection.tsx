@@ -69,7 +69,7 @@ export default function BlueprintSelection() {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
-        blueprint_id: blueprintId,
+        id: blueprintId,
         sets,
       }),
     });
