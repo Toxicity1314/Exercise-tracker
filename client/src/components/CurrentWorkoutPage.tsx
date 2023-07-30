@@ -7,6 +7,7 @@ import CurrentExerciseCard from "./CurrentExerciseCard.tsx";
 
 export default function CurrentWorkoutPage() {
   const [currentWorkout, setCurrentWorkout] = useState<CurrentWorkout | null>(null);
+  const [currentExerciseIndex, setCurrentExerciseIndex] = useState<number>(0);
 
   useEffect(() => {
     if (currentWorkout) {
@@ -26,6 +27,30 @@ export default function CurrentWorkoutPage() {
     fetchCurrentWorkout();
   });
 
+  function nextExercise() {
+    if (!currentWorkout) {
+      return;
+    }
+
+    if (currentExerciseIndex + 1 >= currentWorkout.exercises.length) {
+      setCurrentExerciseIndex(0);
+    } else {
+      setCurrentExerciseIndex(currentExerciseIndex + 1);
+    }
+  }
+
+  function previousExercise() {
+    if (!currentWorkout) {
+      return;
+    }
+
+    if (currentExerciseIndex - 1 < 0) {
+      setCurrentExerciseIndex(currentWorkout.exercises.length - 1);
+    } else {
+      setCurrentExerciseIndex(currentExerciseIndex - 1);
+    }
+  }
+
   if (!currentWorkout) {
     return null;
   }
@@ -44,9 +69,11 @@ export default function CurrentWorkoutPage() {
         }}
       >
         <CurrentExerciseCard 
-          id={currentWorkout.exercises[0].id}
-          name={currentWorkout.exercises[0].name}
-          exerciseSets={currentWorkout.exercises[0].exerciseSets}
+          id={currentWorkout.exercises[currentExerciseIndex].id}
+          name={currentWorkout.exercises[currentExerciseIndex].name}
+          exerciseSets={currentWorkout.exercises[currentExerciseIndex].exerciseSets}
+          nextExercise={nextExercise}
+          previousExercise={previousExercise}
         />
       </Box>
     </Container>
