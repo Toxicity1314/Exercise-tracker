@@ -75,7 +75,7 @@ export default function BlueprintSelection() {
     });
 
     if (response.ok) {
-      navigate("/currentworkout");
+      navigate("/current-workout");
     }
   };
 

@@ -22,20 +22,25 @@ type CurrentWorkoutCardProps = {
   exerciseSets: ExerciseSetProps[];
   nextExercise: () => void;
   previousExercise: () => void;
+  completeSet: (setId: number) => void;
 }
 
 export default function CurrentWorkoutCard
-  ({ id, name, exerciseSets, nextExercise, previousExercise }: CurrentWorkoutCardProps
+  ({ id, name, exerciseSets, nextExercise, previousExercise, completeSet }: CurrentWorkoutCardProps
 ) {
 
-  function getLatestIncompleteExerciseSet(): ExerciseSetProps | null {
-    for (let i = exerciseSets.length - 1; i >= 0; i--) {
-      if (!exerciseSets[i].completedAt) {
-        return exerciseSets[i];
+  function getEarliestIncompleteSet(): ExerciseSetProps {
+    for (let i = 0; i < exerciseSets.length; i++) {
+      const exerciseSet = exerciseSets[i];
+      if (!exerciseSet.completedAt) {
+        return exerciseSet;
       }
     }
 
-    return null;
+    // If all sets are complete just return the list in the list
+    return exerciseSets[
+      exerciseSets.length - 1
+    ];
   }
 
   function getIconStates(): CurrentExerciseStateIconsProps[] {
@@ -55,7 +60,7 @@ export default function CurrentWorkoutCard
     return iconStates;
   }
 
-  const latestExerciseSet = getLatestIncompleteExerciseSet();
+  const exerciseSet = getEarliestIncompleteSet();
   const iconStates = getIconStates();
 
   return (
@@ -77,7 +82,7 @@ export default function CurrentWorkoutCard
         {name}
       </Typography>
     </Box>
-    {latestExerciseSet && 
+    {exerciseSet && 
       <Box
         sx={{
           display: "flex",
@@ -88,7 +93,7 @@ export default function CurrentWorkoutCard
         <Typography
           variant="h4"
         >
-          {latestExerciseSet.weight} lbs x {latestExerciseSet.reps} reps
+          {exerciseSet.weight} lbs x {exerciseSet.reps} reps
         </Typography>
       </Box>
     }
@@ -115,7 +120,10 @@ export default function CurrentWorkoutCard
           }}
         />
       </IconButton>
-      <CompleteSetButton />
+      <CompleteSetButton
+        completeSet={completeSet}
+        exerciseSetId={exerciseSet.id}
+      />
       <IconButton
         onClick={nextExercise}
         sx={{

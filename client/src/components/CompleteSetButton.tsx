@@ -21,15 +21,25 @@ const completeSetOptionsCopyMap = new Map<CompleteSetOptions, string>([
   [CompleteSetOptions.EDIT, 'Edit set'],
 ]);
 
+type CompleteSetButtonProps = {
+  completeSet: (setId: number) => void;
+  exerciseSetId: number;
+}
+
 const options = Object.values(CompleteSetOptions);
 
-export default function CompleteSetButton() {
+export default function CompleteSetButton({ completeSet, exerciseSetId }: CompleteSetButtonProps) {
   const [open, setOpen] = React.useState(false);
   const anchorRef = React.useRef<HTMLDivElement>(null);
   const [selectedIndex, setSelectedIndex] = React.useState(0);
 
   const handleClick = () => {
-    console.info(`You clicked ${options[selectedIndex]}`);
+    const option = options[selectedIndex];
+    if (option === CompleteSetOptions.COMPLETE) {
+      completeSet(exerciseSetId);
+    }
+
+    return;
   };
 
   const handleMenuItemClick = (

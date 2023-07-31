@@ -3,7 +3,6 @@ import { Route, Routes } from "react-router-dom";
 import NavBar from "./components/NavBar.tsx";
 import Home from "./components/Home";
 import PreviousWorkoutsPage from "./components/PreviousWorkoutsPage";
-import CurrentWorkout from "./components/CurrentWorkout";
 import ExerciseSetsPage from "./components/ExerciseSetsPage";
 import Login from "./components/Login.tsx";
 import NotFoundPage from "./components/NotFoundPage.tsx";
@@ -57,7 +56,6 @@ function App() {
       <Routes>
         <Route path="/" element={<Login setUser={setUser} />} />
         <Route path="/blueprints" element={<BlueprintSelection />} />
-        <Route path="/currentworkout" element={<CurrentWorkout />} />
         <Route path="/current-workout" element={<CurrentWorkoutPage />} />
         <Route path="/previous" element={<PreviousWorkoutsPage />} />
         <Route

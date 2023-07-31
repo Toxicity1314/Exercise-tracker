@@ -45,7 +45,7 @@ export default function NavBar({ user, setUser }) {
             </Button>
             <Button
               component={Link}
-              to="/currentworkout"
+              to="/current-workout"
               color="inherit"
               variant="outlined"
               size="large"

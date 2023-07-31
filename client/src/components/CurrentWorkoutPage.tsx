@@ -14,18 +14,18 @@ export default function CurrentWorkoutPage() {
       return;
     }
 
-    async function fetchCurrentWorkout() {
-      const response = await fetch("/current_workout");
-
-      const data = await response.json();
-
-      const currentWorkout = translateRawCurrentWorkout(data);
-
-      setCurrentWorkout(currentWorkout);
-    }
-
     fetchCurrentWorkout();
   });
+
+  async function fetchCurrentWorkout() {
+    const response = await fetch("/current_workout");
+
+    const data = await response.json();
+
+    const currentWorkout = translateRawCurrentWorkout(data);
+
+    setCurrentWorkout(currentWorkout);
+  }
 
   function nextExercise() {
     if (!currentWorkout) {
@@ -48,6 +48,20 @@ export default function CurrentWorkoutPage() {
       setCurrentExerciseIndex(currentWorkout.exercises.length - 1);
     } else {
       setCurrentExerciseIndex(currentExerciseIndex - 1);
+    }
+  }
+
+  async function completeSet(setId: number) {
+    const response = await fetch(`/exercise_sets/${setId}`, {
+      method: "PATCH",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ completed_at: new Date().toISOString() }),
+    });
+
+    if (response.ok) {
+      fetchCurrentWorkout();
+    } else {
+      alert("Something went wrong!")
     }
   }
 
@@ -74,6 +88,7 @@ export default function CurrentWorkoutPage() {
           exerciseSets={currentWorkout.exercises[currentExerciseIndex].exerciseSets}
           nextExercise={nextExercise}
           previousExercise={previousExercise}
+          completeSet={completeSet}
         />
       </Box>
     </Container>
