@@ -13,6 +13,7 @@ export function translateRawCurrentWorkout(
         blueprintId: rawCurrentExercise.blueprint_id,
         instructions: rawCurrentExercise.instructions,
         workoutId: rawCurrentExercise.workout_id,
+        // Map exercise sets, then order by id (ascending)
         exerciseSets: rawCurrentExercise.exercise_sets.map((rawExerciseSet) => {
           return {
             id: rawExerciseSet.id,
@@ -20,7 +21,7 @@ export function translateRawCurrentWorkout(
             weight: rawExerciseSet.weight,
             completedAt: rawExerciseSet.completed_at,
           };
-        }),
+        }).sort((a, b) => a.id - b.id),
         picUrl: rawCurrentExercise.pic_url,
       };
     }),
