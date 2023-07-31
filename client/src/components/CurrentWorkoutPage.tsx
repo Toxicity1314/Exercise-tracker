@@ -6,7 +6,9 @@ import Box from "@mui/material/Box";
 import CurrentExerciseCard from "./CurrentExerciseCard.tsx";
 
 export default function CurrentWorkoutPage() {
-  const [currentWorkout, setCurrentWorkout] = useState<CurrentWorkout | null>(null);
+  const [currentWorkout, setCurrentWorkout] = useState<CurrentWorkout | null>(
+    null
+  );
   const [currentExerciseIndex, setCurrentExerciseIndex] = useState<number>(0);
 
   useEffect(() => {
@@ -61,7 +63,7 @@ export default function CurrentWorkoutPage() {
     if (response.ok) {
       fetchCurrentWorkout();
     } else {
-      alert("Something went wrong!")
+      alert("Something went wrong!");
     }
   }
 
@@ -82,10 +84,12 @@ export default function CurrentWorkoutPage() {
           flexDirection: "column",
         }}
       >
-        <CurrentExerciseCard 
+        <CurrentExerciseCard
           id={currentWorkout.exercises[currentExerciseIndex].id}
           name={currentWorkout.exercises[currentExerciseIndex].name}
-          exerciseSets={currentWorkout.exercises[currentExerciseIndex].exerciseSets}
+          exerciseSets={
+            currentWorkout.exercises[currentExerciseIndex].exerciseSets
+          }
           nextExercise={nextExercise}
           previousExercise={previousExercise}
           completeSet={completeSet}

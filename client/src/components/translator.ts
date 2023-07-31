@@ -1,6 +1,8 @@
 import { RawCurrentWorkout, CurrentWorkout } from "./types";
 
-export function translateRawCurrentWorkout(rawCurrentWorkout: RawCurrentWorkout): CurrentWorkout {
+export function translateRawCurrentWorkout(
+  rawCurrentWorkout: RawCurrentWorkout
+): CurrentWorkout {
   return {
     id: rawCurrentWorkout.id,
     name: rawCurrentWorkout.name,
@@ -16,12 +18,12 @@ export function translateRawCurrentWorkout(rawCurrentWorkout: RawCurrentWorkout)
             id: rawExerciseSet.id,
             reps: rawExerciseSet.reps,
             weight: rawExerciseSet.weight,
-            completedAt: rawExerciseSet.completed_at
-          }
+            completedAt: rawExerciseSet.completed_at,
+          };
         }),
-        picUrl: rawCurrentExercise.pic_url
-      }
+        picUrl: rawCurrentExercise.pic_url,
+      };
     }),
-    completedAt: rawCurrentWorkout.completed_at
-  }
+    completedAt: rawCurrentWorkout.completed_at,
+  };
 }

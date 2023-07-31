@@ -13,21 +13,21 @@ export type RawCurrentExercise = {
   workout_id: number;
   exercise_sets: RawExerciseSet[];
   pic_url?: string;
-}
+};
 
 export type RawCurrentWorkout = {
   id: number;
   name: string;
   exercises: RawCurrentExercise[];
   completed_at?: Date;
-}
+};
 
 export type ExerciseSet = {
   id: number;
   reps: number;
   weight: number;
   completedAt?: Date;
-}
+};
 
 export type CurrentExercise = {
   id: number;
@@ -37,11 +37,11 @@ export type CurrentExercise = {
   workoutId: number;
   exerciseSets: ExerciseSet[];
   picUrl?: string;
-}
+};
 
 export type CurrentWorkout = {
   id: number;
   name: string;
   exercises: CurrentExercise[];
   completedAt?: Date;
-}
+};

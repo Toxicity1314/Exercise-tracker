@@ -10,9 +10,12 @@ export enum ExerciseSetState {
 export type CurrentExerciseStateIconsProps = {
   exerciseSetId: number;
   state: ExerciseSetState;
-}
+};
 
-export default function CurrentExerciseStateIcons(props: { iconStates: CurrentExerciseStateIconsProps[] }) { // Use the correct prop type and name
+export default function CurrentExerciseStateIcons(props: {
+  iconStates: CurrentExerciseStateIconsProps[];
+}) {
+  // Use the correct prop type and name
   const { iconStates } = props;
 
   if (!iconStates) {
