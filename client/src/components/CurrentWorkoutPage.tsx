@@ -24,6 +24,16 @@ export default function CurrentWorkoutPage() {
     fetchCurrentWorkout();
   });
 
+  useEffect(() => {
+    if (!currentWorkout) {
+      return;
+    }
+
+    if (hasCompletedExercise()) {
+      setIsExerciseComplete(true);
+    }
+  }, [currentWorkout])
+
   async function fetchCurrentWorkout() {
     const response = await fetch("/current_workout");
 
@@ -69,10 +79,6 @@ export default function CurrentWorkoutPage() {
       await fetchCurrentWorkout();
     } else {
       alert("Something went wrong!");
-    }
-
-    if (hasCompletedExercise()) {
-      setIsExerciseComplete(true);
     }
   }
 
