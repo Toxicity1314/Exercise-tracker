@@ -4,6 +4,7 @@ import { translateRawCurrentWorkout } from "./translator.ts";
 import Container from "@mui/material/Container";
 import Box from "@mui/material/Box";
 import CurrentExerciseCard from "./CurrentExerciseCard.tsx";
+import CompleteWorkoutModal from "./CompleteWorkoutModal.tsx";
 
 export default function CurrentWorkoutPage() {
   const [currentWorkout, setCurrentWorkout] = useState<CurrentWorkout | null>(
@@ -65,6 +66,27 @@ export default function CurrentWorkoutPage() {
     } else {
       alert("Something went wrong!");
     }
+  }
+
+  function completeExercise(): boolean {
+    if (!currentWorkout) {
+      return false;
+    }
+
+    // If all sets have a completedAt under all exercises, then the workout is complete
+    for (let i = 0; i < currentWorkout.exercises.length; i++) {
+      const exercise = currentWorkout.exercises[i];
+
+      for (let j = 0; j < exercise.exerciseSets.length; j++) {
+        const exerciseSet = exercise.exerciseSets[j];
+
+        if (!exerciseSet.completedAt) {
+          return false;
+        }
+      }
+    }
+
+    return true;
   }
 
   if (!currentWorkout) {
