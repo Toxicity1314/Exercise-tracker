@@ -77,8 +77,6 @@ export default function CurrentWorkoutPage() {
   }
 
   function hasCompletedExercise(): boolean {
-    return true;
-
     if (!currentWorkout) {
       return false;
     }
