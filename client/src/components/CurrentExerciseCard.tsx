@@ -7,10 +7,8 @@ import CurrentExerciseStateIcons, {
   CurrentExerciseStateIconsProps,
   ExerciseSetState,
 } from "./CurrentExerciseStateIcons.tsx";
-import Button from "@mui/material/Button";
 import CompleteSetButton from "./CompleteSetButton.tsx";
 import IconButton from "@mui/material/IconButton";
-import { Icon } from "@mui/material";
 
 type ExerciseSetProps = {
   id: number;
@@ -76,15 +74,16 @@ export default function CurrentWorkoutCard({
 
   return (
     <Box
+      key={id}
       sx={{
         display: "flex",
         flexDirection: "row",
-        justifyContent: "space-around",
+        alignItems: "center",
       }}
     >
     <Box
       sx={{
-        height: "100%"
+        paddingRight: "1rem",
       }}
     >
       <IconButton
@@ -124,7 +123,9 @@ export default function CurrentWorkoutCard({
         <Typography variant="h4" sx={{ marginBottom: "0.5rem" }}>
           {exerciseSet.weight} lbs x {exerciseSet.reps} reps
         </Typography>
-        <Typography variant="body1" sx={{ marginLeft: "1rem" }}>
+        <Typography variant="body1" sx={{ 
+          marginLeft: "1rem" 
+        }}>
           {instructions}
         </Typography>
       </Box>
@@ -143,7 +144,11 @@ export default function CurrentWorkoutCard({
       </Box>
       <CurrentExerciseStateIcons iconStates={iconStates} />
       </Box>
-      <Box>
+      <Box
+        sx={{
+          paddingLeft: "1rem",
+        }}
+      >
         <IconButton
             onClick={nextExercise}
             sx={{
