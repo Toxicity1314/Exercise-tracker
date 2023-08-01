@@ -45,14 +45,14 @@ export default function CompleteWorkoutModal({
             }}
             textAlign="center"
           >
-            "Completed Workout!"
+            Completed Workout!
           </Typography>
 
           <Box
-            display={"flex"}
-            justifyContent={"space-between"}
             sx={{
+              display: "flex",
               marginTop: "2rem",
+              justifyContent: "center",
             }}
           >
             <Button

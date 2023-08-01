@@ -5,12 +5,16 @@ import Container from "@mui/material/Container";
 import Box from "@mui/material/Box";
 import CurrentExerciseCard from "./CurrentExerciseCard.tsx";
 import CompleteWorkoutModal from "./CompleteWorkoutModal.tsx";
+import { useNavigate } from "react-router-dom";
 
 export default function CurrentWorkoutPage() {
   const [currentWorkout, setCurrentWorkout] = useState<CurrentWorkout | null>(
     null
   );
   const [currentExerciseIndex, setCurrentExerciseIndex] = useState<number>(0);
+  const [isExerciseComplete, setIsExerciseComplete] = useState<boolean>(false);
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (currentWorkout) {
@@ -62,13 +66,19 @@ export default function CurrentWorkoutPage() {
     });
 
     if (response.ok) {
-      fetchCurrentWorkout();
+      await fetchCurrentWorkout();
     } else {
       alert("Something went wrong!");
     }
+
+    if (hasCompletedExercise()) {
+      setIsExerciseComplete(true);
+    }
   }
 
-  function completeExercise(): boolean {
+  function hasCompletedExercise(): boolean {
+    return true;
+
     if (!currentWorkout) {
       return false;
     }
@@ -87,6 +97,10 @@ export default function CurrentWorkoutPage() {
     }
 
     return true;
+  }
+
+  function completeExercise(): void {
+    navigate("/blueprints")
   }
 
   if (!currentWorkout) {
@@ -120,6 +134,10 @@ export default function CurrentWorkoutPage() {
           completeSet={completeSet}
         />
       </Box>
+      <CompleteWorkoutModal
+        open={isExerciseComplete}
+        onModalClose={completeExercise}
+      />
     </Container>
   );
 }
