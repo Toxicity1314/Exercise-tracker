@@ -22,6 +22,7 @@ type ExerciseSetProps = {
 type CurrentWorkoutCardProps = {
   id: number;
   name: string;
+  instructions: string;
   exerciseSets: ExerciseSetProps[];
   nextExercise: () => void;
   previousExercise: () => void;
@@ -31,6 +32,7 @@ type CurrentWorkoutCardProps = {
 export default function CurrentWorkoutCard({
   id,
   name,
+  instructions,
   exerciseSets,
   nextExercise,
   previousExercise,
@@ -68,12 +70,44 @@ export default function CurrentWorkoutCard({
   const exerciseSet = getEarliestIncompleteSet();
   const iconStates = getIconStates();
 
+  if (!exerciseSet) {
+    return null;
+  }
+
   return (
+    <Box
+      sx={{
+        display: "flex",
+        flexDirection: "row",
+        justifyContent: "space-around",
+      }}
+    >
+    <Box
+      sx={{
+        height: "100%"
+      }}
+    >
+      <IconButton
+        onClick={previousExercise}
+        sx={{
+          backgroundColor: "#e6e6e6",
+          padding: "20px",
+        }}
+      >
+        <ArrowBackIcon
+          sx={{
+            fontSize: "2rem",
+          }}
+        />
+      </IconButton>
+    </Box>
     <Box>
       <Box
         sx={{
           display: "flex",
-          flexDirection: "row",
+          marginTop: "0.5rem",
+          flexDirection: "column",
+          alignItems: "center",
         }}
       >
         <Typography
@@ -82,66 +116,48 @@ export default function CurrentWorkoutCard({
             textAlign: "center",
             textTransform: "Capitalize",
             width: "100%",
+            marginBottom: "0.5rem",
           }}
         >
           {name}
         </Typography>
+        <Typography variant="h4" sx={{ marginBottom: "0.5rem" }}>
+          {exerciseSet.weight} lbs x {exerciseSet.reps} reps
+        </Typography>
+        <Typography variant="body1" sx={{ marginLeft: "1rem" }}>
+          {instructions}
+        </Typography>
       </Box>
-      {exerciseSet && (
-        <Box
-          sx={{
-            display: "flex",
-            justifyContent: "center",
-            marginTop: "2rem",
-          }}
-        >
-          <Typography variant="h4">
-            {exerciseSet.weight} lbs x {exerciseSet.reps} reps
-          </Typography>
-        </Box>
-      )}
       <Box
         sx={{
-          marginTop: "2rem",
+          marginTop: "4rem",
           marginBottom: "2rem",
           display: "flex",
           justifyContent: "space-around",
-          alignItems: "center",
-          width: "100%",
         }}
       >
-        <IconButton
-          onClick={previousExercise}
-          sx={{
-            backgroundColor: "#e6e6e6",
-            padding: "20px",
-          }}
-        >
-          <ArrowBackIcon
-            sx={{
-              fontSize: "2rem",
-            }}
-          />
-        </IconButton>
         <CompleteSetButton
           completeSet={completeSet}
           exerciseSetId={exerciseSet.id}
         />
-        <IconButton
-          onClick={nextExercise}
-          sx={{
-            backgroundColor: "#e6e6e6",
-            padding: "20px",
-          }}
-        >
-          <ArrowForwardIcon
-            sx={{
-              fontSize: "2rem",
-            }}
-          />
-        </IconButton>
       </Box>
       <CurrentExerciseStateIcons iconStates={iconStates} />
+      </Box>
+      <Box>
+        <IconButton
+            onClick={nextExercise}
+            sx={{
+              backgroundColor: "#e6e6e6",
+              padding: "20px",
+            }}
+          >
+            <ArrowForwardIcon
+              sx={{
+                fontSize: "2rem",
+              }}
+            />
+        </IconButton>
+      </Box>
     </Box>
   );
 }
