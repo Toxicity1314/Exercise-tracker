@@ -1,6 +1,6 @@
 class Exercise < ApplicationRecord
   belongs_to :blueprint
-  has_many :exercise_sets, dependent: :destroy
+  has_many :exercise_sets, -> { order(:id) }, dependent: :destroy
 
   def self.create_exercise(blueprint_id, workout_id, sets, user_id)
     blueprint = Blueprint.find(blueprint_id)
