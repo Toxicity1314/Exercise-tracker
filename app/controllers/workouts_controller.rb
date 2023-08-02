@@ -3,7 +3,7 @@ class WorkoutsController < ApplicationController
     # need to add a check for sets. Is it an appropriate number?
     blueprint = Blueprint.find(params[:blueprint_id])
     workout = Workout.create!(name: blueprint.name, user_id: session[:user_id])
-    Exercise.create_exercise params[:id],
+    Exercise.create_exercise blueprint[:id],
                              workout[:id],
                              params[:sets],
                              session[:user_id]
