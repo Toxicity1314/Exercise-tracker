@@ -9,6 +9,7 @@ import CurrentExerciseStateIcons, {
 } from "./CurrentExerciseStateIcons.tsx";
 import CompleteSetButton from "./CompleteSetButton.tsx";
 import IconButton from "@mui/material/IconButton";
+import EditSetModal from "./EditSetModal.tsx";
 
 type ExerciseSetProps = {
   id: number;
@@ -36,6 +37,8 @@ export default function CurrentWorkoutCard({
   previousExercise,
   completeSet,
 }: CurrentWorkoutCardProps) {
+  const [openEditModal, setOpenEditModal] = React.useState(false);
+
   function getEarliestIncompleteSet(): ExerciseSetProps {
     for (let i = 0; i < exerciseSets.length; i++) {
       const exerciseSet = exerciseSets[i];
@@ -63,6 +66,20 @@ export default function CurrentWorkoutCard({
     }
 
     return iconStates;
+  }
+
+  async function editSet(): Promise<void> {
+    console.log(JSON.stringify(exerciseSet))
+
+    setOpenEditModal(true);
+  }
+
+  function cancelEditSet(): void {
+    setOpenEditModal(false);
+  }
+
+  async function saveEditSet(input: { weight: number, reps: number }): Promise<void> {
+    setOpenEditModal(false);
   }
 
   const exerciseSet = getEarliestIncompleteSet();
@@ -140,6 +157,7 @@ export default function CurrentWorkoutCard({
         <CompleteSetButton
           completeSet={completeSet}
           exerciseSetId={exerciseSet.id}
+          editSet={editSet}
         />
       </Box>
       <CurrentExerciseStateIcons iconStates={iconStates} />
@@ -163,6 +181,13 @@ export default function CurrentWorkoutCard({
             />
         </IconButton>
       </Box>
+      <EditSetModal 
+        currentRepAmount={exerciseSet.reps}
+        currentWeightAmount={exerciseSet.weight}
+        open={openEditModal}
+        onModalCancel={cancelEditSet}
+        onModalSave={saveEditSet}
+      />
     </Box>
   );
 }

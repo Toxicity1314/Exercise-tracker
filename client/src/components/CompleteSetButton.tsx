@@ -11,19 +11,20 @@ import MenuList from "@mui/material/MenuList";
 
 enum CompleteSetOptions {
   COMPLETE = "COMPLETE",
-  SKIP = "SKIP",
   EDIT = "EDIT",
+  SKIP = "SKIP",
 }
 
 const completeSetOptionsCopyMap = new Map<CompleteSetOptions, string>([
-  [CompleteSetOptions.COMPLETE, "Complete set"],
-  [CompleteSetOptions.SKIP, "Skip set"],
-  [CompleteSetOptions.EDIT, "Edit set"],
+  [CompleteSetOptions.COMPLETE, "Complete Set"],
+  [CompleteSetOptions.SKIP, "Skip Set"],
+  [CompleteSetOptions.EDIT, "Edit Set"],
 ]);
 
 type CompleteSetButtonProps = {
   completeSet: (setId: number) => void;
   exerciseSetId: number;
+  editSet: () => void;
 };
 
 const options = Object.values(CompleteSetOptions);
@@ -31,6 +32,7 @@ const options = Object.values(CompleteSetOptions);
 export default function CompleteSetButton({
   completeSet,
   exerciseSetId,
+  editSet,
 }: CompleteSetButtonProps) {
   const [open, setOpen] = React.useState(false);
   const anchorRef = React.useRef<HTMLDivElement>(null);
@@ -40,8 +42,10 @@ export default function CompleteSetButton({
     const option = options[selectedIndex];
     if (option === CompleteSetOptions.COMPLETE) {
       completeSet(exerciseSetId);
+    } else if (option === CompleteSetOptions.EDIT) {
+      editSet();
     }
-
+    
     return;
   };
 
@@ -115,7 +119,7 @@ export default function CompleteSetButton({
                       key={option}
                       selected={index === selectedIndex}
                       onClick={(event) => handleMenuItemClick(event, index)}
-                      disabled={index === 1 || index == 2}
+                      disabled={index == 2}
                     >
                       {completeSetOptionsCopyMap.get(option)}
                     </MenuItem>
