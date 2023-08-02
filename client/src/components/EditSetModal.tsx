@@ -5,11 +5,12 @@ import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
 
 type SetSelectorModalProps = {
+  setId: number;
   currentRepAmount: number;
   currentWeightAmount: number;
   open: boolean;
   onModalCancel: () => void;
-  onModalSave: (input: { weight: number, reps: number }) => void;
+  onModalSave: (setId: number, weight: number, reps: number) => void;
 };
 
 const style = {
@@ -30,6 +31,7 @@ enum Action {
 }
 
 export default function EditSetModal({
+  setId,
   currentRepAmount,
   currentWeightAmount,
   open,
@@ -178,7 +180,7 @@ export default function EditSetModal({
                 mt: 2,
                 width: "30%",
               }}
-              onClick={() => onModalSave({ weight, reps })}
+              onClick={() => onModalSave(setId, weight, reps)}
             >
               Save
             </Button>

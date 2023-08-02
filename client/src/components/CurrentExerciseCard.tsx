@@ -26,6 +26,7 @@ type CurrentWorkoutCardProps = {
   nextExercise: () => void;
   previousExercise: () => void;
   completeSet: (setId: number) => void;
+  editSet(setId: number, weight: number, reps: number): void;
 };
 
 export default function CurrentWorkoutCard({
@@ -36,6 +37,7 @@ export default function CurrentWorkoutCard({
   nextExercise,
   previousExercise,
   completeSet,
+  editSet,
 }: CurrentWorkoutCardProps) {
   const [openEditModal, setOpenEditModal] = React.useState(false);
 
@@ -68,9 +70,7 @@ export default function CurrentWorkoutCard({
     return iconStates;
   }
 
-  async function editSet(): Promise<void> {
-    console.log(JSON.stringify(exerciseSet))
-
+  async function openEditSetModal(): Promise<void> {
     setOpenEditModal(true);
   }
 
@@ -78,7 +78,9 @@ export default function CurrentWorkoutCard({
     setOpenEditModal(false);
   }
 
-  async function saveEditSet(input: { weight: number, reps: number }): Promise<void> {
+  function saveEditSet(setId: number, weight: number, reps: number): void {
+    editSet(setId, weight, reps);
+
     setOpenEditModal(false);
   }
 
@@ -157,7 +159,7 @@ export default function CurrentWorkoutCard({
         <CompleteSetButton
           completeSet={completeSet}
           exerciseSetId={exerciseSet.id}
-          editSet={editSet}
+          editSet={openEditSetModal}
         />
       </Box>
       <CurrentExerciseStateIcons iconStates={iconStates} />
@@ -182,6 +184,7 @@ export default function CurrentWorkoutCard({
         </IconButton>
       </Box>
       <EditSetModal 
+        setId={exerciseSet.id}
         currentRepAmount={exerciseSet.reps}
         currentWeightAmount={exerciseSet.weight}
         open={openEditModal}
