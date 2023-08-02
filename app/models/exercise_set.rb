@@ -1,16 +1,33 @@
 class ExerciseSet < ApplicationRecord
   belongs_to :exercise
+  validates :status,
+            inclusion: {
+              in: %w[successful unsuccessful incomplete],
+              message: "%{value} is not a valid status"
+            }
 
-  def self.create_exercise_sets(exercise_id, user_id)
-    @reps = 8
-    @weight = 5
+  def self.create_exercise_sets(exercise_id, user_id, weight, reps)
     ExerciseSet.create!(
-      reps: @reps,
-      weight: @weight,
+      reps: reps,
+      weight: weight,
       exercise_id: exercise_id,
       completed_at: nil,
       user_id: user_id
     )
+  end
+
+  def update_status
+    if completed_at.present?
+      exercise = Exercise.find_by(id: exercise_id)
+
+      if weight >= exercise.weight && reps >= exercise.reps
+        update!(status: "successful")
+      elsif weight <= exercise.weight || reps <= exercise.reps
+        update!(status: "unsuccessful")
+      end
+    else
+      update!(status: "incomplete")
+    end
   end
 
   #Rails automatically has typcasting when assigning values based off of the
