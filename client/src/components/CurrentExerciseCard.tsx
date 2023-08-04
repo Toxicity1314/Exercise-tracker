@@ -1,14 +1,11 @@
 import React from "react";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
-import ArrowBackIcon from "@mui/icons-material/ArrowBack";
-import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import CurrentExerciseStateIcons, {
   CurrentExerciseStateIconsProps,
   ExerciseSetState,
 } from "./CurrentExerciseStateIcons.tsx";
 import CompleteSetButton from "./CompleteSetButton.tsx";
-import IconButton from "@mui/material/IconButton";
 import EditSetModal from "./EditSetModal.tsx";
 
 type ExerciseSetProps = {
@@ -23,8 +20,6 @@ type CurrentWorkoutCardProps = {
   name: string;
   instructions: string;
   exerciseSets: ExerciseSetProps[];
-  nextExercise: () => void;
-  previousExercise: () => void;
   completeSet: (setId: number) => void;
   editSet(setId: number, weight: number, reps: number): void;
 };
@@ -34,8 +29,6 @@ export default function CurrentWorkoutCard({
   name,
   instructions,
   exerciseSets,
-  nextExercise,
-  previousExercise,
   completeSet,
   editSet,
 }: CurrentWorkoutCardProps) {
@@ -100,25 +93,6 @@ export default function CurrentWorkoutCard({
         alignItems: "center",
       }}
     >
-      <Box
-        sx={{
-          paddingRight: "1rem",
-        }}
-      >
-        <IconButton
-          onClick={previousExercise}
-          sx={{
-            backgroundColor: "#e6e6e6",
-            padding: "20px",
-          }}
-        >
-          <ArrowBackIcon
-            sx={{
-              fontSize: "2rem",
-            }}
-          />
-        </IconButton>
-      </Box>
       <Box>
         <Box
           sx={{
@@ -166,25 +140,6 @@ export default function CurrentWorkoutCard({
           />
         </Box>
         <CurrentExerciseStateIcons iconStates={iconStates} />
-      </Box>
-      <Box
-        sx={{
-          paddingLeft: "1rem",
-        }}
-      >
-        <IconButton
-          onClick={nextExercise}
-          sx={{
-            backgroundColor: "#e6e6e6",
-            padding: "20px",
-          }}
-        >
-          <ArrowForwardIcon
-            sx={{
-              fontSize: "2rem",
-            }}
-          />
-        </IconButton>
       </Box>
       <EditSetModal
         setId={exerciseSet.id}

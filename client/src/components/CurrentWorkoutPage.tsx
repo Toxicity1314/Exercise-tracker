@@ -1,11 +1,14 @@
-import React, { useEffect, useState } from "react";
-import { RawCurrentWorkout, CurrentWorkout } from "./types.ts";
+import React, { useEffect, useState, useCallback } from "react";
+import { CurrentWorkout } from "./types.ts";
 import { translateRawCurrentWorkout } from "./translator.ts";
 import Container from "@mui/material/Container";
 import Box from "@mui/material/Box";
 import CurrentExerciseCard from "./CurrentExerciseCard.tsx";
 import CompleteWorkoutModal from "./CompleteWorkoutModal.tsx";
 import { useNavigate } from "react-router-dom";
+import ArrowBackIcon from "@mui/icons-material/ArrowBack";
+import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
+import IconButton from "@mui/material/IconButton";
 
 export default function CurrentWorkoutPage() {
   const [currentWorkout, setCurrentWorkout] = useState<CurrentWorkout | null>(
@@ -24,6 +27,27 @@ export default function CurrentWorkoutPage() {
     fetchCurrentWorkout();
   });
 
+  const hasCompletedExercise = useCallback((): boolean => {
+    if (!currentWorkout) {
+      return false;
+    }
+
+    // If all sets have a completedAt under all exercises, then the workout is complete
+    for (let i = 0; i < currentWorkout.exercises.length; i++) {
+      const exercise = currentWorkout.exercises[i];
+
+      for (let j = 0; j < exercise.exerciseSets.length; j++) {
+        const exerciseSet = exercise.exerciseSets[j];
+
+        if (!exerciseSet.completedAt) {
+          return false;
+        }
+      }
+    }
+
+    return true;
+  }, [currentWorkout]);
+
   useEffect(() => {
     if (!currentWorkout) {
       return;
@@ -32,7 +56,7 @@ export default function CurrentWorkoutPage() {
     if (hasCompletedExercise()) {
       setIsExerciseComplete(true);
     }
-  }, [currentWorkout]);
+  }, [currentWorkout, hasCompletedExercise]);
 
   async function fetchCurrentWorkout() {
     const response = await fetch("/current_workout");
@@ -96,27 +120,6 @@ export default function CurrentWorkoutPage() {
     }
   }
 
-  function hasCompletedExercise(): boolean {
-    if (!currentWorkout) {
-      return false;
-    }
-
-    // If all sets have a completedAt under all exercises, then the workout is complete
-    for (let i = 0; i < currentWorkout.exercises.length; i++) {
-      const exercise = currentWorkout.exercises[i];
-
-      for (let j = 0; j < exercise.exerciseSets.length; j++) {
-        const exerciseSet = exercise.exerciseSets[j];
-
-        if (!exerciseSet.completedAt) {
-          return false;
-        }
-      }
-    }
-
-    return true;
-  }
-
   function completeExercise(): void {
     navigate("/blueprints");
   }
@@ -127,6 +130,25 @@ export default function CurrentWorkoutPage() {
 
   return (
     <Container maxWidth="sm">
+      <Box
+        sx={{
+          paddingRight: "1rem",
+        }}
+      >
+        <IconButton
+          onClick={previousExercise}
+          sx={{
+            backgroundColor: "#e6e6e6",
+            padding: "20px",
+          }}
+        >
+          <ArrowBackIcon
+            sx={{
+              fontSize: "2rem",
+            }}
+          />
+        </IconButton>
+      </Box>
       <Box
         sx={{
           marginTop: "2rem",
@@ -147,11 +169,28 @@ export default function CurrentWorkoutPage() {
           exerciseSets={
             currentWorkout.exercises[currentExerciseIndex].exerciseSets
           }
-          nextExercise={nextExercise}
-          previousExercise={previousExercise}
           completeSet={completeSet}
           editSet={editSet}
         />
+      </Box>
+      <Box
+        sx={{
+          paddingLeft: "1rem",
+        }}
+      >
+        <IconButton
+          onClick={nextExercise}
+          sx={{
+            backgroundColor: "#e6e6e6",
+            padding: "20px",
+          }}
+        >
+          <ArrowForwardIcon
+            sx={{
+              fontSize: "2rem",
+            }}
+          />
+        </IconButton>
       </Box>
       <CompleteWorkoutModal
         open={isExerciseComplete}

@@ -119,7 +119,7 @@ export default function CompleteSetButton({
                       key={option}
                       selected={index === selectedIndex}
                       onClick={(event) => handleMenuItemClick(event, index)}
-                      disabled={index == 2}
+                      disabled={index === 2}
                     >
                       {completeSetOptionsCopyMap.get(option)}
                     </MenuItem>
