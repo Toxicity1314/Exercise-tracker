@@ -100,69 +100,72 @@ export default function CurrentWorkoutCard({
         alignItems: "center",
       }}
     >
-    <Box
-      sx={{
-        paddingRight: "1rem",
-      }}
-    >
-      <IconButton
-        onClick={previousExercise}
-        sx={{
-          backgroundColor: "#e6e6e6",
-          padding: "20px",
-        }}
-      >
-        <ArrowBackIcon
-          sx={{
-            fontSize: "2rem",
-          }}
-        />
-      </IconButton>
-    </Box>
-    <Box>
       <Box
         sx={{
-          display: "flex",
-          marginTop: "0.5rem",
-          flexDirection: "column",
-          alignItems: "center",
+          paddingRight: "1rem",
         }}
       >
-        <Typography
-          variant="h3"
+        <IconButton
+          onClick={previousExercise}
           sx={{
-            textAlign: "center",
-            textTransform: "Capitalize",
-            width: "100%",
-            marginBottom: "0.5rem",
+            backgroundColor: "#e6e6e6",
+            padding: "20px",
           }}
         >
-          {name}
-        </Typography>
-        <Typography variant="h4" sx={{ marginBottom: "0.5rem" }}>
-          {exerciseSet.weight} lbs x {exerciseSet.reps} reps
-        </Typography>
-        <Typography variant="body1" sx={{ 
-          marginLeft: "1rem" 
-        }}>
-          {instructions}
-        </Typography>
+          <ArrowBackIcon
+            sx={{
+              fontSize: "2rem",
+            }}
+          />
+        </IconButton>
       </Box>
-      <Box
-        sx={{
-          marginTop: "4rem",
-          marginBottom: "2rem",
-          display: "flex",
-          justifyContent: "space-around",
-        }}
-      >
-        <CompleteSetButton
-          completeSet={completeSet}
-          exerciseSetId={exerciseSet.id}
-          editSet={openEditSetModal}
-        />
-      </Box>
-      <CurrentExerciseStateIcons iconStates={iconStates} />
+      <Box>
+        <Box
+          sx={{
+            display: "flex",
+            marginTop: "0.5rem",
+            flexDirection: "column",
+            alignItems: "center",
+          }}
+        >
+          <Typography
+            variant="h3"
+            sx={{
+              textAlign: "center",
+              textTransform: "Capitalize",
+              width: "100%",
+              marginBottom: "0.5rem",
+            }}
+          >
+            {name}
+          </Typography>
+          <Typography variant="h4" sx={{ marginBottom: "0.5rem" }}>
+            {exerciseSet.weight} lbs x {exerciseSet.reps} reps
+          </Typography>
+          <Typography
+            variant="body1"
+            sx={{
+              marginLeft: "1rem",
+            }}
+          >
+            {instructions}
+          </Typography>
+        </Box>
+        <Box
+          sx={{
+            marginTop: "4rem",
+            marginBottom: "2rem",
+            display: "flex",
+            justifyContent: "space-around",
+          }}
+        >
+          <CompleteSetButton
+            completeSet={completeSet}
+            exerciseSetId={exerciseSet.id}
+            editSet={openEditSetModal}
+          />
+        </Box>
+        <CurrentExerciseStateIcons iconStates={iconStates} />
       </Box>
       <Box
         sx={{
@@ -170,20 +173,20 @@ export default function CurrentWorkoutCard({
         }}
       >
         <IconButton
-            onClick={nextExercise}
+          onClick={nextExercise}
+          sx={{
+            backgroundColor: "#e6e6e6",
+            padding: "20px",
+          }}
+        >
+          <ArrowForwardIcon
             sx={{
-              backgroundColor: "#e6e6e6",
-              padding: "20px",
+              fontSize: "2rem",
             }}
-          >
-            <ArrowForwardIcon
-              sx={{
-                fontSize: "2rem",
-              }}
-            />
+          />
         </IconButton>
       </Box>
-      <EditSetModal 
+      <EditSetModal
         setId={exerciseSet.id}
         currentRepAmount={exerciseSet.reps}
         currentWeightAmount={exerciseSet.weight}
