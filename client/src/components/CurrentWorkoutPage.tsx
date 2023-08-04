@@ -9,6 +9,7 @@ import { useNavigate } from "react-router-dom";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import IconButton from "@mui/material/IconButton";
+import SwipeableViews from "react-swipeable-views";
 
 export default function CurrentWorkoutPage() {
   const [currentWorkout, setCurrentWorkout] = useState<CurrentWorkout | null>(
@@ -167,11 +168,24 @@ export default function CurrentWorkoutPage() {
           backgroundColor: "#fff",
           borderRadius: "8px",
           boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.5)",
+          width: "30rem",
           display: "flex",
           flexDirection: "column",
         }}
       >
-        <CurrentExerciseCard
+        <SwipeableViews index={currentExerciseIndex}>
+          {currentWorkout.exercises.map((exercise) => (
+            <CurrentExerciseCard
+              id={exercise.id}
+              name={exercise.name}
+              instructions={exercise.instructions}
+              exerciseSets={exercise.exerciseSets}
+              completeSet={completeSet}
+              editSet={editSet}
+            />
+          ))}
+        </SwipeableViews>
+        {/* <CurrentExerciseCard
           id={currentWorkout.exercises[currentExerciseIndex].id}
           name={currentWorkout.exercises[currentExerciseIndex].name}
           instructions={
@@ -182,7 +196,7 @@ export default function CurrentWorkoutPage() {
           }
           completeSet={completeSet}
           editSet={editSet}
-        />
+        /> */}
       </Box>
       <Box
         sx={{
