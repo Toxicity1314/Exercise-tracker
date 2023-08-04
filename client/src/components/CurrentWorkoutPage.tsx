@@ -160,6 +160,7 @@ export default function CurrentWorkoutPage() {
         </IconButton>
       </Box>
       <Box
+        ref={containerRef}
         sx={{
           marginTop: "2rem",
           padding: "2rem",
