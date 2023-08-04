@@ -17,6 +17,9 @@ export default function CurrentWorkoutPage() {
   const [currentExerciseIndex, setCurrentExerciseIndex] = useState<number>(0);
   const [isExerciseComplete, setIsExerciseComplete] = useState<boolean>(false);
 
+  // Used for the slide animation
+  const containerRef = React.useRef(null);
+
   const navigate = useNavigate();
 
   useEffect(() => {

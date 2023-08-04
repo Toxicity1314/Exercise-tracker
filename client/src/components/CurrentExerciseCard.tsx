@@ -7,6 +7,7 @@ import CurrentExerciseStateIcons, {
 } from "./CurrentExerciseStateIcons.tsx";
 import CompleteSetButton from "./CompleteSetButton.tsx";
 import EditSetModal from "./EditSetModal.tsx";
+import CurrentExerciseInstructions from "./CurrentExerciseInstructions.tsx";
 
 type ExerciseSetProps = {
   id: number;
@@ -108,7 +109,7 @@ export default function CurrentWorkoutCard({
               textAlign: "center",
               textTransform: "Capitalize",
               width: "100%",
-              marginBottom: "0.5rem",
+              height: "8rem",
             }}
           >
             {name}
@@ -116,14 +117,7 @@ export default function CurrentWorkoutCard({
           <Typography variant="h4" sx={{ marginBottom: "0.5rem" }}>
             {exerciseSet.weight} lbs x {exerciseSet.reps} reps
           </Typography>
-          <Typography
-            variant="body1"
-            sx={{
-              marginLeft: "1rem",
-            }}
-          >
-            {instructions}
-          </Typography>
+          <CurrentExerciseInstructions instructions={instructions} />
         </Box>
         <Box
           sx={{
