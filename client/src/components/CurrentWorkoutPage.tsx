@@ -185,18 +185,6 @@ export default function CurrentWorkoutPage() {
             />
           ))}
         </SwipeableViews>
-        {/* <CurrentExerciseCard
-          id={currentWorkout.exercises[currentExerciseIndex].id}
-          name={currentWorkout.exercises[currentExerciseIndex].name}
-          instructions={
-            currentWorkout.exercises[currentExerciseIndex].instructions
-          }
-          exerciseSets={
-            currentWorkout.exercises[currentExerciseIndex].exerciseSets
-          }
-          completeSet={completeSet}
-          editSet={editSet}
-        /> */}
       </Box>
       <Box
         sx={{
