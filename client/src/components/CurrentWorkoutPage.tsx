@@ -32,7 +32,7 @@ export default function CurrentWorkoutPage() {
     if (hasCompletedExercise()) {
       setIsExerciseComplete(true);
     }
-  }, [currentWorkout])
+  }, [currentWorkout]);
 
   async function fetchCurrentWorkout() {
     const response = await fetch("/current_workout");
@@ -118,7 +118,7 @@ export default function CurrentWorkoutPage() {
   }
 
   function completeExercise(): void {
-    navigate("/blueprints")
+    navigate("/blueprints");
   }
 
   if (!currentWorkout) {

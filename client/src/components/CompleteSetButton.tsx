@@ -45,7 +45,7 @@ export default function CompleteSetButton({
     } else if (option === CompleteSetOptions.EDIT) {
       editSet();
     }
-    
+
     return;
   };
 

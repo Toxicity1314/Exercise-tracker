@@ -26,8 +26,8 @@ const style = {
 };
 
 enum Action {
-  INCREMENT = 'INCREMENT',
-  DECREMENT = 'DECREMENT',
+  INCREMENT = "INCREMENT",
+  DECREMENT = "DECREMENT",
 }
 
 export default function EditSetModal({
@@ -49,7 +49,7 @@ export default function EditSetModal({
         setReps((prevReps) => prevReps - 1);
       }
     }
-  }
+  };
 
   const changeWeight = (action: Action) => {
     if (action === Action.INCREMENT) {
@@ -59,7 +59,7 @@ export default function EditSetModal({
         setWeight((prevWeight) => prevWeight - 1);
       }
     }
-  }
+  };
 
   return (
     <div>
@@ -82,11 +82,7 @@ export default function EditSetModal({
           >
             How would you like to change your set?
           </Typography>
-          <Box
-            display={"flex"}
-            flexDirection={"column"}
-            alignItems={"center"}
-          >
+          <Box display={"flex"} flexDirection={"column"} alignItems={"center"}>
             <Typography
               variant="h5"
               sx={{
@@ -103,7 +99,6 @@ export default function EditSetModal({
                 alignItems: "center",
               }}
             >
-
               <Button
                 variant="contained"
                 sx={{ fontSize: "2rem" }}
@@ -137,35 +132,35 @@ export default function EditSetModal({
               Reps
             </Typography>
             <Box
-            sx={{
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
-            }}
-          >
-            <Button
-              variant="contained"
-              sx={{ fontSize: "2rem" }}
-              onClick={() => changeReps(Action.DECREMENT)}
-            >
-              -
-            </Button>
-            <Typography
               sx={{
-                px: "2rem",
-                fontSize: "2rem",
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
               }}
             >
-              {reps}
-            </Typography>
-            <Button
-              variant="contained"
-              sx={{ fontSize: "2rem" }}
-              onClick={() => changeReps(Action.INCREMENT)}
-            >
-              +
-            </Button>
-          </Box>
+              <Button
+                variant="contained"
+                sx={{ fontSize: "2rem" }}
+                onClick={() => changeReps(Action.DECREMENT)}
+              >
+                -
+              </Button>
+              <Typography
+                sx={{
+                  px: "2rem",
+                  fontSize: "2rem",
+                }}
+              >
+                {reps}
+              </Typography>
+              <Button
+                variant="contained"
+                sx={{ fontSize: "2rem" }}
+                onClick={() => changeReps(Action.INCREMENT)}
+              >
+                +
+              </Button>
+            </Box>
           </Box>
           <Box
             display={"flex"}

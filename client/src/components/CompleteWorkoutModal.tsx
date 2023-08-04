@@ -25,7 +25,6 @@ export default function CompleteWorkoutModal({
   open,
   onModalClose,
 }: CompleteWorkoutModalProps) {
-  
   return (
     <div>
       <Modal
