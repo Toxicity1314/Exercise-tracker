@@ -87,6 +87,9 @@ export default function CurrentWorkoutPage() {
         <CurrentExerciseCard
           id={currentWorkout.exercises[currentExerciseIndex].id}
           name={currentWorkout.exercises[currentExerciseIndex].name}
+          instructions={
+            currentWorkout.exercises[currentExerciseIndex].instructions
+          }
           exerciseSets={
             currentWorkout.exercises[currentExerciseIndex].exerciseSets
           }
