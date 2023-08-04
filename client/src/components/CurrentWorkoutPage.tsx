@@ -82,6 +82,20 @@ export default function CurrentWorkoutPage() {
     }
   }
 
+  async function editSet(setId: number, weight: number, reps: number) {
+    const response = await fetch(`/exercise_sets/${setId}`, {
+      method: "PATCH",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ weight, reps }),
+    });
+
+    if (response.ok) {
+      await fetchCurrentWorkout();
+    } else {
+      alert("Something went wrong!");
+    }
+  }
+
   function hasCompletedExercise(): boolean {
     if (!currentWorkout) {
       return false;
@@ -136,6 +150,7 @@ export default function CurrentWorkoutPage() {
           nextExercise={nextExercise}
           previousExercise={previousExercise}
           completeSet={completeSet}
+          editSet={editSet}
         />
       </Box>
       <CompleteWorkoutModal

@@ -9,6 +9,7 @@ import CurrentExerciseStateIcons, {
 } from "./CurrentExerciseStateIcons.tsx";
 import CompleteSetButton from "./CompleteSetButton.tsx";
 import IconButton from "@mui/material/IconButton";
+import EditSetModal from "./EditSetModal.tsx";
 
 type ExerciseSetProps = {
   id: number;
@@ -25,6 +26,7 @@ type CurrentWorkoutCardProps = {
   nextExercise: () => void;
   previousExercise: () => void;
   completeSet: (setId: number) => void;
+  editSet(setId: number, weight: number, reps: number): void;
 };
 
 export default function CurrentWorkoutCard({
@@ -35,7 +37,10 @@ export default function CurrentWorkoutCard({
   nextExercise,
   previousExercise,
   completeSet,
+  editSet,
 }: CurrentWorkoutCardProps) {
+  const [openEditModal, setOpenEditModal] = React.useState(false);
+
   function getEarliestIncompleteSet(): ExerciseSetProps {
     for (let i = 0; i < exerciseSets.length; i++) {
       const exerciseSet = exerciseSets[i];
@@ -63,6 +68,20 @@ export default function CurrentWorkoutCard({
     }
 
     return iconStates;
+  }
+
+  async function openEditSetModal(): Promise<void> {
+    setOpenEditModal(true);
+  }
+
+  function cancelEditSet(): void {
+    setOpenEditModal(false);
+  }
+
+  function saveEditSet(setId: number, weight: number, reps: number): void {
+    editSet(setId, weight, reps);
+
+    setOpenEditModal(false);
   }
 
   const exerciseSet = getEarliestIncompleteSet();
@@ -140,6 +159,7 @@ export default function CurrentWorkoutCard({
         <CompleteSetButton
           completeSet={completeSet}
           exerciseSetId={exerciseSet.id}
+          editSet={openEditSetModal}
         />
       </Box>
       <CurrentExerciseStateIcons iconStates={iconStates} />
@@ -163,6 +183,14 @@ export default function CurrentWorkoutCard({
             />
         </IconButton>
       </Box>
+      <EditSetModal 
+        setId={exerciseSet.id}
+        currentRepAmount={exerciseSet.reps}
+        currentWeightAmount={exerciseSet.weight}
+        open={openEditModal}
+        onModalCancel={cancelEditSet}
+        onModalSave={saveEditSet}
+      />
     </Box>
   );
 }
