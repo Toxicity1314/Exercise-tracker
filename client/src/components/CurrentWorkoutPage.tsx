@@ -129,7 +129,14 @@ export default function CurrentWorkoutPage() {
   }
 
   return (
-    <Container maxWidth="sm">
+    <Container
+      maxWidth="sm"
+      sx={{
+        display: "flex",
+        flexDirection: "row",
+        alignItems: "center",
+      }}
+    >
       <Box
         sx={{
           paddingRight: "1rem",
