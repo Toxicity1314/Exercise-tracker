@@ -1,6 +1,12 @@
-import { RawCurrentWorkout, CurrentWorkout, ExerciseSetStatus } from "./types.ts";
+import {
+  RawCurrentWorkout,
+  CurrentWorkout,
+  ExerciseSetStatus,
+} from "./types.ts";
 
-function getExerciseSetStatus(rawExcerciseSetStatus: string): ExerciseSetStatus {
+function getExerciseSetStatus(
+  rawExcerciseSetStatus: string
+): ExerciseSetStatus {
   const exerciseSetStatusMap = new Map<string, ExerciseSetStatus>([
     ["successful", ExerciseSetStatus.SUCCESSFUL],
     ["unsuccessful", ExerciseSetStatus.UNSUCCESSFUL],
