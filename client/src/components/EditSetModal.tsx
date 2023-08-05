@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Modal from "@mui/material/Modal";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
@@ -41,6 +41,14 @@ export default function EditSetModal({
   const [reps, setReps] = useState(currentRepAmount);
   const [weight, setWeight] = useState(currentWeightAmount);
 
+  // Reset reps and weight states when the open prop changes
+  useEffect(() => {
+    if (open) {
+      setReps(currentRepAmount);
+      setWeight(currentWeightAmount);
+    }
+  }, [open, currentRepAmount, currentWeightAmount]);
+
   const changeReps = (action: Action) => {
     if (action === Action.INCREMENT) {
       setReps((prevReps) => prevReps + 1);
@@ -53,10 +61,10 @@ export default function EditSetModal({
 
   const changeWeight = (action: Action) => {
     if (action === Action.INCREMENT) {
-      setWeight((prevWeight) => prevWeight + 1);
+      setWeight((prevWeight) => prevWeight + 0.5);
     } else {
       if (weight > 0) {
-        setWeight((prevWeight) => prevWeight - 1);
+        setWeight((prevWeight) => prevWeight - 0.5);
       }
     }
   };

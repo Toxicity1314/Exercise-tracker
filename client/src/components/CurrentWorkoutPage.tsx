@@ -114,7 +114,11 @@ export default function CurrentWorkoutPage() {
     const response = await fetch(`/exercise_sets/${setId}`, {
       method: "PATCH",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ weight, reps }),
+      body: JSON.stringify({
+        weight,
+        reps,
+        completed_at: new Date().toISOString(),
+      }),
     });
 
     if (response.ok) {
@@ -176,6 +180,7 @@ export default function CurrentWorkoutPage() {
         <SwipeableViews index={currentExerciseIndex}>
           {currentWorkout.exercises.map((exercise) => (
             <CurrentExerciseCard
+              key={exercise.id}
               id={exercise.id}
               name={exercise.name}
               instructions={exercise.instructions}
