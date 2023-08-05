@@ -3,6 +3,7 @@ export type RawExerciseSet = {
   reps: number;
   weight: number;
   completed_at?: Date;
+  status: string;
 };
 
 export type RawCurrentExercise = {
@@ -22,11 +23,18 @@ export type RawCurrentWorkout = {
   completed_at?: Date;
 };
 
+export enum ExerciseSetStatus {
+  SUCCESSFUL = "SUCCESSFUL",
+  UNSUCCESSFUL = "UNSUCCESSFUL",
+  INCOMPLETE = "INCOMPLETE",
+}
+
 export type ExerciseSet = {
   id: number;
   reps: number;
   weight: number;
   completedAt?: Date;
+  status: ExerciseSetStatus;
 };
 
 export type CurrentExercise = {
