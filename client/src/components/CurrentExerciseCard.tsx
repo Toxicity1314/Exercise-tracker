@@ -5,6 +5,7 @@ import CurrentExerciseStateIcons, {
   CurrentExerciseStateIconsProps,
   ExerciseSetState,
 } from "./CurrentExerciseStateIcons.tsx";
+import { ExerciseSetStatus } from "./types.ts";
 import CompleteSetButton from "./CompleteSetButton.tsx";
 import EditSetModal from "./EditSetModal.tsx";
 import CurrentExerciseInstructions from "./CurrentExerciseInstructions.tsx";
@@ -13,6 +14,7 @@ type ExerciseSetProps = {
   id: number;
   weight: number;
   reps: number;
+  status: ExerciseSetStatus;
   completedAt?: Date;
 };
 
@@ -43,18 +45,33 @@ export default function CurrentWorkoutCard({
       }
     }
 
-    // If all sets are complete just return the list in the list
+    // If all sets are complete just return the last one in the list
     return exerciseSets[exerciseSets.length - 1];
   }
 
   function getIconStates(): CurrentExerciseStateIconsProps[] {
+    const iconStatusToIconStateMap = new Map<
+      ExerciseSetStatus,
+      ExerciseSetState
+    >([
+      [ExerciseSetStatus.SUCCESSFUL, ExerciseSetState.COMPLETE],
+      [ExerciseSetStatus.INCOMPLETE, ExerciseSetState.INCOMPLETE],
+      [ExerciseSetStatus.UNSUCCESSFUL, ExerciseSetState.FAILED],
+    ]);
+
     const iconStates: CurrentExerciseStateIconsProps[] = [];
 
     for (let i = 0; i < exerciseSets.length; i++) {
       const exerciseSet = exerciseSets[i];
-      const state = exerciseSet.completedAt
-        ? ExerciseSetState.COMPLETE
-        : ExerciseSetState.INCOMPLETE;
+
+      const state = iconStatusToIconStateMap.get(exerciseSet.status);
+
+      if (!state) {
+        throw new Error(
+          `Could not find icon state for exercise set status ${exerciseSet.status}`
+        );
+      }
+
       iconStates.push({
         exerciseSetId: exerciseSet.id,
         state,

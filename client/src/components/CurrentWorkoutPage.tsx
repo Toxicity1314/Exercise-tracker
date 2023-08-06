@@ -31,7 +31,7 @@ export default function CurrentWorkoutPage() {
     fetchCurrentWorkout();
   });
 
-  const hasCompletedExercise = useCallback((): boolean => {
+  const hasCompletedWorkout = useCallback((): boolean => {
     if (!currentWorkout) {
       return false;
     }
@@ -57,10 +57,27 @@ export default function CurrentWorkoutPage() {
       return;
     }
 
-    if (hasCompletedExercise()) {
+    if (hasCompletedWorkout()) {
       setIsExerciseComplete(true);
     }
-  }, [currentWorkout, hasCompletedExercise]);
+  }, [currentWorkout, hasCompletedWorkout]);
+
+  useEffect(() => {
+    if (!currentWorkout) {
+      return;
+    }
+
+    // Are all the sets completed for this current index?
+    const currentExercise = currentWorkout.exercises[currentExerciseIndex];
+    const allSetsCompleted = currentExercise.exerciseSets.every(
+      (exerciseSet) => exerciseSet.completedAt
+    );
+
+    if (allSetsCompleted) {
+      // Call the nextExercise function
+      nextExercise();
+    }
+  }, [currentWorkout]);
 
   async function fetchCurrentWorkout() {
     const response = await fetch("/current_workout");
@@ -114,7 +131,11 @@ export default function CurrentWorkoutPage() {
     const response = await fetch(`/exercise_sets/${setId}`, {
       method: "PATCH",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ weight, reps }),
+      body: JSON.stringify({
+        weight,
+        reps,
+        completed_at: new Date().toISOString(),
+      }),
     });
 
     if (response.ok) {
@@ -176,6 +197,7 @@ export default function CurrentWorkoutPage() {
         <SwipeableViews index={currentExerciseIndex}>
           {currentWorkout.exercises.map((exercise) => (
             <CurrentExerciseCard
+              key={exercise.id}
               id={exercise.id}
               name={exercise.name}
               instructions={exercise.instructions}

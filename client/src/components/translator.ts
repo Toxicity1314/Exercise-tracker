@@ -1,4 +1,26 @@
-import { RawCurrentWorkout, CurrentWorkout } from "./types";
+import {
+  RawCurrentWorkout,
+  CurrentWorkout,
+  ExerciseSetStatus,
+} from "./types.ts";
+
+function getExerciseSetStatus(
+  rawExcerciseSetStatus: string
+): ExerciseSetStatus {
+  const exerciseSetStatusMap = new Map<string, ExerciseSetStatus>([
+    ["successful", ExerciseSetStatus.SUCCESSFUL],
+    ["unsuccessful", ExerciseSetStatus.UNSUCCESSFUL],
+    ["incomplete", ExerciseSetStatus.INCOMPLETE],
+  ]);
+
+  const status = exerciseSetStatusMap.get(rawExcerciseSetStatus);
+
+  if (!status) {
+    throw new Error(`Unknown exercise set status: ${rawExcerciseSetStatus}`);
+  }
+
+  return status;
+}
 
 export function translateRawCurrentWorkout(
   rawCurrentWorkout: RawCurrentWorkout
@@ -21,6 +43,7 @@ export function translateRawCurrentWorkout(
               reps: rawExerciseSet.reps,
               weight: rawExerciseSet.weight,
               completedAt: rawExerciseSet.completed_at,
+              status: getExerciseSetStatus(rawExerciseSet.status),
             };
           })
           .sort((a, b) => a.id - b.id),
