@@ -31,7 +31,7 @@ export default function CurrentWorkoutPage() {
     fetchCurrentWorkout();
   });
 
-  const hasCompletedExercise = useCallback((): boolean => {
+  const hasCompletedWorkout = useCallback((): boolean => {
     if (!currentWorkout) {
       return false;
     }
@@ -57,10 +57,27 @@ export default function CurrentWorkoutPage() {
       return;
     }
 
-    if (hasCompletedExercise()) {
+    if (hasCompletedWorkout()) {
       setIsExerciseComplete(true);
     }
-  }, [currentWorkout, hasCompletedExercise]);
+  }, [currentWorkout, hasCompletedWorkout]);
+
+  useEffect(() => {
+    if (!currentWorkout) {
+      return;
+    }
+
+    // Are all the sets completed for this current index?
+    const currentExercise = currentWorkout.exercises[currentExerciseIndex];
+    const allSetsCompleted = currentExercise.exerciseSets.every(
+      (exerciseSet) => exerciseSet.completedAt
+    );
+
+    if (allSetsCompleted) {
+      // Call the nextExercise function
+      nextExercise();
+    }
+  }, [currentWorkout]);
 
   async function fetchCurrentWorkout() {
     const response = await fetch("/current_workout");
