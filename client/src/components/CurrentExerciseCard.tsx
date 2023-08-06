@@ -45,7 +45,7 @@ export default function CurrentWorkoutCard({
       }
     }
 
-    // If all sets are complete just return the list in the list
+    // If all sets are complete just return the last one in the list
     return exerciseSets[exerciseSets.length - 1];
   }
 
