@@ -1,20 +1,20 @@
 import React from "react";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
-import ArrowBackIcon from "@mui/icons-material/ArrowBack";
-import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import CurrentExerciseStateIcons, {
   CurrentExerciseStateIconsProps,
   ExerciseSetState,
 } from "./CurrentExerciseStateIcons.tsx";
+import { ExerciseSetStatus } from "./types.ts";
 import CompleteSetButton from "./CompleteSetButton.tsx";
-import IconButton from "@mui/material/IconButton";
 import EditSetModal from "./EditSetModal.tsx";
+import CurrentExerciseInstructions from "./CurrentExerciseInstructions.tsx";
 
 type ExerciseSetProps = {
   id: number;
   weight: number;
   reps: number;
+  status: ExerciseSetStatus;
   completedAt?: Date;
 };
 
@@ -23,8 +23,6 @@ type CurrentWorkoutCardProps = {
   name: string;
   instructions: string;
   exerciseSets: ExerciseSetProps[];
-  nextExercise: () => void;
-  previousExercise: () => void;
   completeSet: (setId: number) => void;
   editSet(setId: number, weight: number, reps: number): void;
 };
@@ -34,8 +32,6 @@ export default function CurrentWorkoutCard({
   name,
   instructions,
   exerciseSets,
-  nextExercise,
-  previousExercise,
   completeSet,
   editSet,
 }: CurrentWorkoutCardProps) {
@@ -49,18 +45,33 @@ export default function CurrentWorkoutCard({
       }
     }
 
-    // If all sets are complete just return the list in the list
+    // If all sets are complete just return the last one in the list
     return exerciseSets[exerciseSets.length - 1];
   }
 
   function getIconStates(): CurrentExerciseStateIconsProps[] {
+    const iconStatusToIconStateMap = new Map<
+      ExerciseSetStatus,
+      ExerciseSetState
+    >([
+      [ExerciseSetStatus.SUCCESSFUL, ExerciseSetState.COMPLETE],
+      [ExerciseSetStatus.INCOMPLETE, ExerciseSetState.INCOMPLETE],
+      [ExerciseSetStatus.UNSUCCESSFUL, ExerciseSetState.FAILED],
+    ]);
+
     const iconStates: CurrentExerciseStateIconsProps[] = [];
 
     for (let i = 0; i < exerciseSets.length; i++) {
       const exerciseSet = exerciseSets[i];
-      const state = exerciseSet.completedAt
-        ? ExerciseSetState.COMPLETE
-        : ExerciseSetState.INCOMPLETE;
+
+      const state = iconStatusToIconStateMap.get(exerciseSet.status);
+
+      if (!state) {
+        throw new Error(
+          `Could not find icon state for exercise set status ${exerciseSet.status}`
+        );
+      }
+
       iconStates.push({
         exerciseSetId: exerciseSet.id,
         state,
@@ -100,25 +111,6 @@ export default function CurrentWorkoutCard({
         alignItems: "center",
       }}
     >
-      <Box
-        sx={{
-          paddingRight: "1rem",
-        }}
-      >
-        <IconButton
-          onClick={previousExercise}
-          sx={{
-            backgroundColor: "#e6e6e6",
-            padding: "20px",
-          }}
-        >
-          <ArrowBackIcon
-            sx={{
-              fontSize: "2rem",
-            }}
-          />
-        </IconButton>
-      </Box>
       <Box>
         <Box
           sx={{
@@ -134,7 +126,7 @@ export default function CurrentWorkoutCard({
               textAlign: "center",
               textTransform: "Capitalize",
               width: "100%",
-              marginBottom: "0.5rem",
+              height: "8rem",
             }}
           >
             {name}
@@ -142,14 +134,7 @@ export default function CurrentWorkoutCard({
           <Typography variant="h4" sx={{ marginBottom: "0.5rem" }}>
             {exerciseSet.weight} lbs x {exerciseSet.reps} reps
           </Typography>
-          <Typography
-            variant="body1"
-            sx={{
-              marginLeft: "1rem",
-            }}
-          >
-            {instructions}
-          </Typography>
+          <CurrentExerciseInstructions instructions={instructions} />
         </Box>
         <Box
           sx={{
@@ -166,25 +151,6 @@ export default function CurrentWorkoutCard({
           />
         </Box>
         <CurrentExerciseStateIcons iconStates={iconStates} />
-      </Box>
-      <Box
-        sx={{
-          paddingLeft: "1rem",
-        }}
-      >
-        <IconButton
-          onClick={nextExercise}
-          sx={{
-            backgroundColor: "#e6e6e6",
-            padding: "20px",
-          }}
-        >
-          <ArrowForwardIcon
-            sx={{
-              fontSize: "2rem",
-            }}
-          />
-        </IconButton>
       </Box>
       <EditSetModal
         setId={exerciseSet.id}
