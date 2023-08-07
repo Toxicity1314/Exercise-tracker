@@ -62,6 +62,18 @@ export default function CurrentWorkoutPage() {
     }
   }, [currentWorkout, hasCompletedWorkout]);
 
+  const nextExercise = useCallback(() => {
+    if (!currentWorkout) {
+      return;
+    }
+
+    if (currentExerciseIndex + 1 >= currentWorkout.exercises.length) {
+      setCurrentExerciseIndex(0);
+    } else {
+      setCurrentExerciseIndex(currentExerciseIndex + 1);
+    }
+  }, [currentWorkout, currentExerciseIndex]);
+
   useEffect(() => {
     if (!currentWorkout) {
       return;
@@ -77,7 +89,7 @@ export default function CurrentWorkoutPage() {
       // Call the nextExercise function
       nextExercise();
     }
-  }, [currentWorkout]);
+  }, [currentWorkout, currentExerciseIndex, nextExercise]);
 
   async function fetchCurrentWorkout() {
     const response = await fetch("/current_workout");
@@ -87,18 +99,6 @@ export default function CurrentWorkoutPage() {
     const currentWorkout = translateRawCurrentWorkout(data);
 
     setCurrentWorkout(currentWorkout);
-  }
-
-  function nextExercise() {
-    if (!currentWorkout) {
-      return;
-    }
-
-    if (currentExerciseIndex + 1 >= currentWorkout.exercises.length) {
-      setCurrentExerciseIndex(0);
-    } else {
-      setCurrentExerciseIndex(currentExerciseIndex + 1);
-    }
   }
 
   function previousExercise() {
