@@ -1,9 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Route, Routes } from "react-router-dom";
 import NavBar from "./components/NavBar.tsx";
-import Home from "./components/Home";
-import PreviousWorkoutsPage from "./components/PreviousWorkoutsPage";
-import ExerciseSetsPage from "./components/ExerciseSetsPage";
 import Login from "./components/Login.tsx";
 import NotFoundPage from "./components/NotFoundPage.tsx";
 import BlueprintSelection from "./components/BlueprintSelection.tsx";
@@ -57,12 +54,6 @@ function App() {
         <Route path="/" element={<Login setUser={setUser} />} />
         <Route path="/blueprints" element={<BlueprintSelection />} />
         <Route path="/current-workout" element={<CurrentWorkoutPage />} />
-        <Route path="/previous" element={<PreviousWorkoutsPage />} />
-        <Route
-          path="/exercise_sets"
-          element={<ExerciseSetsPage user={user} />}
-        />
-        <Route path="/" element={<Home user={user} />} />
         <Route path="*" element={<NotFoundPage />} />
       </Routes>
     </div>
