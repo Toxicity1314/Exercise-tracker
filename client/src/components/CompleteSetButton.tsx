@@ -1,4 +1,4 @@
-import React, { useEffect, useCallback } from "react";
+import * as React from "react";
 import Button from "@mui/material/Button";
 import ButtonGroup from "@mui/material/ButtonGroup";
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
@@ -38,9 +38,7 @@ export default function CompleteSetButton({
   const anchorRef = React.useRef<HTMLDivElement>(null);
   const [selectedIndex, setSelectedIndex] = React.useState(0);
 
-  const [menuItemClicked, setMenuItemClicked] = React.useState(false);
-
-  const handleClick = useCallback(() => {
+  const handleClick = () => {
     const option = options[selectedIndex];
     if (option === CompleteSetOptions.COMPLETE) {
       completeSet(exerciseSetId);
@@ -49,23 +47,14 @@ export default function CompleteSetButton({
     }
 
     return;
-  }, [selectedIndex, completeSet, exerciseSetId, editSet]);
+  };
 
-  useEffect(() => {
-    if (!menuItemClicked) {
-      return;
-    }
-
-    handleClick();
-  }, [selectedIndex, menuItemClicked, handleClick]);
-
-  const handleMenuItemClick = async (
+  const handleMenuItemClick = (
     event: React.MouseEvent<HTMLLIElement, MouseEvent>,
     index: number
   ) => {
-    await setSelectedIndex(index);
-    await setOpen(false);
-    await setMenuItemClicked(true);
+    setSelectedIndex(index);
+    setOpen(false);
   };
 
   const handleToggle = () => {
