@@ -117,9 +117,11 @@ export default function BlueprintSelection() {
 
           {/* Map over Blueprints, display workout */}
           {blueprints.map((blueprint) => (
-            <Box onClick={() => handleSelectBlueprint(blueprint)}>
+            <Box
+              key={blueprint.id}
+              onClick={() => handleSelectBlueprint(blueprint)}
+            >
               <BlueprintCard
-                key={blueprint.id}
                 id={blueprint.id}
                 name={blueprint.name}
                 exercises={blueprint.exercises}
