@@ -58,3 +58,4 @@ gem "active_model_serializers", "~> 0.10.13"
 
 gem "dotenv-rails", groups: %i[development test]
 gem "ruby-openai"
+gem "pry"
